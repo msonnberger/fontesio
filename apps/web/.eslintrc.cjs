@@ -1,21 +1,8 @@
+/** @type {import("eslint").Linter.Config} */
 module.exports = {
-  extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:svelte/recommended",
-    "prettier",
-  ],
-  parser: "@typescript-eslint/parser",
-  plugins: ["@typescript-eslint"],
+  extends: ["plugin:svelte/recommended"],
   parserOptions: {
-    sourceType: "module",
-    ecmaVersion: 2020,
     extraFileExtensions: [".svelte"],
-  },
-  env: {
-    browser: true,
-    es2017: true,
-    node: true,
   },
   overrides: [
     {

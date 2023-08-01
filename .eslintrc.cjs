@@ -1,5 +1,1 @@
-module.exports = {
-	root: true,
-	// This tells ESLint to load the config from the package `eslint-config-custom`
-	extends: ['custom'],
-};
+module.exports = require('./packages/config/eslint-preset');
