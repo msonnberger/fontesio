@@ -4,12 +4,12 @@
 		"build": "turbo run build",
 		"dev": "turbo run dev",
 		"lint": "turbo run lint",
-		"format": "prettier --write ."
+		"format": "prettier --plugin prettier-plugin-svelte --write ."
 	},
 	"devDependencies": {
 		"eslint": "^8.0.0",
-		"prettier": "^2.7.1",
-		"prettier-plugin-svelte": "^2.7.0",
+		"prettier": "^3.0.0",
+		"prettier-plugin-svelte": "^3.0.3",
 		"turbo": "latest"
 	},
 	"packageManager": "pnpm@8.6.10"
