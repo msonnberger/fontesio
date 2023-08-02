@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { Button } from '$components/button';
 	import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '$components/card';
+	import { Icons } from '$components/icons';
 	import { Input } from '$components/input';
 </script>
 
@@ -12,10 +13,29 @@
 	<div class="mb-auto mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 		<Card class="w-full max-w-md mx-2">
 			<CardHeader class="space-y-1">
-				<CardTitle tag="h2" class="text-2xl">Login to your account</CardTitle>
+				<CardTitle tag="h2" class="text-2xl">Sign in to your account</CardTitle>
 			</CardHeader>
-			<form method="post" use:enhance>
-				<CardContent class="grid gap-4">
+
+			<CardContent class="grid gap-4">
+				<div class="grid grid-cols-2 gap-4">
+					<Button variant="outline">
+						<Icons.Apple class="mr-2 h-4 w-4 -translate-y-[1px]" />
+						Sign in with Apple
+					</Button>
+					<Button variant="outline">
+						<Icons.Google class="mr-2 h-4 w-4" />
+						Sign in with Google
+					</Button>
+				</div>
+				<div class="relative">
+					<div class="absolute inset-0 flex items-center">
+						<span class="w-full border-t" />
+					</div>
+					<div class="relative flex justify-center text-xs uppercase">
+						<span class="bg-background px-2 text-muted-foreground"> Or continue with </span>
+					</div>
+				</div>
+				<form id="email-password-form" class="grid gap-4" method="post" use:enhance>
 					<Input
 						label="Email address"
 						placeholder="john.doe@example.com"
@@ -30,14 +50,14 @@
 						name="password"
 						id="password"
 					/>
-				</CardContent>
-				<CardFooter>
-					<Button type="submit" class="w-full">Login</Button>
-				</CardFooter>
-			</form>
+				</form>
+			</CardContent>
+			<CardFooter>
+				<Button form="email-password-form" type="submit" class="w-full">Sign in</Button>
+			</CardFooter>
 		</Card>
 		<div class="mt-8 text-center">
-			<Button href="/signup" variant="link">You don't have an account yet?</Button>
+			<Button href="/signup" variant="link">Don't have an account yet?</Button>
 		</div>
 	</div>
 </div>
