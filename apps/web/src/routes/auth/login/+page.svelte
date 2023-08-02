@@ -22,7 +22,7 @@
 						<Icons.Apple class="mr-2 h-4 w-4 -translate-y-[1px]" />
 						Sign in with Apple
 					</Button>
-					<Button variant="outline">
+					<Button variant="outline" href="/auth/login/google">
 						<Icons.Google class="mr-2 h-4 w-4" />
 						Sign in with Google
 					</Button>
