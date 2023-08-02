@@ -10,4 +10,4 @@
 	<input type="password" name="password" id="password" /><br />
 	<input type="submit" />
 </form>
-<a href="/login">Sign in</a>
+<a href="/auth/login">Sign in</a>

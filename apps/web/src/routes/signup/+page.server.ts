@@ -1,7 +1,10 @@
+import { db } from '$lib/server/db';
+import { users } from '$lib/server/db/schema';
 import { auth } from '$lib/server/lucia';
 import { generate_uuid_v7 } from '$lib/utils/uuid.js';
 import { DatabaseError } from '@neondatabase/serverless';
 import { fail, redirect } from '@sveltejs/kit';
+import { eq } from 'drizzle-orm';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
@@ -28,17 +31,37 @@ export const actions = {
 			});
 		}
 		try {
-			const user = await auth.createUser({
-				userId: generate_uuid_v7(),
-				key: {
-					providerId: 'email',
-					providerUserId: email.toLowerCase(),
-					password,
-				},
-				attributes: {
-					email,
-				},
-			});
+			const get_user = async () => {
+				const [existing_db_user] = await db.select().from(users).where(eq(users.email, email));
+
+				if (existing_db_user) {
+					const user = auth.transformDatabaseUser(existing_db_user);
+					await auth.createKey({
+						providerId: 'email',
+						userId: user.userId,
+						providerUserId: email.toLowerCase(),
+						password,
+					});
+
+					return user;
+				}
+
+				const user = await auth.createUser({
+					userId: generate_uuid_v7(),
+					key: {
+						providerId: 'email',
+						providerUserId: email.toLowerCase(),
+						password,
+					},
+					attributes: {
+						email,
+					},
+				});
+
+				return user;
+			};
+
+			const user = await get_user();
 			const session = await auth.createSession({
 				userId: user.userId,
 				attributes: {},

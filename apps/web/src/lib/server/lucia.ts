@@ -1,15 +1,11 @@
 import { lucia } from 'lucia';
 import { sveltekit } from 'lucia/middleware';
 import { dev } from '$app/environment';
-import { Pool, neonConfig } from '@neondatabase/serverless';
+
 import { pg } from '@lucia-auth/adapter-postgresql';
 import { google } from '@lucia-auth/oauth/providers';
-import { DATABASE_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
-
-import { WebSocket } from 'undici';
-
-neonConfig.webSocketConstructor = WebSocket;
-const pool = new Pool({ connectionString: DATABASE_URL });
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
+import { pool } from './db';
 
 export const auth = lucia({
 	env: dev ? 'DEV' : 'PROD',
