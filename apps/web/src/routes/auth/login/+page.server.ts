@@ -18,7 +18,7 @@ export const actions = {
 
 		if (typeof email !== 'string' || !email.includes('@')) {
 			return fail(400, {
-				message: 'Invalid username',
+				message: 'Invalid email',
 			});
 		}
 		if (typeof password !== 'string' || password.length < 1) {

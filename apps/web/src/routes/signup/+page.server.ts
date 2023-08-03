@@ -1,7 +1,8 @@
+import { generate_verification_token, send_verification_link } from '$lib/features/auth/token';
 import { db } from '$lib/server/db';
 import { users } from '$lib/server/db/schema';
 import { auth } from '$lib/server/lucia';
-import { generate_uuid_v7 } from '$lib/utils/uuid.js';
+import { generate_uuid_v7 } from '$lib/utils/uuid';
 import { DatabaseError } from '@neondatabase/serverless';
 import { fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
@@ -55,6 +56,7 @@ export const actions = {
 					},
 					attributes: {
 						email,
+						email_verified: false,
 					},
 				});
 
@@ -66,9 +68,13 @@ export const actions = {
 				userId: user.userId,
 				attributes: {},
 			});
-			locals.auth.setSession(session); // set session cookie
+
+			const token = await generate_verification_token(user.userId);
+			await send_verification_link(email, token);
+
+			locals.auth.setSession(session);
 		} catch (e) {
-			console.log(e);
+			console.error(e);
 
 			if (e instanceof DatabaseError) {
 				return fail(400, {

@@ -44,7 +44,7 @@ export async function GET({ url, cookies, locals, params }) {
 
 			const user = await createUser({
 				userId: generate_uuid_v7(),
-				attributes: { email: googleUser.email ?? '' },
+				attributes: { email: googleUser.email, email_verified: googleUser.email_verified },
 			});
 
 			return user;

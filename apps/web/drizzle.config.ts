@@ -1,13 +1,14 @@
 import type { Config } from 'drizzle-kit';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export default {
 	schema: './src/lib/server/db/schema.ts',
 	out: './drizzle',
 	driver: 'pg',
 	dbCredentials: {
-		host: 'ep-fancy-river-56047966.eu-central-1.aws.neon.tech',
-		password: 'scdqeRt08Okg',
-		user: 'msonnberger',
-		database: 'neondb',
+		// eslint-disable-next-line turbo/no-undeclared-env-vars
+		connectionString: process.env.DATABASE_URL!,
 	},
 } satisfies Config;

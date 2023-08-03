@@ -9,8 +9,7 @@ export async function load({ locals }) {
 	}
 
 	return {
-		user_id: session.user.userId,
-		email: session.user.email,
+		user: session.user,
 	};
 }
 
