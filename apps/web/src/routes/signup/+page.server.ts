@@ -69,8 +69,10 @@ export const actions = {
 				attributes: {},
 			});
 
-			const token = await generate_verification_token(user.userId);
-			await send_verification_link(email, token);
+			if (!user.email_verified) {
+				const token = await generate_verification_token(user.userId);
+				await send_verification_link(email, token);
+			}
 
 			locals.auth.setSession(session);
 		} catch (e) {
