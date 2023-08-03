@@ -27,8 +27,8 @@ export const sessions = pgTable('sessions', {
 	user_id: uuid('user_id')
 		.notNull()
 		.references(() => users.id, { onDelete: 'cascade' }),
-	active_expires: bigint('active_expires', { mode: 'bigint' }).notNull(),
-	idle_expires: bigint('idle_expires', { mode: 'bigint' }).notNull(),
+	active_expires: bigint('active_expires', { mode: 'number' }).notNull(),
+	idle_expires: bigint('idle_expires', { mode: 'number' }).notNull(),
 });
 
 export const email_verification_tokens = pgTable('email_verification_tokens', {
