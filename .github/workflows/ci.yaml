@@ -41,14 +41,9 @@ jobs:
           cache: pnpm
       - name: 'Create .env file'
         run: echo "${{ secrets.ENV_FILE }}" > .env
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm playwright install --with-deps
-      - run: pnpm test:unit
-      - run: pnpm test:browser
-      - name: Upload test results
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          retention-days: 3
-          name: test-failure-${{ github.run_id }}-${{ matrix.node-version }}
-          path: playwright-report/
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install Playwright browsers
+        run: (cd apps/web && pnpm playwright install --with-deps)
+      - name: Run tests
+        run: pnpm test
