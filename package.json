@@ -3,7 +3,9 @@
 	"scripts": {
 		"build": "turbo run build",
 		"dev": "turbo run dev",
+		"check": "turbo run check",
 		"lint": "turbo run lint",
+		"test": "turbo run test",
 		"format": "prettier --plugin prettier-plugin-svelte --write ."
 	},
 	"devDependencies": {

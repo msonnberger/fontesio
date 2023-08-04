@@ -1,6 +1,7 @@
 import { RESEND_API_KEY } from '$env/static/private';
 import { db } from '$lib/server/db';
 import { email_verification_tokens } from '$lib/server/db/schema';
+import { WEBAPP_URL } from '$lib/utils/constants';
 import { eq } from 'drizzle-orm';
 import { generateRandomString, isWithinExpiration } from 'lucia/utils';
 
@@ -68,12 +69,10 @@ export async function send_verification_link(email: string, token: string) {
 			from: 'Fontesio <verify@mail.fontesio.com>',
 			to: [email],
 			subject: 'Verify your email address',
-			text: `
-				Welcome to Fontesio!
-
-				To complete your account, please verify your email using the link below.
-
-				http://localhost:3000/auth/verify-email/${token}
+			html: `
+				<h1>Welcome to Fontesio!</h1>
+				<p>To complete your account, please verify your email using the link below.</p>
+				<a href="${WEBAPP_URL}/auth/verify-email/${token}">Verify Email</a>
 			`,
 		}),
 	});

@@ -6,6 +6,7 @@ import { postgres } from '@lucia-auth/adapter-postgresql';
 import { google } from '@lucia-auth/oauth/providers';
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
 import { sql } from './db';
+import { WEBAPP_URL } from '$lib/utils/constants';
 
 export const auth = lucia({
 	env: dev ? 'DEV' : 'PROD',
@@ -26,7 +27,7 @@ export const auth = lucia({
 export const google_auth = google(auth, {
 	clientId: GOOGLE_CLIENT_ID,
 	clientSecret: GOOGLE_CLIENT_SECRET,
-	redirectUri: 'http://localhost:3000/auth/login/google/callback',
+	redirectUri: `${WEBAPP_URL}/auth/login/google/callback`,
 	scope: ['https://www.googleapis.com/auth/userinfo.email'],
 });
 
