@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { Button } from '$components/button';
-	import { Icons } from '$components/icons';
 	import { Input } from '$components/input';
+	import IconApple from '~icons/logos/apple';
+	import IconGoogle from '~icons/logos/google-icon';
 </script>
 
 <div class="min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center">
@@ -22,11 +23,11 @@
 		<div class="grid gap-4">
 			<div class="grid grid-cols-2 gap-4 mt-6">
 				<Button variant="outline">
-					<Icons.Apple class="mr-2 h-4 w-4 -translate-y-[1px]" />
+					<IconApple class="mr-2 h-4 w-4 -translate-y-[1px]" />
 					Sign in with Apple
 				</Button>
 				<Button variant="outline" href="/auth/login/google">
-					<Icons.Google class="mr-2 h-4 w-4" />
+					<IconGoogle class="mr-2 h-4 w-4" />
 					Sign in with Google
 				</Button>
 			</div>

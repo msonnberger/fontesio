@@ -2,8 +2,9 @@
 	import { enhance } from '$app/forms';
 	import { Button } from '$components/button';
 	import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '$components/card';
-	import { Icons } from '$components/icons';
 	import { Input } from '$components/input';
+	import IconApple from '~icons/logos/apple';
+	import IconGoogle from '~icons/logos/google-icon';
 </script>
 
 <div class="flex min-h-screen flex-col justify-center bg-[#f3f4f6] py-12 sm:px-6 lg:px-8">
@@ -19,11 +20,11 @@
 			<CardContent class="grid gap-4">
 				<div class="grid grid-cols-2 gap-4">
 					<Button variant="outline">
-						<Icons.Apple class="mr-2 h-4 w-4 -translate-y-[1px]" />
+						<IconApple class="mr-2 h-4 w-4 -translate-y-[1px]" />
 						Sign in with Apple
 					</Button>
 					<Button variant="outline" href="/auth/login/google">
-						<Icons.Google class="mr-2 h-4 w-4" />
+						<IconGoogle class="mr-2 h-4 w-4" />
 						Sign in with Google
 					</Button>
 				</div>
