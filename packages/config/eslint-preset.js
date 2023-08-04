@@ -30,4 +30,18 @@ module.exports = {
 			},
 		},
 	],
+	rules: {
+		'@typescript-eslint/no-unused-vars': [
+			'error',
+			{
+				varsIgnorePattern: '\\$\\$Props',
+			},
+		],
+		'svelte/valid-compile': [
+			'error',
+			{
+				ignoreWarnings: true,
+			},
+		],
+	},
 };

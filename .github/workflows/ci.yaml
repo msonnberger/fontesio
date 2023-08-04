@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  pull_request:
+
+# cancel in-progress runs on new commits to same PR (gitub.event.number)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.sha }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: pnpm
+      - name: 'Create .env file'
+        run: echo "${{ secrets.ENV_FILE }}" > .env
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm lint
+  Tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+    steps:
+      - run: git config --global core.autocrlf false
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+      - name: 'Create .env file'
+        run: echo "${{ secrets.ENV_FILE }}" > .env
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm playwright install --with-deps
+      - run: pnpm test:unit
+      - run: pnpm test:browser
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          retention-days: 3
+          name: test-failure-${{ github.run_id }}-${{ matrix.node-version }}
+          path: playwright-report/
