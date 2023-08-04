@@ -6,6 +6,8 @@ import { generate_uuid_v7 } from '$lib/utils/uuid';
 import { DatabaseError } from '@neondatabase/serverless';
 import { fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
+import { superValidate } from 'sveltekit-superforms/server';
+import { signup_schema } from '$lib/zod';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
@@ -13,24 +15,22 @@ export async function load({ locals }) {
 	if (session) {
 		throw redirect(302, '/');
 	}
+
+	const form = await superValidate(signup_schema, { errors: true });
+
+	return { form };
 }
 
 export const actions = {
 	default: async ({ request, locals }) => {
-		const form_data = await request.formData();
-		const email = form_data.get('email');
-		const password = form_data.get('password');
+		const form = await superValidate(request, signup_schema);
 
-		if (typeof email !== 'string' || !email.includes('@')) {
-			return fail(400, {
-				message: 'Invalid email',
-			});
+		if (!form.valid) {
+			return fail(400, { form });
 		}
-		if (typeof password !== 'string' || password.length < 6) {
-			return fail(400, {
-				message: 'Invalid password',
-			});
-		}
+
+		const { email, password } = form.data;
+
 		try {
 			const get_user = async () => {
 				const [existing_db_user] = await db.select().from(users).where(eq(users.email, email));

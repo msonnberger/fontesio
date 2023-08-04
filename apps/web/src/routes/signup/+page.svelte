@@ -1,10 +1,25 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { Button } from '$components/button';
 	import { Input } from '$components/input';
 	import IconApple from '~icons/logos/apple';
 	import IconGoogle from '~icons/logos/google-icon';
+	import IconDot from '~icons/lucide/dot';
+	import IconCheck from '~icons/lucide/check';
+	import { superForm } from 'sveltekit-superforms/client';
+	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import { signup_schema } from '$lib/zod';
+	import { get } from 'svelte/store';
+
+	export let data;
+
+	const { form, errors, enhance, constraints } = superForm(data.form, {
+		validators: signup_schema,
+	});
+
+	const password_rules = get(errors).password;
 </script>
+
+<SuperDebug data={$form} />
 
 <div class="min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center">
 	<div class="relative hidden lg:block bg-slate-900 self-stretch">
@@ -41,6 +56,8 @@
 			</div>
 			<form id="email-password-form" class="grid gap-4" method="post" use:enhance>
 				<Input
+					{...$constraints.email}
+					bind:value={$form.email}
 					label="Email address"
 					placeholder="john.doe@example.com"
 					type="email"
@@ -48,16 +65,25 @@
 					id="email"
 				/>
 				<Input
+					bind:value={$form.password}
 					label="Password"
 					placeholder="•••••••••••••"
 					type="password"
 					name="password"
 					id="password"
 				/>
-				<ul class="list-disc list-inside text-sm -mt-2 mb-2 ml-2">
-					<li>Minimum 8 characters long</li>
-					<li>Mix of uppercase and lowercase letters</li>
-					<li>Contains at least one number</li>
+				<ul class="text-sm -mt-2 mb-2">
+					{#each password_rules ?? [] as rule}
+						{@const rule_met = !$errors.password?.includes(rule)}
+						<li class:text-green-600={rule_met}>
+							{#if !rule_met}
+								<IconDot class="inline-block" />
+							{:else}
+								<IconCheck class="inline-block text-xs font-bold ml-0.5" />
+							{/if}
+							{rule}
+						</li>
+					{/each}
 				</ul>
 			</form>
 
