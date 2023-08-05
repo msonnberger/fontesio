@@ -30,6 +30,7 @@ export const actions = {
 		}
 
 		const { email, password } = form.data;
+		let user_not_verified;
 
 		try {
 			const get_user = async () => {
@@ -72,6 +73,7 @@ export const actions = {
 			if (!user.email_verified) {
 				const token = await generate_verification_token(user.userId);
 				await send_verification_link(email, token);
+				user_not_verified = true;
 			}
 
 			locals.auth.setSession(session);
@@ -88,6 +90,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, '/');
+		throw redirect(302, user_not_verified ? '/signup/verify-email' : '/');
 	},
 };

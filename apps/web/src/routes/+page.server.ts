@@ -8,6 +8,10 @@ export async function load({ locals }) {
 		throw redirect(302, '/auth/login');
 	}
 
+	if (!session.user.email_verified) {
+		throw redirect(302, '/signup/verify-email');
+	}
+
 	return {
 		user: session.user,
 	};
