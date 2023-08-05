@@ -19,8 +19,6 @@
 	const password_rules = get(errors).password;
 </script>
 
-<SuperDebug data={$form} />
-
 <div class="min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center">
 	<div class="relative hidden lg:block bg-slate-900 self-stretch">
 		<div class="absolute left-12 right-32 top-12">

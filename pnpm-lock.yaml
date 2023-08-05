@@ -65,9 +65,6 @@ importers:
       tailwindcss-animate:
         specifier: 1.0.6
         version: 1.0.6(tailwindcss@3.3.3)
-      undici:
-        specifier: 5.22.1
-        version: 5.22.1
       zod:
         specifier: 3.21.4
         version: 3.21.4
