@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { Button } from '$components/button';
-	import { Input } from '$components/input';
+	import { Button } from '$components/ui/button';
+	import { Input } from '$components/ui/input';
 	import AuthForm from '../AuthForm.svelte';
 </script>
 

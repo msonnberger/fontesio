@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '$components/button';
+	import { Button } from '$components/ui/button';
 	import envelope from '$lib/assets/images/envelope.svg';
 
 	export let form;

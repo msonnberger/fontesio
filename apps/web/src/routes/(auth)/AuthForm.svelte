@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Button } from '$components/button';
+	import { Button } from '$components/ui/button';
 	import IconApple from '~icons/logos/apple';
 	import IconGoogle from '~icons/logos/google-icon';
 

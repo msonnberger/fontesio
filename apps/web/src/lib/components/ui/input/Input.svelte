@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { cn } from '$lib/utils';
-	import { Label } from '$components/label';
+	import { Label } from '$components/ui/label';
 
 	export { className as class };
 	let className: string | undefined | null = undefined;

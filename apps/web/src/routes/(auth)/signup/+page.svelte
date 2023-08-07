@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Button } from '$components/button';
-	import { Input } from '$components/input';
+	import { Button } from '$components/ui/button';
+	import { Input } from '$components/ui/input';
 	import IconDot from '~icons/lucide/dot';
 	import IconCheck from '~icons/lucide/check';
 	import { superForm } from 'sveltekit-superforms/client';
