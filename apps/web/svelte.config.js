@@ -20,6 +20,9 @@ const config = {
 			dir: '../..', // .env is in monorepo root
 		},
 	},
+	shadcn: {
+		componentPath: './src/lib/components/ui',
+	},
 };
 
 export default config;
