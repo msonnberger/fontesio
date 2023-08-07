@@ -8,3 +8,8 @@ export const signup_schema = z.object({
 		.regex(/^(?=.*[a-z])(?=.*[A-Z]).*$/, { message: 'Mix of lowercase and uppercase letters' })
 		.regex(/\d/, { message: 'Contains at least one number' }),
 });
+
+export const login_schema = z.object({
+	email: z.string().email(),
+	password: z.string().min(1),
+});

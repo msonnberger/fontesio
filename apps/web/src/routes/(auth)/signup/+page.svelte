@@ -7,10 +7,11 @@
 	import { signup_schema } from '$lib/zod';
 	import { get } from 'svelte/store';
 	import AuthForm from '../AuthForm.svelte';
+	import { Alert, AlertDescription } from '$components/ui/alert';
 
 	export let data;
 
-	const { form, errors, enhance, constraints } = superForm(data.form, {
+	const { form, errors, enhance, constraints, message } = superForm(data.form, {
 		validators: signup_schema,
 	});
 
@@ -28,6 +29,11 @@
 		method="post"
 		use:enhance
 	>
+		{#if $message}
+			<Alert variant="destructive">
+				<AlertDescription>{$message}</AlertDescription>
+			</Alert>
+		{/if}
 		<Input
 			{...$constraints.email}
 			bind:value={$form.email}

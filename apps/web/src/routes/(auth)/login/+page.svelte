@@ -1,8 +1,13 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import { Button } from '$components/ui/button';
 	import { Input } from '$components/ui/input';
+	import { superForm } from 'sveltekit-superforms/client';
 	import AuthForm from '../AuthForm.svelte';
+	import { Alert, AlertDescription } from '$components/ui/alert';
+
+	export let data;
+
+	const { form, enhance, constraints, message } = superForm(data.form);
 </script>
 
 <AuthForm heading="Sign in to your account">
@@ -13,7 +18,14 @@
 		method="post"
 		use:enhance
 	>
+		{#if $message}
+			<Alert variant="destructive">
+				<AlertDescription>{$message}</AlertDescription>
+			</Alert>
+		{/if}
 		<Input
+			{...$constraints.email}
+			bind:value={$form.email}
 			label="Email address"
 			placeholder="john.doe@example.com"
 			type="email"
@@ -21,6 +33,8 @@
 			id="email"
 		/>
 		<Input
+			{...$constraints.password}
+			bind:value={$form.password}
 			label="Password"
 			placeholder="•••••••••••••"
 			type="password"

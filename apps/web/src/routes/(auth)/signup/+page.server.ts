@@ -3,11 +3,11 @@ import { db } from '$lib/server/db';
 import { users } from '$lib/server/db/schema';
 import { auth } from '$lib/server/lucia';
 import { generate_uuid_v7 } from '$lib/utils/uuid';
-import { DatabaseError } from '@neondatabase/serverless';
 import { fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
-import { superValidate } from 'sveltekit-superforms/server';
+import { message, superValidate } from 'sveltekit-superforms/server';
 import { signup_schema } from '$lib/zod';
+import { LuciaError } from 'lucia';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
@@ -80,14 +80,11 @@ export const actions = {
 		} catch (e) {
 			console.error(e);
 
-			if (e instanceof DatabaseError) {
-				return fail(400, {
-					message: 'Email already registerd',
-				});
+			if (e instanceof LuciaError && e.message === 'AUTH_DUPLICATE_KEY_ID') {
+				return message(form, 'This email already exists.');
 			}
-			return fail(500, {
-				message: 'An unknown error occurred',
-			});
+
+			return message(form, 'An unknown error occured.');
 		}
 
 		throw redirect(302, user_not_verified ? '/verify-email' : '/');
