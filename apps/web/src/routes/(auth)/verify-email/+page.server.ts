@@ -5,7 +5,7 @@ export async function load({ locals }) {
 	const session = await locals.auth.validate();
 
 	if (!session) {
-		throw redirect(302, '/auth/login');
+		throw redirect(302, '/login');
 	}
 
 	if (session.user.email_verified) {

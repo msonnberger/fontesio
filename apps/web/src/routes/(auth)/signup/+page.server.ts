@@ -90,6 +90,6 @@ export const actions = {
 			});
 		}
 
-		throw redirect(302, user_not_verified ? '/signup/verify-email' : '/');
+		throw redirect(302, user_not_verified ? '/verify-email' : '/');
 	},
 };

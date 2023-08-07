@@ -60,7 +60,7 @@ export async function validate_verification_token(token: string) {
 
 export async function send_verification_link(email: string, token: string) {
 	try {
-		const verification_link = `${WEBAPP_URL}/signup/verify-email/${token}`;
+		const verification_link = `${WEBAPP_URL}/verify-email/${token}`;
 		await resend.emails.send({
 			from: 'Fontesio <verify@mail.fontesio.com>',
 			to: [email],

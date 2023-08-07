@@ -1,13 +1,12 @@
 <script lang="ts">
 	import { Button } from '$components/button';
 	import { Input } from '$components/input';
-	import IconApple from '~icons/logos/apple';
-	import IconGoogle from '~icons/logos/google-icon';
 	import IconDot from '~icons/lucide/dot';
 	import IconCheck from '~icons/lucide/check';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { signup_schema } from '$lib/zod';
 	import { get } from 'svelte/store';
+	import AuthForm from '../AuthForm.svelte';
 
 	export let data;
 
@@ -18,31 +17,17 @@
 	const password_rules = get(errors).password;
 </script>
 
-<div class="space-y-2">
-	<h1 class="text-3xl font-semibold">Create an account</h1>
-	<p class="text-sm">Use a provider or enter your email below to create your account</p>
-</div>
-
-<div class="grid gap-4">
-	<div class="grid grid-cols-2 gap-4 mt-6">
-		<Button variant="outline">
-			<IconApple class="mr-2 h-4 w-4 -translate-y-[1px]" />
-			Sign in with Apple
-		</Button>
-		<Button variant="outline" href="/auth/login/google">
-			<IconGoogle class="mr-2 h-4 w-4" />
-			Sign in with Google
-		</Button>
-	</div>
-	<div class="relative">
-		<div class="absolute inset-0 flex items-center">
-			<span class="w-full border-t" />
-		</div>
-		<div class="relative flex justify-center text-xs uppercase">
-			<span class="bg-background px-2 text-muted-foreground"> Or continue with </span>
-		</div>
-	</div>
-	<form id="email-password-form" class="grid gap-4" method="post" use:enhance>
+<AuthForm
+	heading="Create an account"
+	subheading="Use an existing social login or enter your email below"
+>
+	<form
+		slot="email-password-form"
+		id="email-password-form"
+		class="grid gap-4"
+		method="post"
+		use:enhance
+	>
 		<Input
 			{...$constraints.email}
 			bind:value={$form.email}
@@ -73,10 +58,8 @@
 				</li>
 			{/each}
 		</ul>
+		<Button type="submit" class="w-full">Sign up for free</Button>
 	</form>
 
-	<Button form="email-password-form" type="submit" class="w-full">Sign up for free</Button>
-</div>
-<div class="mt-8 text-center">
-	<Button href="/auth/login" variant="link">Already have an account?</Button>
-</div>
+	<Button slot="bottom-link" href="/login" variant="link">Already have an account?</Button>
+</AuthForm>
