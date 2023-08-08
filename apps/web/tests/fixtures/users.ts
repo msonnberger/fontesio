@@ -1,8 +1,9 @@
 import type { Page, WorkerInfo } from '@playwright/test';
-import { users, type User } from '$lib/server/db/schema';
+import { users, type User, user_keys } from '$lib/server/db/schema';
 import { generate_uuid_v7 } from '$lib/utils/uuid';
 import { eq, inArray } from 'drizzle-orm';
 import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
+import { generateLuciaPasswordHash } from 'lucia/utils';
 
 type UserFixture = ReturnType<typeof create_user_fixture>;
 
@@ -11,14 +12,22 @@ export function create_users_fixture(page: Page, worker_info: WorkerInfo, db: Po
 
 	return {
 		create: async () => {
+			const email = `${worker_info.workerIndex}-${Date.now()}@Test.com`;
+
 			const [user] = await db
 				.insert(users)
 				.values({
 					id: generate_uuid_v7(),
-					email: `${worker_info.workerIndex}-${Date.now()}@Test.com`,
-					email_verified: false,
+					email,
+					email_verified: true,
 				})
 				.returning();
+
+			await db.insert(user_keys).values({
+				id: `email:${email.toLowerCase()}`,
+				user_id: user.id,
+				hashed_password: await generateLuciaPasswordHash(email),
+			});
 
 			const user_fixture = create_user_fixture(user, store.page, db);
 			store.users.push(user_fixture);
@@ -26,7 +35,7 @@ export function create_users_fixture(page: Page, worker_info: WorkerInfo, db: Po
 		},
 		get: () => store.users,
 		logout: async () => {
-			await page.goto('/auth/logout');
+			await page.goto('/logout');
 		},
 		delete_all: async () => {
 			const ids = store.users.map((u) => u.id);
@@ -55,7 +64,7 @@ function create_user_fixture(user: User, page: Page, db: PostgresJsDatabase) {
 	};
 }
 
-export async function login(user: User, page: Page) {
+export async function login(user: Pick<User, 'email'> & { password?: string }, page: Page) {
 	const login_locator = page.locator('#email-password-form');
 	const email_locator = login_locator.locator('#email');
 	const password_locator = login_locator.locator('#password');
@@ -63,7 +72,7 @@ export async function login(user: User, page: Page) {
 
 	await page.goto('/');
 	await email_locator.fill(user.email);
-	await password_locator.fill(user.email);
+	await password_locator.fill(user.password ?? user.email);
 	await submit_locator.click();
 
 	await page.waitForLoadState('networkidle');
