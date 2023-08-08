@@ -57,6 +57,7 @@ export async function GET({ url, cookies, locals, params }) {
 		});
 		locals.auth.setSession(session);
 	} catch (e) {
+		console.error(e);
 		// invalid code
 		if (e instanceof OAuthRequestError) {
 			throw error(400);

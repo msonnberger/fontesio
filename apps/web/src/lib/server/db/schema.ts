@@ -1,4 +1,6 @@
 import { pgTable, uuid, text, bigint, uniqueIndex, boolean } from 'drizzle-orm/pg-core';
+import { createSelectSchema } from 'drizzle-zod';
+import { z } from 'zod';
 
 export const users = pgTable(
 	'users',
@@ -13,6 +15,13 @@ export const users = pgTable(
 		};
 	},
 );
+
+const user_schema = createSelectSchema(users, {
+	id: z.string().uuid(),
+	email_verified: z.boolean(),
+});
+
+export type User = z.infer<typeof user_schema>;
 
 export const user_keys = pgTable('user_keys', {
 	id: text('id').primaryKey(),
