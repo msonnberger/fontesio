@@ -1,3 +1,5 @@
+import 'lucia/polyfill/node';
+
 const UNIX_TS_MS_BITS = 48;
 const VER_DIGIT = '7';
 const SEQ_BITS = 12;
