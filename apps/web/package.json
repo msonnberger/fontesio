@@ -37,6 +37,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@huntabyte/primitives": "0.0.7",
 		"@lucia-auth/adapter-postgresql": "2.0.0",
 		"@lucia-auth/oauth": "2.0.1",
 		"autoprefixer": "10.4.14",
