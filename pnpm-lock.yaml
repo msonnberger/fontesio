@@ -29,9 +29,6 @@ importers:
       '@lucia-auth/oauth':
         specifier: 2.0.1
         version: 2.0.1(lucia@2.0.0)
-      '@neondatabase/serverless':
-        specifier: 0.5.6
-        version: 0.5.6
       autoprefixer:
         specifier: 10.4.14
         version: 10.4.14(postcss@8.4.27)
@@ -40,16 +37,13 @@ importers:
         version: 0.7.0
       drizzle-orm:
         specifier: 0.27.2
-        version: 0.27.2(@neondatabase/serverless@0.5.6)(pg@8.11.2)(postgres@3.3.5)
+        version: 0.27.2(pg@8.11.2)(postgres@3.3.5)
       drizzle-zod:
         specifier: 0.5.0
         version: 0.5.0(drizzle-orm@0.27.2)(zod@3.21.4)
       lucia:
         specifier: 2.0.0
         version: 2.0.0
-      lucide-svelte:
-        specifier: 0.263.0
-        version: 0.263.0(svelte@4.1.2)
       postcss:
         specifier: 8.4.27
         version: 8.4.27
@@ -724,12 +718,6 @@ packages:
       - supports-color
     dev: true
 
-  /@neondatabase/serverless@0.5.6:
-    resolution: {integrity: sha512-Ru0lG6W/nQtHRkDFVQFF+1PJYx8wd3jereln0Ep0YkiHey50hjTLVUycQoE4X977605pXMuFWORweuktzph+Xg==}
-    dependencies:
-      '@types/pg': 8.6.6
-    dev: false
-
   /@nodelib/fs.scandir@2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -902,14 +890,6 @@ packages:
 
   /@types/node@20.4.5:
     resolution: {integrity: sha512-rt40Nk13II9JwQBdeYqmbn2Q6IVTA5uPhvSO+JVqdXw/6/4glI6oR9ezty/A9Hg5u7JH4OmYmuQ+XvjKm0Datg==}
-
-  /@types/pg@8.6.6:
-    resolution: {integrity: sha512-O2xNmXebtwVekJDD+02udOncjVcMZQuTEQEMpKJ0ZRf5E7/9JJX3izhKUcUifBkyKpljyUM6BTgy2trmviKlpw==}
-    dependencies:
-      '@types/node': 20.4.5
-      pg-protocol: 1.6.0
-      pg-types: 2.2.0
-    dev: false
 
   /@types/pug@2.0.6:
     resolution: {integrity: sha512-SnHmG9wN1UVmagJOnyo/qkk0Z7gejYxOYYmaAwr5u2yFYfsupN3sg10kyzN8Hep/2zbHxCnsumxOoRIRMBwKCg==}
@@ -1653,7 +1633,7 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm@0.27.2(@neondatabase/serverless@0.5.6)(pg@8.11.2)(postgres@3.3.5):
+  /drizzle-orm@0.27.2(pg@8.11.2)(postgres@3.3.5):
     resolution: {integrity: sha512-ZvBvceff+JlgP7FxHKe0zOU9CkZ4RcOtibumIrqfYzDGuOeF0YUY0F9iMqYpRM7pxnLRfC+oO7rWOUH3T5oFQA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
@@ -1715,7 +1695,6 @@ packages:
       sqlite3:
         optional: true
     dependencies:
-      '@neondatabase/serverless': 0.5.6
       pg: 8.11.2
       postgres: 3.3.5
     dev: false
@@ -1726,7 +1705,7 @@ packages:
       drizzle-orm: '>=0.23.13'
       zod: '*'
     dependencies:
-      drizzle-orm: 0.27.2(@neondatabase/serverless@0.5.6)(pg@8.11.2)(postgres@3.3.5)
+      drizzle-orm: 0.27.2(pg@8.11.2)(postgres@3.3.5)
       zod: 3.21.4
     dev: false
 
@@ -2564,14 +2543,6 @@ packages:
 
   /lucia@2.0.0:
     resolution: {integrity: sha512-WRBMoZIgTHH6y2bAEHZWgWcMH6tDsQ+wf45juUgmn3ycjipn/e6OGpWki4XSjEuRm50WXghH+2EF9LCjCHUsUw==}
-    dev: false
-
-  /lucide-svelte@0.263.0(svelte@4.1.2):
-    resolution: {integrity: sha512-1cB+DPsX7PbHJ+aDbc2nKKRdv3DYHK81mRVUw7kNb7bVw2Dh9QsNVON918WjnSlmXEt9lUnJ7TkNymreZwnLgg==}
-    peerDependencies:
-      svelte: '>=3 <5'
-    dependencies:
-      svelte: 4.1.2
     dev: false
 
   /magic-string@0.27.0:
