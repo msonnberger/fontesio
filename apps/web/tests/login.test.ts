@@ -17,6 +17,7 @@ test('user can login & logout successfully', async ({ page, users }) => {
 	});
 
 	await test.step('logout', async () => {
+		await page.locator('#user-menu-trigger').click();
 		await page.locator('a[href="/logout"]').click();
 		await expect(page.locator('#email-password-form')).toBeVisible();
 	});
