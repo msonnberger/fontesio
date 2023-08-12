@@ -2,10 +2,17 @@
 	import IconClock from '~icons/lucide/clock-2';
 	import IconStar from '~icons/lucide/star';
 	import IconUser from '~icons/lucide/user';
+	import IconLogOut from '~icons/lucide/log-out';
 	import IconLibrary from '~icons/lucide/library';
 	import IconChevronRight from '~icons/lucide/chevron-right';
 	import IconBooks from '~icons/icon-park-solid/bookshelf';
 	import { page } from '$app/stores';
+	import {
+		DropdownMenu,
+		DropdownMenuContent,
+		DropdownMenuItem,
+		DropdownMenuTrigger,
+	} from '$components/ui/dropdown-menu';
 
 	export let data;
 </script>
@@ -46,9 +53,21 @@
 				<IconUser />
 			</div>
 			<span class="grow text-xs overflow-x-hidden text-ellipsis">{data.user.email}</span>
-			<button class="hover:bg-indigo-100/90 rounded-md ml-1 p-0.5 transition-colors">
-				<IconChevronRight />
-			</button>
+			<DropdownMenu>
+				<DropdownMenuTrigger
+					class="hover:bg-indigo-100/90 rounded-md ml-1 p-0.5 transition-colors"
+					id="user-menu-trigger"
+				>
+					<IconChevronRight />
+				</DropdownMenuTrigger>
+				<DropdownMenuContent>
+					<DropdownMenuItem>
+						<a href="/logout" class="flex items-center" data-sveltekit-preload-data="off">
+							<IconLogOut class="w-4 h-4 mr-2" /><span>Log out</span>
+						</a>
+					</DropdownMenuItem>
+				</DropdownMenuContent>
+			</DropdownMenu>
 		</div>
 	</aside>
 
