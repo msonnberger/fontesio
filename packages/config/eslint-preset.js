@@ -35,6 +35,7 @@ module.exports = {
 			'error',
 			{
 				varsIgnorePattern: '\\$\\$Props',
+				argsIgnorePattern: '^_',
 			},
 		],
 		'svelte/valid-compile': [

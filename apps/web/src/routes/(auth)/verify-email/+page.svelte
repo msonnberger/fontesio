@@ -24,7 +24,7 @@
 			id="verification_code"
 		/>
 		<div {...$root} use:root class="flex items-center gap-2 mb-8">
-			{#each Array.from({ length: 6 }) as _, i}
+			{#each Array.from({ length: 6 }) as _}
 				<input
 					class="rounded-md bg-indigo-100 text-center text-lg shadow-sm w-12 h-12 caret-transparent"
 					{...$input}
