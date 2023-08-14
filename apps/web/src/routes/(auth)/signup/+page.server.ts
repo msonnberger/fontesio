@@ -1,4 +1,7 @@
-import { generate_verification_token, send_verification_link } from '$lib/features/auth/token';
+import {
+	generate_verification_code,
+	send_verification_code,
+} from '$lib/features/auth/verification-code';
 import { db } from '$lib/server/db';
 import { users } from '$lib/server/db/schema';
 import { auth } from '$lib/server/lucia';
@@ -71,8 +74,8 @@ export const actions = {
 			});
 
 			if (!user.email_verified) {
-				const token = await generate_verification_token(user.userId);
-				await send_verification_link(email, token);
+				const code = await generate_verification_code(user.userId);
+				await send_verification_code(email, code);
 				user_not_verified = true;
 			}
 

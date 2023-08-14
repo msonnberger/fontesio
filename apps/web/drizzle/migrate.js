@@ -17,7 +17,8 @@ migrate(drizzle(migration_client), { migrationsFolder: dir })
 		console.log('Migrations applied');
 		process.exit(0);
 	})
-	.catch(() => {
+	.catch((err) => {
+		console.error(err)
 		console.log('Failed to apply migrations');
 		process.exit(1);
 	});
