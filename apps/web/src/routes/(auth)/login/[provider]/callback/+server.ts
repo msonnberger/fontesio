@@ -20,9 +20,8 @@ export async function GET({ url, cookies, locals, params }) {
 	}
 
 	try {
-		const { existingUser, googleUser, createUser, createKey } = await google_auth.validateCallback(
-			code,
-		);
+		const { existingUser, googleUser, createUser, createKey } =
+			await google_auth.validateCallback(code);
 
 		const get_user = async () => {
 			if (existingUser) return existingUser;
