@@ -38,9 +38,6 @@ importers:
       bits-ui:
         specifier: 0.0.26
         version: 0.0.26(@sveltejs/kit@1.22.6)(svelte@4.2.0)
-      class-variance-authority:
-        specifier: 0.7.0
-        version: 0.7.0
       drizzle-orm:
         specifier: 0.28.2
         version: 0.28.2(pg@8.11.3)(postgres@3.3.5)
@@ -1400,12 +1397,6 @@ packages:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
     engines: {node: '>=10'}
 
-  /class-variance-authority@0.7.0:
-    resolution: {integrity: sha512-jFI8IQw4hczaL4ALINxqLEXQbWcNjoSkloa4IaufXCJr6QawJyw7tuRysRsrE8w2p/4gGaxKIt/hX3qz/IbD1A==}
-    dependencies:
-      clsx: 2.0.0
-    dev: false
-
   /cli-color@2.0.3:
     resolution: {integrity: sha512-OkoZnxyC4ERN3zLzZaY9Emb7f/MhBOIpePv0Ycok0fJYT+Ouo00UBEIwsVsr0yoow++n5YWlSUgST9GKhNHiRQ==}
     engines: {node: '>=0.10'}
@@ -1416,11 +1407,6 @@ packages:
       memoizee: 0.4.15
       timers-ext: 0.1.7
     dev: true
-
-  /clsx@2.0.0:
-    resolution: {integrity: sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==}
-    engines: {node: '>=6'}
-    dev: false
 
   /code-red@1.0.3:
     resolution: {integrity: sha512-kVwJELqiILQyG5aeuyKFbdsI1fmQy1Cmf7dQ8eGmVuJoaRVdwey7WaMknr2ZFeVSYSKT0rExsa8EGw0aoI/1QQ==}

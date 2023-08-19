@@ -42,7 +42,6 @@
 		"@melt-ui/svelte": "0.37.5",
 		"autoprefixer": "10.4.15",
 		"bits-ui": "0.0.26",
-		"class-variance-authority": "0.7.0",
 		"drizzle-orm": "0.28.2",
 		"drizzle-zod": "0.5.0",
 		"lucia": "2.3.0",
