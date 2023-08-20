@@ -27,7 +27,7 @@
 			{#each Array.from({ length: 6 }) as _}
 				<input
 					class="rounded-md bg-indigo-100 text-center text-lg shadow-sm w-12 h-12 caret-transparent"
-					{...$input}
+					{...$input()}
 					use:input
 				/>
 			{/each}
@@ -38,7 +38,7 @@
 	<form action="?/new_code" method="post">
 		<p>
 			<span class="text-sm">Didn't get the email?</span>
-			<Button type="submit" variant="link" size="sm" class="mt-5 pl-0">Send it again</Button>
+			<Button type="submit" variant="link" class="mt-5 pl-0">Send it again</Button>
 		</p>
 		{#if form?.new_code_sent}
 			<p class="text-sm">New verification code sent!</p>

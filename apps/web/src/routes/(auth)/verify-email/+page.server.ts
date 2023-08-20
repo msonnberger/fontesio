@@ -52,7 +52,7 @@ export const actions = {
 			locals.auth.setSession(session);
 		} catch (e) {
 			console.error(e);
-			throw error(400, 'Invalid email verification link');
+			throw error(400, 'Invalid verification code');
 		}
 
 		throw redirect(302, '/');
