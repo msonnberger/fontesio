@@ -7,12 +7,7 @@
 	import IconChevronRight from '~icons/lucide/chevron-right';
 	import IconBooks from '~icons/icon-park-solid/bookshelf';
 	import { page } from '$app/stores';
-	import {
-		DropdownMenu,
-		DropdownMenuContent,
-		DropdownMenuItem,
-		DropdownMenuTrigger,
-	} from '$components/ui/dropdown-menu';
+	import * as DropdownMenu from '$components/ui/dropdown-menu';
 
 	export let data;
 </script>
@@ -53,21 +48,24 @@
 				<IconUser />
 			</div>
 			<span class="grow text-xs overflow-x-hidden text-ellipsis">{data.user.email}</span>
-			<DropdownMenu>
-				<DropdownMenuTrigger
+			<DropdownMenu.Root>
+				<DropdownMenu.Trigger
 					class="hover:bg-indigo-100/90 rounded-md ml-1 p-0.5 transition-colors"
 					id="user-menu-trigger"
 				>
 					<IconChevronRight />
-				</DropdownMenuTrigger>
-				<DropdownMenuContent>
-					<DropdownMenuItem>
-						<a href="/logout" class="flex items-center" data-sveltekit-preload-data="off">
-							<IconLogOut class="w-4 h-4 mr-2" /><span>Log out</span>
-						</a>
-					</DropdownMenuItem>
-				</DropdownMenuContent>
-			</DropdownMenu>
+				</DropdownMenu.Trigger>
+				<DropdownMenu.Content>
+					<DropdownMenu.Item class="p-0">
+						<form action="/logout" method="post" class="w-full">
+							<button type="submit" class="flex items-center w-full px-2 py-1.5">
+								<IconLogOut class="w-4 h-4 mr-2" />
+								Log out
+							</button>
+						</form>
+					</DropdownMenu.Item>
+				</DropdownMenu.Content>
+			</DropdownMenu.Root>
 		</div>
 	</aside>
 
