@@ -56,6 +56,9 @@ importers:
       resend:
         specifier: 1.0.0
         version: 1.0.0
+      svelte-email:
+        specifier: 0.0.4
+        version: 0.0.4
       sveltekit-superforms:
         specifier: 1.6.0
         version: 1.6.0(@sveltejs/kit@1.22.6)(svelte@4.2.0)(zod@3.22.2)
@@ -3480,6 +3483,14 @@ packages:
       - sugarss
     dev: true
 
+  /svelte-email@0.0.4:
+    resolution: {integrity: sha512-v3lMKxz6aaNdFstERH5r7BMTrxw0JWTPcc0Gubjcd8l++uyiol53tCk9INfMgMV4EyZy7WFOs24uurt4pxpMjQ==}
+    dependencies:
+      html-to-text: 9.0.3
+      pretty: 2.0.0
+      svelte: 3.59.2
+    dev: false
+
   /svelte-eslint-parser@0.32.2(svelte@4.2.0):
     resolution: {integrity: sha512-Ok9D3A4b23iLQsONrjqtXtYDu5ZZ/826Blaw2LeFZVTg1pwofKDG4mz3/GYTax8fQ0plRGHI6j+d9VQYy5Lo/A==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -3552,6 +3563,11 @@ packages:
       svelte: 4.2.0
       typescript: 5.1.6
     dev: true
+
+  /svelte@3.59.2:
+    resolution: {integrity: sha512-vzSyuGr3eEoAtT/A6bmajosJZIUWySzY2CzB3w2pgPvnkUjGqlDnsNnA0PMO+mMAhuyMul6C2uuZzY6ELSkzyA==}
+    engines: {node: '>= 8'}
+    dev: false
 
   /svelte@4.2.0:
     resolution: {integrity: sha512-kVsdPjDbLrv74SmLSUzAsBGquMs4MPgWGkGLpH+PjOYnFOziAvENVzgJmyOCV2gntxE32aNm8/sqNKD6LbIpeQ==}
