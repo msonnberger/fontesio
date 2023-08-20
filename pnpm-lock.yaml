@@ -23,9 +23,6 @@ importers:
 
   apps/web:
     dependencies:
-      '@huntabyte/primitives':
-        specifier: 0.0.19
-        version: 0.0.19(@sveltejs/kit@1.22.6)(svelte@4.2.0)
       '@lucia-auth/adapter-postgresql':
         specifier: 2.0.0
         version: 2.0.0(lucia@2.3.0)(pg@8.11.3)(postgres@3.3.5)
@@ -35,6 +32,9 @@ importers:
       autoprefixer:
         specifier: 10.4.15
         version: 10.4.15(postcss@8.4.28)
+      bits-ui:
+        specifier: 0.0.26
+        version: 0.0.26(@sveltejs/kit@1.22.6)(svelte@4.2.0)
       class-variance-authority:
         specifier: 0.7.0
         version: 0.7.0
@@ -630,23 +630,6 @@ packages:
   /@humanwhocodes/object-schema@1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
 
-  /@huntabyte/primitives@0.0.19(@sveltejs/kit@1.22.6)(svelte@4.2.0):
-    resolution: {integrity: sha512-W93yOwcVMxjmnZFtdO8Si+3QrTehocp2z0YQUNXSJhULe6zBUVmTV4l23ZCdKxf3oxif7VKSexpQFKxw/xGf3A==}
-    peerDependencies:
-      svelte: ^4.0.0
-    dependencies:
-      '@melt-ui/svelte': 0.34.6(svelte@4.2.0)
-      '@sveltejs/adapter-vercel': 3.0.3(@sveltejs/kit@1.22.6)
-      nanoid: 4.0.2
-      shiki: 0.14.3
-      svelte: 4.2.0
-      tailwind-merge: 1.14.0
-    transitivePeerDependencies:
-      - '@sveltejs/kit'
-      - encoding
-      - supports-color
-    dev: false
-
   /@iconify/json@2.2.103:
     resolution: {integrity: sha512-Zkmo6l9/vEnwXVhrPh6LzDrUHjnM9R+nBH/4ozx6UodoWBFMnQvAlN9rq9IDT4YrY7UD2ghyPpfFl2l2GUyNOQ==}
     dependencies:
@@ -754,8 +737,8 @@ packages:
       - encoding
       - supports-color
 
-  /@melt-ui/svelte@0.34.6(svelte@4.2.0):
-    resolution: {integrity: sha512-uH+s8QL5vxvb9//tULFupGSBhWTh+TvRMbIVVEae8BVlIyQrvYD5G61hoq0CiJ+Oieqgti3wnckLkaz20aYDIg==}
+  /@melt-ui/svelte@0.37.2(svelte@4.2.0):
+    resolution: {integrity: sha512-MdFnsY/yL2p/y0m2PqaM/tGmJ/ZsUAhACksPXCbrTXBw042rHkZHC8ykp5E5MVXGPn/eWc9nt9Vh3tmB+2CjXw==}
     peerDependencies:
       svelte: '>=3 <5'
     dependencies:
@@ -943,6 +926,10 @@ packages:
 
   /@types/semver@7.5.0:
     resolution: {integrity: sha512-G8hZ6XJiHnuhQKR7ZmysCeJWE08o8T0AXtk5darsCaTVsYZhhgUrq53jizaR2FvsoeCwJhlmwTjkXBY5Pn/ZHw==}
+    dev: false
+
+  /@types/unist@3.0.0:
+    resolution: {integrity: sha512-MFETx3tbTjE7Uk6vvnWINA/1iJ7LuMdO4fcq8UfF0pRbj01aGLduVvQcRyswuACJdpnHgg8E3rQLhaRdNEJS0w==}
     dev: false
 
   /@typescript-eslint/eslint-plugin@6.4.0(@typescript-eslint/parser@6.4.0)(eslint@8.47.0)(typescript@5.1.6):
@@ -1268,6 +1255,24 @@ packages:
     resolution: {integrity: sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==}
     dependencies:
       file-uri-to-path: 1.0.0
+
+  /bits-ui@0.0.26(@sveltejs/kit@1.22.6)(svelte@4.2.0):
+    resolution: {integrity: sha512-NTLDaUkL+lDyhgYK9QNjGL9wQJP/Te9wOzNa4Sg0nZrxTzH8ujAMm8p+xrG6/UNgo41exiOmYV6Scq93YlZvdw==}
+    peerDependencies:
+      svelte: ^4.0.0
+    dependencies:
+      '@melt-ui/svelte': 0.37.2(svelte@4.2.0)
+      '@sveltejs/adapter-vercel': 3.0.3(@sveltejs/kit@1.22.6)
+      nanoid: 4.0.2
+      shiki: 0.14.3
+      svelte: 4.2.0
+      tailwind-merge: 1.14.0
+      unist-builder: 4.0.0
+    transitivePeerDependencies:
+      - '@sveltejs/kit'
+      - encoding
+      - supports-color
+    dev: false
 
   /brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -3828,6 +3833,12 @@ packages:
     engines: {node: '>=14.0'}
     dependencies:
       busboy: 1.6.0
+
+  /unist-builder@4.0.0:
+    resolution: {integrity: sha512-wmRFnH+BLpZnTKpc5L7O67Kac89s9HMrtELpnNaE6TAobq5DTZZs5YaTQfAZBA9bFPECx2uVAPO31c+GVug8mg==}
+    dependencies:
+      '@types/unist': 3.0.0
+    dev: false
 
   /unplugin-icons@0.16.5:
     resolution: {integrity: sha512-laCCqMWfng1XZgB9yowGfjBdDhtmz8t8zVnhzRNEMhBNdy26QrVewVmdXk/zsiAQYnEWvIxTjvW1nQXrxdd2+w==}
