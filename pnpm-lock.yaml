@@ -740,6 +740,18 @@ packages:
       - encoding
       - supports-color
 
+  /@melt-ui/svelte@0.37.2(svelte@4.2.0):
+    resolution: {integrity: sha512-MdFnsY/yL2p/y0m2PqaM/tGmJ/ZsUAhACksPXCbrTXBw042rHkZHC8ykp5E5MVXGPn/eWc9nt9Vh3tmB+2CjXw==}
+    peerDependencies:
+      svelte: '>=3 <5'
+    dependencies:
+      '@floating-ui/core': 1.4.1
+      '@floating-ui/dom': 1.5.1
+      focus-trap: 7.5.2
+      nanoid: 4.0.2
+      svelte: 4.2.0
+    dev: false
+
   /@melt-ui/svelte@0.37.5(svelte@4.2.0):
     resolution: {integrity: sha512-bQ368VNw8tTT7DrD9/6KMU6O/NRBoZlh4pUv4tQVVlgBq5G9ZnKJ/5nJ28EE2ONd8jwykTTIHBVBpEtEVF8Hlw==}
     peerDependencies:
