@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Button as ButtonPrimitive } from 'bits-ui';
 	import { cn } from '$lib/utils';
-	import { buttonVariants, type ButtonVariant, type ButtonSize } from '.';
+	import { buttonVariants, type ButtonVariant, type ButtonSize } from './';
 
 	type $$Props = ButtonPrimitive.Props & {
 		variant?: ButtonVariant;

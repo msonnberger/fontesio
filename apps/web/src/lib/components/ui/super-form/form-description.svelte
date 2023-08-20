@@ -2,7 +2,7 @@
 	import { cn } from '$lib/utils';
 	import { getContext } from 'svelte';
 	import type { FormFieldContext } from './types';
-	import { FORM_FIELD_CONTEXT } from '.';
+	import { FORM_FIELD_CONTEXT } from './';
 	let className: string | undefined | null = undefined;
 	export { className as class };
 

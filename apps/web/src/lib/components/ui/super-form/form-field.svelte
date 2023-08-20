@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { createFormField } from '.';
+	import { createFormField } from './';
 	import type { Form, FormFieldName } from './types';
 	import type { AnyZodObject } from 'zod';
 	import { cn } from '$lib/utils';
