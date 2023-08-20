@@ -41,6 +41,7 @@
 		"@lucia-auth/oauth": "2.1.2",
 		"@melt-ui/svelte": "0.37.5",
 		"@upstash/ratelimit": "0.4.3",
+		"@upstash/redis": "1.22.0",
 		"autoprefixer": "10.4.15",
 		"bits-ui": "0.0.26",
 		"drizzle-orm": "0.28.2",

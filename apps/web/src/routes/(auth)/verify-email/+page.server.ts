@@ -4,7 +4,9 @@ import {
 	validate_verification_code,
 } from '$lib/features/auth/verification-code';
 import { auth } from '$lib/server/lucia';
+import { redis } from '$lib/server/redis';
 import { error, redirect } from '@sveltejs/kit';
+import { Ratelimit } from '@upstash/ratelimit';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
@@ -18,6 +20,12 @@ export async function load({ locals }) {
 	}
 }
 
+const ratelimit = new Ratelimit({
+	redis: redis,
+	limiter: Ratelimit.slidingWindow(10, '1m'),
+	analytics: true,
+});
+
 export const actions = {
 	verify: async ({ locals, request }) => {
 		try {
@@ -25,6 +33,12 @@ export const actions = {
 
 			if (!session) {
 				throw error(401);
+			}
+
+			const { success } = await ratelimit.limit(session.user.userId);
+
+			if (!success) {
+				throw error(429);
 			}
 
 			const data = await request.formData();
