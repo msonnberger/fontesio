@@ -25,10 +25,10 @@ importers:
     dependencies:
       '@lucia-auth/adapter-postgresql':
         specifier: 2.0.0
-        version: 2.0.0(lucia@2.3.0)(pg@8.11.3)(postgres@3.3.5)
+        version: 2.0.0(lucia@2.4.0)(pg@8.11.3)(postgres@3.3.5)
       '@lucia-auth/oauth':
-        specifier: 2.1.2
-        version: 2.1.2(lucia@2.3.0)
+        specifier: 2.2.0
+        version: 2.2.0(lucia@2.4.0)
       '@melt-ui/svelte':
         specifier: 0.37.5
         version: 0.37.5(svelte@4.2.0)
@@ -42,8 +42,8 @@ importers:
         specifier: 10.4.15
         version: 10.4.15(postcss@8.4.28)
       bits-ui:
-        specifier: 0.0.26
-        version: 0.0.26(@sveltejs/kit@1.22.6)(svelte@4.2.0)
+        specifier: 0.0.27
+        version: 0.0.27(@sveltejs/kit@1.22.6)(svelte@4.2.0)
       drizzle-orm:
         specifier: 0.28.2
         version: 0.28.2(pg@8.11.3)(postgres@3.3.5)
@@ -51,8 +51,8 @@ importers:
         specifier: 0.5.0
         version: 0.5.0(drizzle-orm@0.28.2)(zod@3.22.2)
       lucia:
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: 2.4.0
+        version: 2.4.0
       postcss:
         specifier: 8.4.28
         version: 8.4.28
@@ -707,7 +707,7 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@lucia-auth/adapter-postgresql@2.0.0(lucia@2.3.0)(pg@8.11.3)(postgres@3.3.5):
+  /@lucia-auth/adapter-postgresql@2.0.0(lucia@2.4.0)(pg@8.11.3)(postgres@3.3.5):
     resolution: {integrity: sha512-1HUOjJPbCxvhFcHjjr6LypflBtGCS5fsXsK++SsyKn3bVj6Z6XwgxMhvLTJlvwXEQxGL1c9HJE81mIZHaHT4+w==}
     peerDependencies:
       lucia: ^2.0.0
@@ -719,17 +719,17 @@ packages:
       postgres:
         optional: true
     dependencies:
-      lucia: 2.3.0
+      lucia: 2.4.0
       pg: 8.11.3
       postgres: 3.3.5
     dev: false
 
-  /@lucia-auth/oauth@2.1.2(lucia@2.3.0):
-    resolution: {integrity: sha512-+5RJsTtg2/i5WBH7Wq42Kw/GCbjAaAV2uaIxIg+nIMCqg032jTpIHgkNj9kbvHSugYfjNg/fE9jnLexHcbswvg==}
+  /@lucia-auth/oauth@2.2.0(lucia@2.4.0):
+    resolution: {integrity: sha512-3gY21t62PikfRvkrG3EfILT5etB7IhjwakdJMEXicb8wESTnjYyjS+SFqL05oud7NmLZjCDxnsqjKPQ+GMBlWQ==}
     peerDependencies:
       lucia: ^2.0.0
     dependencies:
-      lucia: 2.3.0
+      lucia: 2.4.0
     dev: false
 
   /@mapbox/node-pre-gyp@1.0.11:
@@ -1309,8 +1309,8 @@ packages:
     dependencies:
       file-uri-to-path: 1.0.0
 
-  /bits-ui@0.0.26(@sveltejs/kit@1.22.6)(svelte@4.2.0):
-    resolution: {integrity: sha512-NTLDaUkL+lDyhgYK9QNjGL9wQJP/Te9wOzNa4Sg0nZrxTzH8ujAMm8p+xrG6/UNgo41exiOmYV6Scq93YlZvdw==}
+  /bits-ui@0.0.27(@sveltejs/kit@1.22.6)(svelte@4.2.0):
+    resolution: {integrity: sha512-T/8BjEVvAOlp+1ofg4JRiwjv5m/320KUrWk5ONrjzmZVZ5d+uIlGwHmdVysbVtygHxf+FWi8CCKSPYrbxmQUYA==}
     peerDependencies:
       svelte: ^4.0.0
     dependencies:
@@ -2592,8 +2592,8 @@ packages:
       es5-ext: 0.10.62
     dev: true
 
-  /lucia@2.3.0:
-    resolution: {integrity: sha512-FS+WjvTh8xK/N2I5PBQ9xhF5+OJZo1g2w931ZlaJoXSRxsM1WTkMRAyxFAE3Azoe9vHqlKxRsw11ZiSv+yc3rA==}
+  /lucia@2.4.0:
+    resolution: {integrity: sha512-v2pyFQVF734+EU3m9GeeJQorFR7zLt7JoOJ1UD5ttR5Z+w4IkOyExiXyFe+zssKpony66u94wcxyws3lZSpzzg==}
     dev: false
 
   /magic-string@0.27.0:
