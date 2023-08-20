@@ -6,8 +6,8 @@
 	let className: string | undefined | null = undefined;
 	export { className as class };
 
-	type T = $$Generic<AnyZodObject>;
-	type Path = $$Generic<FormFieldName<T>>;
+	type T = $$Generic<AnyZodObject>; // eslint-disable-line no-undef
+	type Path = $$Generic<FormFieldName<T>>; // eslint-disable-line no-undef
 
 	export let form: Form<T>;
 	export let name: Path;
