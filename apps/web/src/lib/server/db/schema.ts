@@ -40,10 +40,19 @@ export const sessions = pgTable('sessions', {
 	idle_expires: bigint('idle_expires', { mode: 'number' }).notNull(),
 });
 
-export const email_verification_tokens = pgTable('email_verification_tokens', {
-	id: text('id').primaryKey(),
-	expires: bigint('expires', { mode: 'number' }).notNull(),
-	user_id: uuid('user_id')
-		.notNull()
-		.references(() => users.id, { onDelete: 'cascade' }),
-});
+export const email_verification_codes = pgTable(
+	'email_verification_codes',
+	{
+		id: uuid('id').primaryKey(),
+		code: text('code').notNull(),
+		expires: bigint('expires', { mode: 'number' }).notNull(),
+		user_id: uuid('user_id')
+			.notNull()
+			.references(() => users.id, { onDelete: 'cascade' }),
+	},
+	(table) => {
+		return {
+			user_id_idx: uniqueIndex('user_id_idx').on(table.user_id),
+		};
+	},
+);

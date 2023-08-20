@@ -34,7 +34,8 @@ module.exports = {
 		'@typescript-eslint/no-unused-vars': [
 			'error',
 			{
-				varsIgnorePattern: '\\$\\$Props',
+				varsIgnorePattern: '\\$\\$(Props|Events)',
+				argsIgnorePattern: '^_',
 			},
 		],
 		'svelte/valid-compile': [

@@ -1,5 +1,12 @@
-import { generate_verification_token, send_verification_link } from '$lib/features/auth/token';
+import {
+	generate_verification_code,
+	send_verification_code,
+	validate_verification_code,
+} from '$lib/features/auth/verification-code';
+import { auth } from '$lib/server/lucia';
+import { redis } from '$lib/server/redis';
 import { error, redirect } from '@sveltejs/kit';
+import { Ratelimit } from '@upstash/ratelimit';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
@@ -13,8 +20,58 @@ export async function load({ locals }) {
 	}
 }
 
+const ratelimit = new Ratelimit({
+	redis: redis,
+	limiter: Ratelimit.slidingWindow(10, '1m'),
+	analytics: true,
+});
+
 export const actions = {
-	default: async ({ locals }) => {
+	verify: async ({ locals, request }) => {
+		try {
+			let session = await locals.auth.validate();
+
+			if (!session) {
+				throw error(401);
+			}
+
+			const { success } = await ratelimit.limit(session.user.userId);
+
+			if (!success) {
+				throw error(429);
+			}
+
+			const data = await request.formData();
+			const code = data.get('verification_code') as string | null;
+
+			if (!code) {
+				throw error(400);
+			}
+
+			const user_id = await validate_verification_code(
+				session.user.userId,
+				code.replaceAll(',', ''),
+			);
+			const user = await auth.getUser(user_id);
+			await auth.invalidateAllUserSessions(user.userId);
+			await auth.updateUserAttributes(user.userId, {
+				email_verified: true,
+			});
+
+			session = await auth.createSession({
+				userId: user.userId,
+				attributes: {},
+			});
+
+			locals.auth.setSession(session);
+		} catch (e) {
+			console.error(e);
+			throw error(400, 'Invalid verification code');
+		}
+
+		throw redirect(302, '/');
+	},
+	new_code: async ({ locals }) => {
 		const session = await locals.auth.validate();
 
 		if (!session) {
@@ -26,11 +83,11 @@ export const actions = {
 		}
 
 		try {
-			const token = await generate_verification_token(session.user.userId);
-			await send_verification_link(session.user.email, token);
+			const token = await generate_verification_code(session.user.userId);
+			await send_verification_code(session.user.email, token);
 
 			return {
-				new_link_sent: true,
+				new_code_sent: true,
 			};
 		} catch {
 			throw error(500);
