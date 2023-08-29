@@ -18,7 +18,13 @@
 		inset && 'pl-8',
 		className,
 	)}
-	on:m-click
+	on:click
+	on:keydown
+	on:focusin
+	on:focusout
+	on:pointerdown
+	on:pointerleave
+	on:pointermove
 	{...$$restProps}
 >
 	<slot />
