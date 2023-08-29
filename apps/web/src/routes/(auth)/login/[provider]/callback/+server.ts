@@ -20,11 +20,12 @@ export async function GET({ url, cookies, locals, params }) {
 	}
 
 	try {
-		const { existingUser, googleUser, createUser, createKey } =
+		const { getExistingUser, googleUser, createUser, createKey } =
 			await google_auth.validateCallback(code);
 
 		const get_user = async () => {
-			if (existingUser) return existingUser;
+			const existing_user = await getExistingUser();
+			if (existing_user) return existing_user;
 
 			if (!googleUser.email_verified || !googleUser.email) {
 				throw error(400, 'Email not verified');

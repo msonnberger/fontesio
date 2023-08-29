@@ -27,8 +27,8 @@ importers:
         specifier: 2.0.1
         version: 2.0.1(lucia@2.4.0)(pg@8.11.3)(postgres@3.3.5)
       '@lucia-auth/oauth':
-        specifier: 2.2.0
-        version: 2.2.0(lucia@2.4.0)
+        specifier: 3.0.0
+        version: 3.0.0(lucia@2.4.0)
       '@melt-ui/svelte':
         specifier: 0.39.4
         version: 0.39.4(svelte@4.2.0)
@@ -724,8 +724,8 @@ packages:
       postgres: 3.3.5
     dev: false
 
-  /@lucia-auth/oauth@2.2.0(lucia@2.4.0):
-    resolution: {integrity: sha512-3gY21t62PikfRvkrG3EfILT5etB7IhjwakdJMEXicb8wESTnjYyjS+SFqL05oud7NmLZjCDxnsqjKPQ+GMBlWQ==}
+  /@lucia-auth/oauth@3.0.0(lucia@2.4.0):
+    resolution: {integrity: sha512-InjJ8ntwp3HB7tPCg7zfG3xxHgsMREq0ojT8IUuUS0UNdGFlk6ZJAymL+3P8o/U1fJgJA5kY1NxwNnYU+SuA3g==}
     peerDependencies:
       lucia: ^2.0.0
     dependencies:
