@@ -8,6 +8,17 @@
 	import IconBooks from '~icons/icon-park-solid/bookshelf';
 	import { page } from '$app/stores';
 	import * as DropdownMenu from '$components/ui/dropdown-menu';
+	import { onNavigate } from '$app/navigation';
+
+	onNavigate(() => {
+		// @ts-expect-error remove when Document type is updated
+		if (!document.startViewTransition) return;
+
+		return new Promise((fulfil) => {
+			// @ts-expect-error remove when Document type is updated
+			document.startViewTransition(() => new Promise(fulfil));
+		});
+	});
 
 	export let data;
 </script>
@@ -77,7 +88,13 @@
 </div>
 
 <style lang="postcss">
+	:root {
+		/* disable document-level crossfade */
+		view-transition-name: none;
+	}
+
 	li[aria-current='page']::before {
+		view-transition-name: indicator;
 		content: '';
 		@apply absolute w-[4px] h-[26px] bg-indigo-800 rounded-full -left-[1px];
 	}
