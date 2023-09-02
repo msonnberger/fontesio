@@ -10,13 +10,14 @@
 	import * as DropdownMenu from '$components/ui/dropdown-menu';
 	import { onNavigate } from '$app/navigation';
 
-	onNavigate(() => {
-		// @ts-expect-error remove when Document type is updated
+	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
 
-		return new Promise((fulfil) => {
-			// @ts-expect-error remove when Document type is updated
-			document.startViewTransition(() => new Promise(fulfil));
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
 		});
 	});
 

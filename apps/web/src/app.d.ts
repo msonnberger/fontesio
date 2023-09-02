@@ -20,6 +20,18 @@ declare global {
 		};
 		type DatabaseSessionAttributes = unknown;
 	}
+
+	// TODO: remove when types are updated
+	interface ViewTransition {
+		updateCallbackDone: Promise<void>;
+		ready: Promise<void>;
+		finished: Promise<void>;
+		skipTransition: () => void;
+	}
+
+	interface Document {
+		startViewTransition(updateCallback: () => Promise<void>): ViewTransition;
+	}
 }
 
 export {};
