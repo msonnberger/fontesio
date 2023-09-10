@@ -1,4 +1,6 @@
-import { redirect } from '@sveltejs/kit';
+import { csl_json_schema } from '$lib/citations/schema.js';
+import { fail, redirect } from '@sveltejs/kit';
+import { superValidate } from 'sveltekit-superforms/server';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
@@ -13,5 +15,25 @@ export async function load({ locals }) {
 
 	return {
 		user: session.user,
+		form: superValidate(csl_json_schema),
 	};
 }
+
+export const actions = {
+	add_resource: async (event) => {
+		console.log('here');
+		const form = await superValidate(event, csl_json_schema);
+
+		// if (!form.valid) {
+		// 	return fail(400, {
+		// 		form,
+		// 	});
+		// }
+
+		console.log(form.data);
+
+		return {
+			form,
+		};
+	},
+};

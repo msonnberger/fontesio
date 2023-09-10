@@ -9,6 +9,7 @@
 	import { page } from '$app/stores';
 	import * as DropdownMenu from '$components/ui/dropdown-menu';
 	import { onNavigate } from '$app/navigation';
+	import AddResourceForm from './AddResourceForm.svelte';
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -83,6 +84,7 @@
 
 	<div class="w-full pl-1.5">
 		<main class="w-full h-full overflow-y-scroll bg-white rounded-lg p-8 shadow-md">
+			<AddResourceForm />
 			<slot />
 		</main>
 	</div>
