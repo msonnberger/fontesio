@@ -50,6 +50,9 @@ importers:
       drizzle-zod:
         specifier: 0.5.1
         version: 0.5.1(drizzle-orm@0.29.0)(zod@3.22.4)
+      formsnap:
+        specifier: 0.4.1
+        version: 0.4.1(svelte@4.2.5)(sveltekit-superforms@1.10.2)(zod@3.22.4)
       lucia:
         specifier: 2.7.4
         version: 2.7.4
@@ -72,8 +75,8 @@ importers:
         specifier: 2.0.0
         version: 2.0.0
       tailwind-variants:
-        specifier: ^0.1.13
-        version: 0.1.13(tailwindcss@3.3.5)
+        specifier: ^0.1.18
+        version: 0.1.18(tailwindcss@3.3.5)
       tailwindcss:
         specifier: 3.3.5
         version: 3.3.5(ts-node@10.9.1)
@@ -2600,6 +2603,18 @@ packages:
       tabbable: 6.2.0
     dev: false
 
+  /formsnap@0.4.1(svelte@4.2.5)(sveltekit-superforms@1.10.2)(zod@3.22.4):
+    resolution: {integrity: sha512-hUOaDKb+KoBi4PamJRnxRqIQW3msp2BKPqohoqjHUuBb+vgBrhoaz0WYEFkXG4bzVQS3JngG55m/zX5ciZTyeA==}
+    peerDependencies:
+      svelte: ^4.0.0
+      sveltekit-superforms: ^1.7.1
+      zod: ^3.22.2
+    dependencies:
+      svelte: 4.2.5
+      sveltekit-superforms: 1.10.2(@sveltejs/kit@1.27.6)(svelte@4.2.5)(zod@3.22.4)
+      zod: 3.22.4
+    dev: false
+
   /fraction.js@4.3.6:
     resolution: {integrity: sha512-n2aZ9tNfYDwaHhvFTkhFErqOMIb8uyzSQ+vGJBjZyanAKZVbGUQ1sngfk9FdkBw7G26O7AgNjLcecLffD1c7eg==}
     dev: false
@@ -4268,8 +4283,8 @@ packages:
       '@babel/runtime': 7.23.2
     dev: false
 
-  /tailwind-variants@0.1.13(tailwindcss@3.3.5):
-    resolution: {integrity: sha512-G2M7M74hjq0nAo6QdEfUJgF+0t9DecFUw91GC1P9YTnwMcfB3uChT5U5e2DuNU42xoOz15lzo7r0mPdMzZkylg==}
+  /tailwind-variants@0.1.18(tailwindcss@3.3.5):
+    resolution: {integrity: sha512-yoydMYm3FbZRw7wak+E2sqwYv2Uo3YWRqVZR03DGqDGm0ytzDrEnWO/Q/GMHdhaz8adOvycKw/bwCgQFCfmfhg==}
     engines: {node: '>=16.x', pnpm: '>=7.x'}
     peerDependencies:
       tailwindcss: '*'

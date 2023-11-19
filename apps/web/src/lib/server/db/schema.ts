@@ -1,4 +1,15 @@
-import { pgTable, uuid, text, bigint, uniqueIndex, boolean } from 'drizzle-orm/pg-core';
+import type { CslJsonResource } from '$lib/citations/schema';
+import { generate_uuid_v7 } from '$lib/utils/uuid';
+import {
+	pgTable,
+	uuid,
+	text,
+	bigint,
+	uniqueIndex,
+	boolean,
+	jsonb,
+	timestamp,
+} from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 
@@ -56,3 +67,15 @@ export const email_verification_codes = pgTable(
 		};
 	},
 );
+
+export const resources = pgTable('resources', {
+	id: uuid('id')
+		.primaryKey()
+		.$defaultFn(() => generate_uuid_v7()),
+	created_at: timestamp('created_at').defaultNow().notNull(),
+	updated_at: timestamp('updated_at').defaultNow().notNull(),
+	user_id: uuid('user_id')
+		.notNull()
+		.references(() => users.id, { onDelete: 'cascade' }),
+	csl_json: jsonb('csl_json').$type<CslJsonResource>().notNull(),
+});

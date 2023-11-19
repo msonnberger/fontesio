@@ -9,6 +9,7 @@
 	import { page } from '$app/stores';
 	import * as DropdownMenu from '$components/ui/dropdown-menu';
 	import { onNavigate } from '$app/navigation';
+	import AddResourceForm from './AddResourceForm.svelte';
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -25,7 +26,7 @@
 </script>
 
 <div class="flex h-screen bg-indigo-100 p-1.5">
-	<aside class="flex flex-col w-1/5 pt-4">
+	<aside class="flex flex-col w-[clamp(12rem,20%,20rem)] pt-4">
 		<div class="flex gap-3 items-center px-3">
 			<div class="w-6 h-6 text-indigo-500">
 				<IconBooks class="w-full h-full" />
@@ -33,7 +34,7 @@
 			<span class="text-lg font-semibold text-indigo-950 tracking-wide">Fontesio</span>
 		</div>
 
-		<div class="grow overflow-y-scroll mt-12 px-3">
+		<div class="grow mt-12 px-3">
 			<nav>
 				<ul class="space-y-6">
 					<li aria-current={data.pathname === '/' ? 'page' : undefined}>
@@ -83,6 +84,7 @@
 
 	<div class="w-full pl-1.5">
 		<main class="w-full h-full overflow-y-scroll bg-white rounded-lg p-8 shadow-md">
+			<AddResourceForm />
 			<slot />
 		</main>
 	</div>
