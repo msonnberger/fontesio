@@ -6,16 +6,23 @@
 	import type { SuperValidated } from 'sveltekit-superforms';
 
 	export let selected: SelectOption<string> | undefined;
+	export let sheet_open: boolean;
 	export let form: SuperValidated<CslJsonSchema>;
 </script>
 
 <Form.Root
-	debug
 	action="?/add_resource"
 	schema={csl_json_schema}
 	class="flex flex-col gap-6"
 	let:config
 	{form}
+	options={{
+		onUpdated({ form }) {
+			if (form.valid) {
+				sheet_open = false;
+			}
+		},
+	}}
 >
 	<Form.Field {config} name="type">
 		<Form.Item>

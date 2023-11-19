@@ -54,7 +54,7 @@
 		</DropdownMenu.Content>
 	</DropdownMenu.Root>
 
-	<Sheet.Content side="right">
+	<Sheet.Content side="right" class="min-w-[40rem]">
 		<Sheet.Header>
 			<Sheet.Title>Add resource</Sheet.Title>
 			<Sheet.Description>
@@ -62,6 +62,6 @@
 			</Sheet.Description>
 		</Sheet.Header>
 
-		<Form bind:selected form={$page.data.form} />
+		<Form bind:selected bind:sheet_open form={$page.data.form} />
 	</Sheet.Content>
 </Sheet.Root>
