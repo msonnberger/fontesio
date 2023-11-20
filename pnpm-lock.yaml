@@ -93,6 +93,9 @@ importers:
         specifier: 3.22.4
         version: 3.22.4
     devDependencies:
+      '@fontesio/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
       '@iconify/json':
         specifier: 2.2.143
         version: 2.2.143
@@ -163,6 +166,8 @@ importers:
         specifier: 1.0.7
         version: 1.0.7(tailwindcss@3.3.5)
 
+  packages/tsconfig: {}
+
   packages/ui:
     dependencies:
       bits-ui:
@@ -183,6 +188,10 @@ importers:
       unplugin-icons:
         specifier: 0.17.4
         version: 0.17.4
+    devDependencies:
+      '@fontesio/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
 
 packages:
 

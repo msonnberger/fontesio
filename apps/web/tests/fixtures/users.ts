@@ -23,6 +23,10 @@ export function create_users_fixture(page: Page, worker_info: WorkerInfo, db: Po
 				})
 				.returning();
 
+			if (!user) {
+				throw new Error('Could not create user');
+			}
+
 			await db.insert(user_keys).values({
 				id: `email:${email.toLowerCase()}`,
 				user_id: user.id,

@@ -11,5 +11,8 @@
 		"tailwind-merge": "2.0.0",
 		"tailwind-variants": "^0.1.18",
 		"unplugin-icons": "0.17.4"
+	},
+	"devDependencies": {
+		"@fontesio/tsconfig": "workspace:*"
 	}
 }
