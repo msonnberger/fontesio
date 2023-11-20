@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Button } from '$components/ui/button';
-	import { Input } from '$components/ui/input';
+	import { Alert, AlertDescription } from '@fontesio/ui/primitives/alert';
+	import { Button } from '@fontesio/ui/primitives/button';
+	import { Input } from '@fontesio/ui/primitives/input';
 	import { superForm } from 'sveltekit-superforms/client';
 	import AuthForm from '../AuthForm.svelte';
-	import { Alert, AlertDescription } from '$components/ui/alert';
 
 	export let data;
 

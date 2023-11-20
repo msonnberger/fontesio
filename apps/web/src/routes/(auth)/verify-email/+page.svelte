@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createPinInput } from '@melt-ui/svelte';
-	import { Button } from '$components/ui/button';
+	import { Button } from '@fontesio/ui/primitives/button';
 	import envelope from '$lib/assets/images/envelope.svg';
 
 	const {

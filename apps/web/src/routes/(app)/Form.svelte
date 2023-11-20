@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { SelectOption } from '@melt-ui/svelte';
-	import * as Form from '$components/ui/form';
+	import * as Form from '@fontesio/ui/primitives/form';
 	import { csl_json_schema, csl_types, type CslJsonSchema } from '$lib/citations/schema';
 	import { unslugify } from '$lib/utils/unslugify';
 	import type { SuperValidated } from 'sveltekit-superforms';
