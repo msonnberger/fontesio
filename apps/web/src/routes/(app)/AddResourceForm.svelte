@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { SelectOption } from '@melt-ui/svelte';
-	import * as Sheet from '$lib/components/ui/sheet';
-	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { Button } from '$lib/components/ui/button';
+	import * as Sheet from '@fontesio/ui/primitives/sheet';
+	import * as DropdownMenu from '@fontesio/ui/primitives/dropdown-menu';
+	import { Button } from '@fontesio/ui/primitives/button';
 	import { unslugify } from '$lib/utils/unslugify';
 	import { csl_types } from '$lib/citations/schema';
 	import PlusCircle from '~icons/lucide/plus-circle';

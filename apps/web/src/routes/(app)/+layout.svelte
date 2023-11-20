@@ -7,7 +7,7 @@
 	import IconChevronRight from '~icons/lucide/chevron-right';
 	import IconBooks from '~icons/icon-park-solid/bookshelf';
 	import { page } from '$app/stores';
-	import * as DropdownMenu from '$components/ui/dropdown-menu';
+	import * as DropdownMenu from '@fontesio/ui/primitives/dropdown-menu';
 	import { onNavigate } from '$app/navigation';
 	import AddResourceForm from './AddResourceForm.svelte';
 

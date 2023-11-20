@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { Button } from '$components/ui/button';
-	import { Input } from '$components/ui/input';
+	import { Button } from '@fontesio/ui/primitives/button';
+	import { Input } from '@fontesio/ui/primitives/input';
 	import IconDot from '~icons/lucide/dot';
 	import IconCheck from '~icons/lucide/check';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { signup_schema } from '$lib/zod';
 	import { get } from 'svelte/store';
 	import AuthForm from '../AuthForm.svelte';
-	import { Alert, AlertDescription } from '$components/ui/alert';
+	import { Alert, AlertDescription } from '@fontesio/ui/primitives/alert';
 
 	export let data;
 

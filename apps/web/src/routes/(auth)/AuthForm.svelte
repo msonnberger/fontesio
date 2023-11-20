@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Button } from '$components/ui/button';
-	import IconApple from '~icons/logos/apple';
-	import IconGoogle from '~icons/logos/google-icon';
+	import { Button } from '@fontesio/ui/primitives/button';
+	import AppleIcon from '~icons/logos/apple';
+	import GoogleIcon from '~icons/logos/google-icon';
 
 	export let heading: string;
 	export let subheading: string = '';
@@ -15,11 +15,11 @@
 <div class="grid gap-4">
 	<div class="grid grid-cols-2 gap-4 mt-6">
 		<Button variant="outline">
-			<IconApple class="mr-2 h-4 w-4 -translate-y-[1px]" />
+			<AppleIcon class="mr-2 h-4 w-4 -translate-y-[1px]" />
 			Sign in with Apple
 		</Button>
 		<Button variant="outline" href="/login/google">
-			<IconGoogle class="mr-2 h-4 w-4" />
+			<GoogleIcon class="mr-2 h-4 w-4" />
 			Sign in with Google
 		</Button>
 	</div>
