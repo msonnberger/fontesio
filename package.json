@@ -1,14 +1,15 @@
 {
 	"private": true,
 	"scripts": {
-		"build": "turbo run build",
-		"dev": "turbo run dev",
+		"build": "dotenv -- turbo run build",
+		"dev": "dotenv -- turbo run dev",
 		"check": "turbo run check",
 		"lint": "turbo run lint",
-		"test": "turbo run test",
+		"test": "dotenv -- turbo run test",
 		"format": "prettier --plugin prettier-plugin-svelte --write ."
 	},
 	"devDependencies": {
+		"dotenv-cli": "7.3.0",
 		"eslint": "8.54.0",
 		"prettier": "3.1.0",
 		"prettier-plugin-svelte": "3.1.0",
@@ -16,6 +17,7 @@
 	},
 	"packageManager": "pnpm@8.10.5",
 	"engines": {
-		"pnpm": ">=8.6"
+		"pnpm": ">=8.6",
+		"node": ">=20.0.0"
 	}
 }

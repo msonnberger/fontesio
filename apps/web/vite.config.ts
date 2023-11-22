@@ -7,4 +7,7 @@ export default defineConfig({
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
 	},
+	define: {
+		'process.env': process.env,
+	},
 });

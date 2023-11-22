@@ -39,6 +39,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fontesio/config": "workspace:*",
+		"@fontesio/env": "workspace:*",
 		"@fontesio/ui": "workspace:*",
 		"@lucia-auth/adapter-postgresql": "2.0.2",
 		"@lucia-auth/oauth": "3.5.0",
