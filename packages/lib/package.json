@@ -1,0 +1,8 @@
+{
+	"name": "@fontesio/lib",
+	"version": "0.0.0",
+	"main": "index.ts",
+	"dependencies": {
+		"zod": "3.22.4"
+	}
+}
