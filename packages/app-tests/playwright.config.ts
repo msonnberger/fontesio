@@ -6,7 +6,7 @@ const config: PlaywrightTestConfig = {
 	testDir: 'playwright',
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/,
 	webServer: {
-		command: 'cd ../../apps/web && pnpm preview',
+		command: 'cd ../../apps/web && pnpm build && pnpm preview',
 		port: 3000,
 	},
 };
