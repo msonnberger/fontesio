@@ -1,8 +1,6 @@
-import {
-	generate_verification_code,
-	send_verification_code,
-	validate_verification_code,
-} from '$lib/features/auth/verification-code';
+import { send_verification_code } from '$lib/features/auth/verification-code';
+import { create_verification_code } from '@fontesio/lib/server-only/auth/create-verification-code';
+import { validate_verification_code } from '@fontesio/lib/server-only/auth/validate-verification-code';
 import { auth } from '$lib/server/lucia';
 import { redis } from '$lib/server/redis';
 import { error, redirect } from '@sveltejs/kit';
@@ -48,10 +46,10 @@ export const actions = {
 				throw error(400);
 			}
 
-			const user_id = await validate_verification_code(
-				session.user.userId,
-				code.replaceAll(',', ''),
-			);
+			const user_id = await validate_verification_code({
+				user_id: session.user.userId,
+				code: code.replaceAll(',', ''),
+			});
 			const user = await auth.getUser(user_id);
 			await auth.invalidateAllUserSessions(user.userId);
 			await auth.updateUserAttributes(user.userId, {
@@ -83,7 +81,7 @@ export const actions = {
 		}
 
 		try {
-			const token = await generate_verification_code(session.user.userId);
+			const token = await create_verification_code({ user_id: session.user.userId });
 			await send_verification_code(session.user.email, token);
 
 			return {

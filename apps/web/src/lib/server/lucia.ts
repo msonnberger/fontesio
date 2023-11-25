@@ -5,8 +5,8 @@ import { dev } from '$app/environment';
 import { postgres } from '@lucia-auth/adapter-postgresql';
 import { google } from '@lucia-auth/oauth/providers';
 import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
-import { sql } from './db';
 import { WEBAPP_URL } from '$lib/utils/constants';
+import { sql } from '@fontesio/drizzle';
 
 export const auth = lucia({
 	env: dev ? 'DEV' : 'PROD',

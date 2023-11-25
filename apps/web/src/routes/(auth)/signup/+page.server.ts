@@ -1,16 +1,12 @@
-import {
-	generate_verification_code,
-	send_verification_code,
-} from '$lib/features/auth/verification-code';
-import { db } from '$lib/server/db';
-import { users } from '$lib/server/db/schema';
+import { send_verification_code } from '$lib/features/auth/verification-code';
+import { create_verification_code } from '@fontesio/lib/server-only/auth/create-verification-code';
+import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
 import { auth } from '$lib/server/lucia';
 import { generate_uuid_v7 } from '$lib/utils/uuid';
 import { fail, redirect } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { signup_schema } from '$lib/zod';
-import { LuciaError } from 'lucia';
+import { LuciaError, type User } from 'lucia';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
@@ -37,32 +33,31 @@ export const actions = {
 
 		try {
 			const get_user = async () => {
-				const [existing_db_user] = await db.select().from(users).where(eq(users.email, email));
+				let user: User;
 
-				if (existing_db_user) {
-					const user = auth.transformDatabaseUser(existing_db_user);
+				try {
+					const existing_db_user = await get_user_by_email({ email });
+					user = auth.transformDatabaseUser(existing_db_user);
 					await auth.createKey({
 						providerId: 'email',
 						userId: user.userId,
 						providerUserId: email.toLowerCase(),
 						password,
 					});
-
-					return user;
+				} catch (e) {
+					user = await auth.createUser({
+						userId: generate_uuid_v7(),
+						key: {
+							providerId: 'email',
+							providerUserId: email.toLowerCase(),
+							password,
+						},
+						attributes: {
+							email,
+							email_verified: false,
+						},
+					});
 				}
-
-				const user = await auth.createUser({
-					userId: generate_uuid_v7(),
-					key: {
-						providerId: 'email',
-						providerUserId: email.toLowerCase(),
-						password,
-					},
-					attributes: {
-						email,
-						email_verified: false,
-					},
-				});
 
 				return user;
 			};
@@ -74,7 +69,7 @@ export const actions = {
 			});
 
 			if (!user.email_verified) {
-				const code = await generate_verification_code(user.userId);
+				const code = await create_verification_code({ user_id: user.userId });
 				await send_verification_code(email, code);
 				user_not_verified = true;
 			}

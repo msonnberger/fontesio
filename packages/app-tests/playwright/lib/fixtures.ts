@@ -1,14 +1,9 @@
 import { test as base } from '@playwright/test';
-import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
 import { create_users_fixture } from '../fixtures/users';
-import postgres from 'postgres';
-import { drizzle } from 'drizzle-orm/postgres-js';
-
-export const sql = postgres(process.env.DATABASE_URL!);
-export const db = drizzle(sql);
+import { db, type DrizzleDb } from '@fontesio/drizzle';
 
 interface Fixtures {
-	db: PostgresJsDatabase;
+	db: DrizzleDb;
 	users: ReturnType<typeof create_users_fixture>;
 }
 

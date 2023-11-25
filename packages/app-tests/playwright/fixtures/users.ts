@@ -1,36 +1,24 @@
 import type { Page, WorkerInfo } from '@playwright/test';
-import { users, type User, user_keys } from '$lib/server/db/schema';
-import { generate_uuid_v7 } from '$lib/utils/uuid';
+import { users, type User, user_keys } from '@fontesio/drizzle/schema';
+import { create_user } from '@fontesio/lib/server-only/users/create-user';
 import { eq, inArray } from 'drizzle-orm';
-import type { PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import { generateLuciaPasswordHash } from 'lucia/utils';
+import { generateScryptHash } from '../crypto-utils/hash';
+import type { DrizzleDb } from '@fontesio/drizzle';
 
 type UserFixture = ReturnType<typeof create_user_fixture>;
 
-export function create_users_fixture(page: Page, worker_info: WorkerInfo, db: PostgresJsDatabase) {
+export function create_users_fixture(page: Page, worker_info: WorkerInfo, db: DrizzleDb) {
 	const store = { users: [], page } as { users: UserFixture[]; page: typeof page };
 
 	return {
 		create: async () => {
-			const email = `${worker_info.workerIndex}-${Date.now()}@Test.com`;
-
-			const [user] = await db
-				.insert(users)
-				.values({
-					id: generate_uuid_v7(),
-					email,
-					email_verified: true,
-				})
-				.returning();
-
-			if (!user) {
-				throw new Error('Could not create user');
-			}
+			const email = `test-${worker_info.workerIndex}-${Date.now()}@fontesio.com`;
+			const user = await create_user({ email, email_verified: true });
 
 			await db.insert(user_keys).values({
 				id: `email:${email.toLowerCase()}`,
 				user_id: user.id,
-				hashed_password: await generateLuciaPasswordHash(email),
+				hashed_password: await generateScryptHash(email),
 			});
 
 			const user_fixture = create_user_fixture(user, store.page, db);
@@ -53,7 +41,7 @@ export function create_users_fixture(page: Page, worker_info: WorkerInfo, db: Po
 	};
 }
 
-function create_user_fixture(user: User, page: Page, db: PostgresJsDatabase) {
+function create_user_fixture(user: User, page: Page, db: DrizzleDb) {
 	const store = { user, page };
 
 	return {
@@ -64,7 +52,9 @@ function create_user_fixture(user: User, page: Page, db: PostgresJsDatabase) {
 		logout: async () => {
 			await page.goto('/logout');
 		},
-		delete: async () => await db.delete(users).where(eq(users.id, store.user.id)),
+		delete: async () => {
+			await db.delete(users).where(eq(users.id, store.user.id));
+		},
 	};
 }
 

@@ -9,6 +9,9 @@
 		"check": {},
 		"lint": {},
 		"test": {},
+		"test:browser": {
+			"dependsOn": ["^build"]
+		},
 		"dev": {
 			"cache": false,
 			"persistent": true

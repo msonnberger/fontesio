@@ -12,4 +12,5 @@ pnpm-workspace.yaml
 package-lock.json
 yarn.lock
 
-apps/web/drizzle/**
+apps/web/build
+packages/drizzle/migrations/

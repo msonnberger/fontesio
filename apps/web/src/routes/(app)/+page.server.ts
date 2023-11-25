@@ -1,9 +1,8 @@
-import { csl_json_schema } from '$lib/citations/schema';
-import { db } from '$lib/server/db';
-import { resources } from '$lib/server/db/schema';
+import { csl_json_schema } from '@fontesio/citations/csl-json-schema';
 import { error, fail, redirect } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
 import { superValidate } from 'sveltekit-superforms/server';
+import { get_all_resources_by_user_id } from '@fontesio/lib/server-only/resources/get-all-resources-by-user-id';
+import { create_resource } from '@fontesio/lib/server-only/resources/create-resource';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
@@ -16,15 +15,10 @@ export async function load({ locals }) {
 		throw redirect(302, '/verify-email');
 	}
 
-	const all_resources = await db
-		.select()
-		.from(resources)
-		.where(eq(resources.user_id, session.user.userId));
-
 	return {
 		user: session.user,
 		form: superValidate(csl_json_schema),
-		resources: all_resources,
+		resources: get_all_resources_by_user_id({ user_id: session.user.userId }),
 	};
 }
 
@@ -44,10 +38,7 @@ export const actions = {
 			});
 		}
 
-		await db.insert(resources).values({
-			user_id: session.user.userId,
-			csl_json: form.data,
-		});
+		await create_resource({ user_id: session.user.userId, csl_json: form.data });
 
 		return {
 			form,
