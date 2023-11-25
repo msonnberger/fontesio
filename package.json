@@ -6,6 +6,7 @@
 		"check": "turbo run check",
 		"lint": "turbo run lint",
 		"test": "dotenv -- turbo run test",
+		"test:browser": "dotenv -- turbo run test:browser",
 		"format": "prettier --plugin prettier-plugin-svelte --write .",
 		"db:generate": "pnpm --filter @fontesio/drizzle db:generate",
 		"db:migrate": "pnpm --filter @fontesio/drizzle db:migrate",

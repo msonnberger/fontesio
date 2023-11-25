@@ -1,27 +1,27 @@
 {
-  "version": "5",
-  "dialect": "pg",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "5",
-      "when": 1691070666606,
-      "tag": "0000_fantastic_gabe_jones",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1691957673323,
-      "tag": "0001_modern_ulik",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1700409279512,
-      "tag": "0002_swift_starbolt",
-      "breakpoints": true
-    }
-  ]
+	"version": "5",
+	"dialect": "pg",
+	"entries": [
+		{
+			"idx": 0,
+			"version": "5",
+			"when": 1691070666606,
+			"tag": "0000_fantastic_gabe_jones",
+			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "5",
+			"when": 1691957673323,
+			"tag": "0001_modern_ulik",
+			"breakpoints": true
+		},
+		{
+			"idx": 2,
+			"version": "5",
+			"when": 1700409279512,
+			"tag": "0002_swift_starbolt",
+			"breakpoints": true
+		}
+	]
 }

@@ -1,10 +1,9 @@
-import { db } from '$lib/server/db';
-import { users } from '$lib/server/db/schema';
 import { auth, google_auth, is_valid_oauth_provider } from '$lib/server/lucia';
 import { generate_uuid_v7 } from '$lib/utils/uuid';
+import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email.js';
 import { OAuthRequestError } from '@lucia-auth/oauth';
 import { error, redirect } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import type { User } from 'lucia';
 
 export async function GET({ url, cookies, locals, params }) {
 	if (!is_valid_oauth_provider(params.provider)) {
@@ -31,21 +30,18 @@ export async function GET({ url, cookies, locals, params }) {
 				throw error(400, 'Email not verified');
 			}
 
-			const [existing_db_user] = await db
-				.select()
-				.from(users)
-				.where(eq(users.email, googleUser.email));
+			let user: User;
 
-			if (existing_db_user) {
-				const user = auth.transformDatabaseUser(existing_db_user);
+			try {
+				const existing_db_user = await get_user_by_email({ email: googleUser.email });
+				user = auth.transformDatabaseUser(existing_db_user);
 				await createKey(user.userId);
-				return user;
+			} catch (e) {
+				user = await createUser({
+					userId: generate_uuid_v7(),
+					attributes: { email: googleUser.email, email_verified: googleUser.email_verified },
+				});
 			}
-
-			const user = await createUser({
-				userId: generate_uuid_v7(),
-				attributes: { email: googleUser.email, email_verified: googleUser.email_verified },
-			});
 
 			return user;
 		};

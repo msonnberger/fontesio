@@ -3,6 +3,10 @@
 	"version": "0.0.0",
 	"main": "index.ts",
 	"dependencies": {
+		"@fontesio/citations": "workspace:*",
+		"@fontesio/drizzle": "workspace:*",
+		"drizzle-orm": "0.29.0",
+		"lucia": "2.7.4",
 		"zod": "3.22.4"
 	}
 }

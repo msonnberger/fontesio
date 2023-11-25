@@ -191,10 +191,6 @@ export const csl_json_schema = z
 	})
 	.catchall(z.never());
 
-export type CslJsonResource = z.infer<CslJsonSchema>;
-
-export type CslJsonSchema = typeof csl_json_schema;
-
 export const csl_json_fields = Object.keys(
 	csl_json_schema.shape,
 ) as unknown as keyof typeof csl_json_schema.shape;

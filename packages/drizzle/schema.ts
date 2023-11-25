@@ -1,5 +1,5 @@
-import type { CslJsonResource } from '@fontesio/lib/citations/schema';
-import { generate_uuid_v7 } from '@fontesio/lib/uuid';
+import type { CslJsonResource } from '@fontesio/citations/types';
+import { generate_uuid_v7 } from './uuid';
 import {
 	pgTable,
 	uuid,
@@ -16,7 +16,9 @@ import { z } from 'zod';
 export const users = pgTable(
 	'users',
 	{
-		id: uuid('id').primaryKey(),
+		id: uuid('id')
+			.primaryKey()
+			.$defaultFn(() => generate_uuid_v7()),
 		email: text('email').notNull(),
 		email_verified: boolean('email_verified').notNull().default(false),
 	},
@@ -54,7 +56,9 @@ export const sessions = pgTable('sessions', {
 export const email_verification_codes = pgTable(
 	'email_verification_codes',
 	{
-		id: uuid('id').primaryKey(),
+		id: uuid('id')
+			.primaryKey()
+			.$defaultFn(() => generate_uuid_v7()),
 		code: text('code').notNull(),
 		expires: bigint('expires', { mode: 'number' }).notNull(),
 		user_id: uuid('user_id')

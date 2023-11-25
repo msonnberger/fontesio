@@ -4,7 +4,7 @@
 	import * as DropdownMenu from '@fontesio/ui/primitives/dropdown-menu';
 	import { Button } from '@fontesio/ui/primitives/button';
 	import { unslugify } from '$lib/utils/unslugify';
-	import { csl_types } from '$lib/citations/schema';
+	import { csl_types } from '@fontesio/citations/csl-json-schema';
 	import PlusCircle from '~icons/lucide/plus-circle';
 	import Form from './Form.svelte';
 	import { page } from '$app/stores';

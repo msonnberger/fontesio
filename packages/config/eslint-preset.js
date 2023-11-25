@@ -38,6 +38,7 @@ module.exports = {
 				argsIgnorePattern: '^_',
 			},
 		],
+		'@typescript-eslint/ban-ts-commments': 'off',
 		'svelte/valid-compile': [
 			'error',
 			{

@@ -1,0 +1,15 @@
+{
+	"name": "@fontesio/app-tests",
+	"version": "0.0.0",
+	"scripts": {
+		"test:browser": "playwright test"
+	},
+	"devDependencies": {
+		"@fontesio/drizzle": "workspace:*",
+		"@fontesio/lib": "workspace:*",
+		"@fontesio/tsconfig": "workspace:*",
+		"@playwright/test": "1.40.0",
+		"drizzle-orm": "0.29.0",
+		"lucia": "2.7.4"
+	}
+}
