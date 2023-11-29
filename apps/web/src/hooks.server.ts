@@ -1,4 +1,4 @@
-import { auth } from '$lib/server/lucia';
+import { auth } from '@fontesio/lib/lucia/auth';
 
 export async function handle({ event, resolve }) {
 	event.locals.auth = auth.handleRequest(event);

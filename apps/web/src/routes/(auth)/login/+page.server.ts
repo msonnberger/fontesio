@@ -1,4 +1,4 @@
-import { auth } from '$lib/server/lucia';
+import { auth } from '@fontesio/lib/lucia/auth';
 import { LuciaError } from 'lucia';
 import { fail, redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';

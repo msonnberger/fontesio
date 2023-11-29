@@ -13,7 +13,7 @@ declare global {
 	}
 
 	namespace Lucia {
-		type Auth = import('$lib/server/lucia').Auth;
+		type Auth = import('@fontesio/lib/lucia/auth').Auth;
 		type DatabaseUserAttributes = {
 			email: string;
 			email_verified: boolean;

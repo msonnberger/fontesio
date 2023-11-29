@@ -19,7 +19,7 @@
 	},
 	"devDependencies": {
 		"dotenv-cli": "7.3.0",
-		"drizzle-kit": "0.20.4",
+		"drizzle-kit": "0.20.6",
 		"tsx": "4.3.0"
 	}
 }

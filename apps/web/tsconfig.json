@@ -7,6 +7,7 @@
 			"$lib/*": ["./src/lib/*"],
 			"$components": ["./src/lib/components"],
 			"$components/*": ["./src/lib/components/*"]
-		}
+		},
+		"jsx": "react" // needed for type checking @fontesio/email
 	}
 }

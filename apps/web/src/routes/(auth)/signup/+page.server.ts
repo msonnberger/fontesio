@@ -1,8 +1,7 @@
-import { send_verification_code } from '$lib/features/auth/verification-code';
-import { create_verification_code } from '@fontesio/lib/server-only/auth/create-verification-code';
+import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
 import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
-import { auth } from '$lib/server/lucia';
-import { generate_uuid_v7 } from '$lib/utils/uuid';
+import { auth } from '@fontesio/lib/lucia/auth';
+import { generate_uuid_v7 } from '@fontesio/drizzle/uuid';
 import { fail, redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { signup_schema } from '$lib/zod';
@@ -69,8 +68,7 @@ export const actions = {
 			});
 
 			if (!user.email_verified) {
-				const code = await create_verification_code({ user_id: user.userId });
-				await send_verification_code(email, code);
+				await send_verification_email({ user_id: user.userId, email: user.email });
 				user_not_verified = true;
 			}
 

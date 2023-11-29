@@ -1,7 +1,6 @@
-.DS_Store
-.svelte-kit
+.vercel
 node_modules
-build
+/build
 .env
 .env.*
 !.env.example
@@ -11,3 +10,7 @@ pnpm-lock.yaml
 pnpm-workspace.yaml
 package-lock.json
 yarn.lock
+
+apps/web/build
+apps/web/.svelte-kit
+packages/drizzle/migrations/

@@ -1,10 +1,8 @@
-import { send_verification_code } from '$lib/features/auth/verification-code';
-import { create_verification_code } from '@fontesio/lib/server-only/auth/create-verification-code';
+import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
 import { validate_verification_code } from '@fontesio/lib/server-only/auth/validate-verification-code';
-import { auth } from '$lib/server/lucia';
-import { redis } from '$lib/server/redis';
+import { auth } from '@fontesio/lib/lucia/auth';
+import { check_ratelimit_and_throw } from '@fontesio/lib/ratelimit/check-ratelimit-and-throw';
 import { error, redirect } from '@sveltejs/kit';
-import { Ratelimit } from '@upstash/ratelimit';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
@@ -18,12 +16,6 @@ export async function load({ locals }) {
 	}
 }
 
-const ratelimit = new Ratelimit({
-	redis: redis,
-	limiter: Ratelimit.slidingWindow(10, '1m'),
-	analytics: true,
-});
-
 export const actions = {
 	verify: async ({ locals, request }) => {
 		try {
@@ -33,11 +25,7 @@ export const actions = {
 				throw error(401);
 			}
 
-			const { success } = await ratelimit.limit(session.user.userId);
-
-			if (!success) {
-				throw error(429);
-			}
+			await check_ratelimit_and_throw({ identifier: session.user.email });
 
 			const data = await request.formData();
 			const code = data.get('verification_code') as string | null;
@@ -81,8 +69,8 @@ export const actions = {
 		}
 
 		try {
-			const token = await create_verification_code({ user_id: session.user.userId });
-			await send_verification_code(session.user.email, token);
+			const { email, userId } = session.user;
+			await send_verification_email({ email, user_id: userId });
 
 			return {
 				new_code_sent: true,
