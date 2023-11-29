@@ -1,5 +1,5 @@
 import { dev } from '$app/environment';
-import { google_auth, is_valid_oauth_provider } from '$lib/server/lucia.js';
+import { google_auth, is_valid_oauth_provider } from '@fontesio/lib/lucia/oauth';
 import { error, redirect } from '@sveltejs/kit';
 
 export async function GET({ cookies, params }) {

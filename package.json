@@ -2,7 +2,7 @@
 	"private": true,
 	"scripts": {
 		"build": "dotenv -- turbo run build",
-		"dev": "dotenv -- turbo run dev",
+		"dev": "dotenv -- turbo run dev --concurrency 11",
 		"check": "turbo run check",
 		"lint": "turbo run lint",
 		"test": "dotenv -- turbo run test",

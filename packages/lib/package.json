@@ -5,6 +5,12 @@
 	"dependencies": {
 		"@fontesio/citations": "workspace:*",
 		"@fontesio/drizzle": "workspace:*",
+		"@fontesio/email": "workspace:*",
+		"@fontesio/env": "workspace:*",
+		"@lucia-auth/adapter-postgresql": "2.0.2",
+		"@lucia-auth/oauth": "3.5.0",
+		"@upstash/ratelimit": "0.4.4",
+		"@upstash/redis": "1.25.1",
 		"drizzle-orm": "0.29.0",
 		"lucia": "2.7.4",
 		"zod": "3.22.4"

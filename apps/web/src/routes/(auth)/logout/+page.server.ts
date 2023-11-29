@@ -1,4 +1,4 @@
-import { auth } from '$lib/server/lucia';
+import { auth } from '@fontesio/lib/lucia/auth';
 import { error, redirect } from '@sveltejs/kit';
 
 export const actions = {
