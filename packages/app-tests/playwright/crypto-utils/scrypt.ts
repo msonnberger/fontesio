@@ -1,4 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 // https://github.com/lucia-auth/lucia/blob/dd0fc52a46dd7e91fcdfb790239fe535a5abb6b0/packages/lucia/src/scrypt/index.ts
 

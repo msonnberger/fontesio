@@ -12,7 +12,6 @@
 		"fix:biome": "biome check --apply-unsafe .",
 		"test": "dotenv -- turbo run test",
 		"test:browser": "dotenv -- turbo run test:browser",
-		"format": "prettier --plugin prettier-plugin-svelte --write .",
 		"db:generate": "pnpm --filter @fontesio/drizzle db:generate",
 		"db:migrate": "pnpm --filter @fontesio/drizzle db:migrate",
 		"db:push": "pnpm --filter @fontesio/drizzle db:push",

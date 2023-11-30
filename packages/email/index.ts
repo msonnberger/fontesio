@@ -3,7 +3,7 @@ import { render as react_email_render } from '@react-email/render';
 import { createTransport } from 'nodemailer';
 import React from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny:
 interface RenderOptions<Component extends React.ComponentType<any>> {
 	template: Component;
 	props?: React.ComponentProps<Component>;
@@ -13,7 +13,7 @@ interface RenderOptions<Component extends React.ComponentType<any>> {
 	};
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// biome-ignore lint/suspicious/noExplicitAny:
 export function render<Component extends React.ComponentType<any>>({
 	template,
 	props,
