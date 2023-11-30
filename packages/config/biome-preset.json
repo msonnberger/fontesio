@@ -12,7 +12,8 @@
 		"ignore": ["*.svelte"]
 	},
 	"linter": {
-		"enabled": false
+		"enabled": true,
+		"ignore": ["scrypt.ts", "uuid.ts"]
 	},
 	"formatter": {
 		"enabled": true

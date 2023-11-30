@@ -8,6 +8,7 @@ interface Fixtures {
 }
 
 export const test = base.extend<Fixtures>({
+	// biome-ignore lint/correctness/noEmptyPattern: Playwright requires object destructuring pattern
 	db: async ({}, use) => {
 		await use(db);
 	},

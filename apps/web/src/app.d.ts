@@ -33,5 +33,3 @@ declare global {
 		startViewTransition(updateCallback: () => Promise<void>): ViewTransition;
 	}
 }
-
-export {};

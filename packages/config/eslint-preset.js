@@ -45,11 +45,5 @@ module.exports = {
 				ignoreWarnings: true,
 			},
 		],
-		'no-empty-pattern': [
-			'error',
-			{
-				allowObjectPatternsAsParameters: true,
-			},
-		],
 	},
 };
