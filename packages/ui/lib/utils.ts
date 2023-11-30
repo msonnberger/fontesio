@@ -1,7 +1,7 @@
 export { twMerge as cn } from 'tailwind-merge';
 
-import type { TransitionConfig } from 'svelte/transition';
 import { cubicOut } from 'svelte/easing';
+import type { TransitionConfig } from 'svelte/transition';
 
 type FlyAndScaleParams = {
 	y?: number;

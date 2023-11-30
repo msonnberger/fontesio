@@ -1,6 +1,6 @@
+import { type DrizzleDb, db } from '@fontesio/drizzle';
 import { test as base } from '@playwright/test';
 import { create_users_fixture } from '../fixtures/users';
-import { db, type DrizzleDb } from '@fontesio/drizzle';
 
 interface Fixtures {
 	db: DrizzleDb;

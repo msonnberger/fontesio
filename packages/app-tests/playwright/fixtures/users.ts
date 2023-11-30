@@ -1,9 +1,9 @@
-import type { Page, WorkerInfo } from '@playwright/test';
-import { users, type User, user_keys } from '@fontesio/drizzle/schema';
+import type { DrizzleDb } from '@fontesio/drizzle';
+import { type User, user_keys, users } from '@fontesio/drizzle/schema';
 import { create_user } from '@fontesio/lib/server-only/users/create-user';
+import type { Page, WorkerInfo } from '@playwright/test';
 import { eq, inArray } from 'drizzle-orm';
 import { generateScryptHash } from '../crypto-utils/hash';
-import type { DrizzleDb } from '@fontesio/drizzle';
 
 type UserFixture = ReturnType<typeof create_user_fixture>;
 

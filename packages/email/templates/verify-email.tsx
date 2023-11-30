@@ -1,17 +1,17 @@
 import { env } from '@fontesio/env/client';
-import React from 'react';
 import {
 	Body,
 	Container,
 	Head,
 	Heading,
+	Hr,
 	Html,
 	Img,
 	Link,
 	Preview,
 	Text,
-	Hr,
 } from '@react-email/components';
+import React from 'react';
 
 const logo = {
 	width: 42,

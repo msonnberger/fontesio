@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
-import { test } from './lib/fixtures';
 import { login } from './fixtures/users';
+import { test } from './lib/fixtures';
 
 test.describe.configure({ mode: 'parallel' });
 

@@ -1,8 +1,8 @@
-import { auth } from '@fontesio/lib/lucia/auth';
-import { LuciaError } from 'lucia';
-import { fail, redirect } from '@sveltejs/kit';
-import { message, superValidate } from 'sveltekit-superforms/server';
 import { login_schema } from '$lib/zod';
+import { auth } from '@fontesio/lib/lucia/auth';
+import { fail, redirect } from '@sveltejs/kit';
+import { LuciaError } from 'lucia';
+import { message, superValidate } from 'sveltekit-superforms/server';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();

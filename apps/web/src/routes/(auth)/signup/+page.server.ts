@@ -1,11 +1,11 @@
+import { signup_schema } from '$lib/zod';
+import { generate_uuid_v7 } from '@fontesio/drizzle/uuid';
+import { auth } from '@fontesio/lib/lucia/auth';
 import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
 import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
-import { auth } from '@fontesio/lib/lucia/auth';
-import { generate_uuid_v7 } from '@fontesio/drizzle/uuid';
 import { fail, redirect } from '@sveltejs/kit';
-import { message, superValidate } from 'sveltekit-superforms/server';
-import { signup_schema } from '$lib/zod';
 import { LuciaError, type User } from 'lucia';
+import { message, superValidate } from 'sveltekit-superforms/server';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();

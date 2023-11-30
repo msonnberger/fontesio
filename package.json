@@ -4,7 +4,12 @@
 		"build": "dotenv -- turbo run build",
 		"dev": "dotenv -- turbo run dev --concurrency 11",
 		"check": "turbo run check",
-		"lint": "turbo run lint",
+		"lint": "pnpm lint:biome && pnpm lint:turbo",
+		"lint:turbo": "turbo run lint",
+		"lint:biome": "biome check .",
+		"fix": "pnpm fix:biome && pnpm fix:turbo",
+		"fix:turbo": "turbo run fix",
+		"fix:biome": "biome check --apply-unsafe .",
 		"test": "dotenv -- turbo run test",
 		"test:browser": "dotenv -- turbo run test:browser",
 		"format": "prettier --plugin prettier-plugin-svelte --write .",
@@ -14,6 +19,7 @@
 		"db:studio": "pnpm --filter @fontesio/drizzle db:studio"
 	},
 	"devDependencies": {
+		"@biomejs/biome": "1.4.0",
 		"dotenv-cli": "7.3.0",
 		"eslint": "8.54.0",
 		"prettier": "3.1.0",

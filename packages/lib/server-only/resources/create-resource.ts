@@ -1,6 +1,6 @@
+import type { CslJsonResource } from '@fontesio/citations/types';
 import { db } from '@fontesio/drizzle';
 import { resources } from '@fontesio/drizzle/schema';
-import type { CslJsonResource } from '@fontesio/citations/types';
 
 interface CreateResourceOptions {
 	user_id: string;

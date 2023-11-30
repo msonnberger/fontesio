@@ -8,6 +8,7 @@
 		},
 		"check": {},
 		"lint": {},
+		"fix": {},
 		"test": {},
 		"test:browser": {
 			"dependsOn": ["^build"]
