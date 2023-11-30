@@ -1,7 +1,7 @@
-import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
-import { validate_verification_code } from '@fontesio/lib/server-only/auth/validate-verification-code';
 import { auth } from '@fontesio/lib/lucia/auth';
 import { check_ratelimit_and_throw } from '@fontesio/lib/ratelimit/check-ratelimit-and-throw';
+import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
+import { validate_verification_code } from '@fontesio/lib/server-only/auth/validate-verification-code';
 import { error, redirect } from '@sveltejs/kit';
 
 export async function load({ locals }) {

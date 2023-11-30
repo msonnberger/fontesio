@@ -3,7 +3,10 @@
 	"version": "0.0.0",
 	"main": "index.ts",
 	"types": "index.ts",
-	"scripts": {},
+	"scripts": {
+		"lint": "prettier --plugin prettier-plugin-svelte --check .",
+		"fix": "prettier --plugin prettier-plugin-svelte --write ."
+	},
 	"dependencies": {
 		"bits-ui": "0.9.8",
 		"formsnap": "0.4.1",

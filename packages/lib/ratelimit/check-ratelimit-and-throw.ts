@@ -1,5 +1,5 @@
-import { Redis } from '@upstash/redis';
 import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
 import { HttpError } from '../errors/http-error';
 
 interface CheckRatelimitAndThrowOptions {

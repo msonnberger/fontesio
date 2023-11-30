@@ -1,5 +1,5 @@
-import { fontFamily } from 'tailwindcss/defaultTheme';
 import tailwindcss_animate from 'tailwindcss-animate';
+import { fontFamily } from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 const config = {

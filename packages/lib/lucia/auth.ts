@@ -1,7 +1,7 @@
-import { lucia } from 'lucia';
-import { sveltekit } from 'lucia/middleware';
 import { sql } from '@fontesio/drizzle';
 import { postgres } from '@lucia-auth/adapter-postgresql';
+import { lucia } from 'lucia';
+import { sveltekit } from 'lucia/middleware';
 
 export const auth = lucia({
 	// eslint-disable-next-line turbo/no-undeclared-env-vars

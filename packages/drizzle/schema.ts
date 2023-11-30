@@ -1,17 +1,17 @@
 import type { CslJsonResource } from '@fontesio/citations/types';
-import { generate_uuid_v7 } from './uuid';
 import {
-	pgTable,
-	uuid,
-	text,
 	bigint,
-	uniqueIndex,
 	boolean,
 	jsonb,
+	pgTable,
+	text,
 	timestamp,
+	uniqueIndex,
+	uuid,
 } from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
+import { generate_uuid_v7 } from './uuid';
 
 export const users = pgTable(
 	'users',

@@ -1,6 +1,6 @@
-import { google } from '@lucia-auth/oauth/providers';
-import { env as server_env } from '@fontesio/env/server';
 import { env as client_env } from '@fontesio/env/client';
+import { env as server_env } from '@fontesio/env/server';
+import { google } from '@lucia-auth/oauth/providers';
 import { auth } from './auth';
 
 export { OAuthRequestError } from '@lucia-auth/oauth';

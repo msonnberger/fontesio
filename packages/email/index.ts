@@ -1,6 +1,6 @@
-import { createTransport } from 'nodemailer';
 import { env } from '@fontesio/env/server';
 import { render as react_email_render } from '@react-email/render';
+import { createTransport } from 'nodemailer';
 import React from 'react';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

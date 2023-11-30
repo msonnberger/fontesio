@@ -1,6 +1,6 @@
-import { google_auth, is_valid_oauth_provider, OAuthRequestError } from '@fontesio/lib/lucia/oauth';
-import { auth } from '@fontesio/lib/lucia/auth';
 import { generate_uuid_v7 } from '@fontesio/drizzle/uuid';
+import { auth } from '@fontesio/lib/lucia/auth';
+import { OAuthRequestError, google_auth, is_valid_oauth_provider } from '@fontesio/lib/lucia/oauth';
 import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
 import { error, redirect } from '@sveltejs/kit';
 import type { User } from 'lucia';
