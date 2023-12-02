@@ -1,7 +1,7 @@
 name: fontesio-services
 services:
   database:
-    image: postgres:15
+    image: postgres:16
     container_name: database
     environment:
       - POSTGRES_USER=fontesio
