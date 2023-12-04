@@ -11,7 +11,7 @@
 		"@lucia-auth/oauth": "3.5.0",
 		"@upstash/ratelimit": "0.4.4",
 		"@upstash/redis": "1.25.1",
-		"drizzle-orm": "0.29.0",
+		"drizzle-orm": "0.29.1",
 		"lucia": "2.7.4",
 		"zod": "3.22.4"
 	}
