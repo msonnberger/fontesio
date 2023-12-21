@@ -1,17 +1,16 @@
 import { signup_schema } from '$lib/zod';
 import { generate_uuid_v7 } from '@fontesio/drizzle/uuid';
-import { auth } from '@fontesio/lib/lucia/auth';
+import { LuciaError, type User, auth } from '@fontesio/lib/lucia/auth';
 import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
 import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
 import { fail, redirect } from '@sveltejs/kit';
-import { LuciaError, type User } from 'lucia';
 import { message, superValidate } from 'sveltekit-superforms/server';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
 
 	if (session) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 
 	const form = await superValidate(signup_schema, { errors: true });
@@ -68,7 +67,10 @@ export const actions = {
 			});
 
 			if (!user.email_verified) {
-				await send_verification_email({ user_id: user.userId, email: user.email });
+				await send_verification_email({
+					user_id: user.userId,
+					email: user.email,
+				});
 				user_not_verified = true;
 			}
 
@@ -83,6 +85,6 @@ export const actions = {
 			return message(form, 'An unknown error occured.');
 		}
 
-		throw redirect(302, user_not_verified ? '/verify-email' : '/');
+		redirect(302, user_not_verified ? '/verify-email' : '/');
 	},
 };

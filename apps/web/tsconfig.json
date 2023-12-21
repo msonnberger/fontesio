@@ -1,13 +1,6 @@
 {
 	"extends": ["@fontesio/tsconfig/base.json", "./.svelte-kit/tsconfig.json"],
 	"compilerOptions": {
-		"baseUrl": ".",
-		"paths": {
-			"$lib": ["./src/lib"],
-			"$lib/*": ["./src/lib/*"],
-			"$components": ["./src/lib/components"],
-			"$components/*": ["./src/lib/components/*"]
-		},
-		"jsx": "react" // needed for type checking @fontesio/email
+		"jsx": "react"
 	}
 }

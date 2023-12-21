@@ -1,3 +1,4 @@
+import { Select as SelectPrimitive } from 'bits-ui';
 import { Form as FormPrimitive, getFormField } from 'formsnap';
 import type { Writable } from 'svelte/store';
 import * as RadioGroupComp from '../radio-group';
@@ -22,7 +23,7 @@ const RadioItem = RadioGroupComp.Item;
 const NativeRadio = FormPrimitive.Radio;
 const SelectContent = SelectComp.Content;
 const SelectLabel = SelectComp.Label;
-const SelectGroup = SelectComp.Group;
+const SelectGroup: typeof SelectPrimitive.Group = SelectComp.Group;
 const SelectItem = SelectComp.Item;
 const SelectSeparator = SelectComp.Separator;
 
