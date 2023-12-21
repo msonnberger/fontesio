@@ -12,7 +12,7 @@
 		"@upstash/ratelimit": "1.0.0",
 		"@upstash/redis": "1.25.1",
 		"drizzle-orm": "0.29.1",
-		"lucia": "2.7.4",
+		"lucia": "2.7.5",
 		"zod": "3.22.4"
 	}
 }

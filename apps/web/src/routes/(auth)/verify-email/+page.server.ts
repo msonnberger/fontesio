@@ -8,11 +8,11 @@ export async function load({ locals }) {
 	const session = await locals.auth.validate();
 
 	if (!session) {
-		throw redirect(302, '/login');
+		redirect(302, '/login');
 	}
 
 	if (session.user.email_verified) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 }
 
@@ -22,7 +22,7 @@ export const actions = {
 			let session = await locals.auth.validate();
 
 			if (!session) {
-				throw error(401);
+				error(401);
 			}
 
 			await check_ratelimit_and_throw({ identifier: session.user.email });
@@ -31,7 +31,7 @@ export const actions = {
 			const code = data.get('verification_code') as string | null;
 
 			if (!code) {
-				throw error(400);
+				error(400);
 			}
 
 			const user_id = await validate_verification_code({
@@ -52,20 +52,20 @@ export const actions = {
 			locals.auth.setSession(session);
 		} catch (e) {
 			console.error(e);
-			throw error(400, 'Invalid verification code');
+			error(400, 'Invalid verification code');
 		}
 
-		throw redirect(302, '/');
+		redirect(302, '/');
 	},
 	new_code: async ({ locals }) => {
 		const session = await locals.auth.validate();
 
 		if (!session) {
-			throw error(401);
+			error(401);
 		}
 
 		if (session.user.email_verified) {
-			throw error(422);
+			error(422);
 		}
 
 		try {
@@ -76,7 +76,7 @@ export const actions = {
 				new_code_sent: true,
 			};
 		} catch {
-			throw error(500);
+			error(500);
 		}
 	},
 };

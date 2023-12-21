@@ -1,5 +1,5 @@
 import adapter from '@sveltejs/adapter-vercel';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -16,9 +16,6 @@ const config = {
 		env: {
 			dir: '../..', // .env is in monorepo root
 		},
-	},
-	shadcn: {
-		componentPath: './src/lib/components/ui',
 	},
 };
 

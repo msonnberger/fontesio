@@ -8,17 +8,19 @@ export async function load({ locals }) {
 	const session = await locals.auth.validate();
 
 	if (!session) {
-		throw redirect(302, '/login');
+		redirect(302, '/login');
 	}
 
 	if (!session.user.email_verified) {
-		throw redirect(302, '/verify-email');
+		redirect(302, '/verify-email');
 	}
 
 	return {
 		user: session.user,
 		form: superValidate(csl_json_schema),
-		resources: get_all_resources_by_user_id({ user_id: session.user.userId }),
+		resources: await get_all_resources_by_user_id({
+			user_id: session.user.userId,
+		}),
 	};
 }
 
@@ -27,7 +29,7 @@ export const actions = {
 		const session = await event.locals.auth.validate();
 
 		if (!session) {
-			throw error(401);
+			error(401);
 		}
 
 		const form = await superValidate(event, csl_json_schema);
@@ -38,7 +40,10 @@ export const actions = {
 			});
 		}
 
-		await create_resource({ user_id: session.user.userId, csl_json: form.data });
+		await create_resource({
+			user_id: session.user.userId,
+			csl_json: form.data,
+		});
 
 		return {
 			form,

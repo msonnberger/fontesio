@@ -1,14 +1,13 @@
 import { login_schema } from '$lib/zod';
-import { auth } from '@fontesio/lib/lucia/auth';
+import { LuciaError, auth } from '@fontesio/lib/lucia/auth';
 import { fail, redirect } from '@sveltejs/kit';
-import { LuciaError } from 'lucia';
 import { message, superValidate } from 'sveltekit-superforms/server';
 
 export async function load({ locals }) {
 	const session = await locals.auth.validate();
 
 	if (session) {
-		throw redirect(302, '/');
+		redirect(302, '/');
 	}
 
 	const form = await superValidate(login_schema);
@@ -43,6 +42,6 @@ export const actions = {
 			return message(form, 'An unknown error occured.');
 		}
 
-		throw redirect(302, '/');
+		redirect(302, '/');
 	},
 };

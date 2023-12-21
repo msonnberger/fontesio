@@ -4,7 +4,7 @@ import { error, redirect } from '@sveltejs/kit';
 
 export async function GET({ cookies, params }) {
 	if (!is_valid_oauth_provider(params.provider)) {
-		throw error(404);
+		error(404);
 	}
 
 	const [url, state] = await google_auth.getAuthorizationUrl();
@@ -16,5 +16,5 @@ export async function GET({ cookies, params }) {
 		maxAge: 60 * 60,
 	});
 
-	throw redirect(302, url.toString());
+	redirect(302, url.toString());
 }
