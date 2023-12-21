@@ -10,7 +10,7 @@
 		"@lucia-auth/adapter-postgresql": "2.0.2",
 		"@lucia-auth/oauth": "3.5.0",
 		"@upstash/ratelimit": "1.0.0",
-		"@upstash/redis": "1.25.1",
+		"@upstash/redis": "1.27.1",
 		"drizzle-orm": "0.29.1",
 		"lucia": "2.7.5",
 		"zod": "3.22.4"
