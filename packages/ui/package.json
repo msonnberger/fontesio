@@ -8,7 +8,7 @@
 		"fix": "prettier --plugin prettier-plugin-svelte --write . && eslint --fix ."
 	},
 	"dependencies": {
-		"bits-ui": "0.10.0",
+		"bits-ui": "0.11.8",
 		"formsnap": "0.4.1",
 		"svelte": "4.2.8",
 		"tailwind-merge": "2.1.0",

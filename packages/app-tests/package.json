@@ -10,6 +10,6 @@
 		"@fontesio/tsconfig": "workspace:*",
 		"@playwright/test": "1.40.1",
 		"drizzle-orm": "0.29.1",
-		"lucia": "2.7.4"
+		"lucia": "2.7.5"
 	}
 }
