@@ -8,11 +8,11 @@
 		"@fontesio/email": "workspace:*",
 		"@fontesio/env": "workspace:*",
 		"@lucia-auth/adapter-postgresql": "2.0.2",
-		"@lucia-auth/oauth": "3.5.0",
+		"@lucia-auth/oauth": "3.5.1",
 		"@upstash/ratelimit": "1.0.0",
-		"@upstash/redis": "1.27.1",
-		"drizzle-orm": "0.29.1",
-		"lucia": "2.7.5",
+		"@upstash/redis": "1.28.0",
+		"drizzle-orm": "0.29.3",
+		"lucia": "2.7.6",
 		"zod": "3.22.4"
 	}
 }
