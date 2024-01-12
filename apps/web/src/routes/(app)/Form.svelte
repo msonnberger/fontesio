@@ -30,7 +30,7 @@
 			<Form.Label>Type</Form.Label>
 			<Form.Select bind:selected>
 				<Form.SelectTrigger />
-				<Form.SelectContent>
+				<Form.SelectContent class="h-80 overflow-y-scroll">
 					{#each csl_types as type}
 						<Form.SelectItem value={type}>{unslugify(type)}</Form.SelectItem>
 					{/each}

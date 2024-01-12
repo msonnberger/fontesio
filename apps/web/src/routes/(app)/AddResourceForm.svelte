@@ -11,9 +11,13 @@
 
 	const shortcut_types = ['book', 'article-journal', 'article-newspaper', 'document', 'chapter'];
 	const more_types = csl_types.filter((type) => !shortcut_types.includes(type));
-	const set_selected = (type: string) => (selected = { value: type, label: unslugify(type) });
+
 	let sheet_open = false;
 	let selected: SelectOption<string> | undefined;
+
+	function set_selected(type: string) {
+		selected = { value: type, label: unslugify(type) };
+	}
 </script>
 
 <Sheet.Root bind:open={sheet_open}>
@@ -37,7 +41,7 @@
 			<DropdownMenu.Group>
 				<DropdownMenu.Sub>
 					<DropdownMenu.SubTrigger class="py-1">More</DropdownMenu.SubTrigger>
-					<DropdownMenu.SubContent class="overflow-y-scroll">
+					<DropdownMenu.SubContent class="h-80 w-max overflow-y-scroll">
 						{#each more_types as type}
 							<DropdownMenu.Item class="p-0">
 								<Sheet.Trigger

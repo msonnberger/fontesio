@@ -17,7 +17,7 @@ export async function load({ locals }) {
 
 	return {
 		user: session.user,
-		form: superValidate(csl_json_schema),
+		form: await superValidate(csl_json_schema),
 		resources: await get_all_resources_by_user_id({
 			user_id: session.user.userId,
 		}),
