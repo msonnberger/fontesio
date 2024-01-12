@@ -27,7 +27,7 @@ export const actions = {
 		}
 
 		const { email, password } = form.data;
-		let user_not_verified;
+		let user_not_verified = false;
 
 		try {
 			const get_user = async () => {
