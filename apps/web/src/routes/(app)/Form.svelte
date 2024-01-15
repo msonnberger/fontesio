@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { SelectOption } from '@melt-ui/svelte';
 	import * as Form from '@fontesio/ui/primitives/form';
-	import { csl_json_schema, csl_types } from '@fontesio/citations/csl-json-schema';
+	import { csl_json_schema } from '@fontesio/citations/csl-json-schema';
 	import type { CslJsonSchema } from '@fontesio/citations/types';
-	import { unslugify } from '$lib/utils/unslugify';
 	import type { SuperValidated } from 'sveltekit-superforms';
+	import CslTypeCombobox from '$lib/features/add-resource/components/csl-type-combobox.svelte';
+	import type { CslType } from '@fontesio/citations/types';
 
-	export let selected: SelectOption<string> | undefined;
+	export let initial_type: CslType;
 	export let sheet_open: boolean;
 	export let form: SuperValidated<CslJsonSchema>;
 </script>
@@ -25,17 +25,10 @@
 		},
 	}}
 >
-	<Form.Field {config} name="type">
-		<Form.Item>
+	<Form.Field {config} name="type" let:setValue let:value>
+		<Form.Item class="flex flex-col">
 			<Form.Label>Type</Form.Label>
-			<Form.Select bind:selected>
-				<Form.SelectTrigger />
-				<Form.SelectContent class="h-80 overflow-y-scroll">
-					{#each csl_types as type}
-						<Form.SelectItem value={type}>{unslugify(type)}</Form.SelectItem>
-					{/each}
-				</Form.SelectContent>
-			</Form.Select>
+			<CslTypeCombobox {value} set_value={setValue} initial_value={initial_type} />
 			<Form.Validation />
 		</Form.Item>
 	</Form.Field>

@@ -9,6 +9,7 @@
 	},
 	"dependencies": {
 		"bits-ui": "0.14.0",
+		"cmdk-sv": "0.0.13",
 		"formsnap": "0.4.2",
 		"svelte": "4.2.8",
 		"tailwind-merge": "2.2.0",
