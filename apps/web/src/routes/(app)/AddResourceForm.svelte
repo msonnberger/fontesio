@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { SelectOption } from '@melt-ui/svelte';
 	import * as Sheet from '@fontesio/ui/primitives/sheet';
 	import * as DropdownMenu from '@fontesio/ui/primitives/dropdown-menu';
 	import { Button } from '@fontesio/ui/primitives/button';
@@ -8,15 +7,22 @@
 	import PlusCircle from '~icons/lucide/plus-circle';
 	import Form from './Form.svelte';
 	import { page } from '$app/stores';
+	import type { CslType } from '@fontesio/citations/types';
 
-	const shortcut_types = ['book', 'article-journal', 'article-newspaper', 'document', 'chapter'];
+	const shortcut_types: CslType[] = [
+		'book',
+		'article-journal',
+		'article-newspaper',
+		'document',
+		'chapter',
+	];
 	const more_types = csl_types.filter((type) => !shortcut_types.includes(type));
 
 	let sheet_open = false;
-	let selected: SelectOption<string> | undefined;
+	let selected_type: CslType;
 
 	function set_selected(type: string) {
-		selected = { value: type, label: unslugify(type) };
+		selected_type = type as CslType;
 	}
 </script>
 
@@ -65,7 +71,6 @@
 				Lorem ipsum dolor sit amet consectetur adipisicing elit.
 			</Sheet.Description>
 		</Sheet.Header>
-
-		<Form bind:selected bind:sheet_open form={$page.data.form} />
+		<Form initial_type={selected_type} bind:sheet_open form={$page.data.form} />
 	</Sheet.Content>
 </Sheet.Root>

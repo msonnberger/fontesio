@@ -1,4 +1,3 @@
-import { Select as SelectPrimitive } from 'bits-ui';
 import { Form as FormPrimitive, getFormField } from 'formsnap';
 import type { Writable } from 'svelte/store';
 import * as RadioGroupComp from '../radio-group';
@@ -19,11 +18,12 @@ import Validation from './form-validation.svelte';
 
 const Root = FormPrimitive.Root;
 const Field = FormPrimitive.Field;
+const Control = FormPrimitive.Control;
 const RadioItem = RadioGroupComp.Item;
 const NativeRadio = FormPrimitive.Radio;
 const SelectContent = SelectComp.Content;
 const SelectLabel = SelectComp.Label;
-const SelectGroup: typeof SelectPrimitive.Group = SelectComp.Group;
+const SelectGroup = SelectComp.Group;
 const SelectItem = SelectComp.Item;
 const SelectSeparator = SelectComp.Separator;
 
@@ -34,6 +34,7 @@ export type TextareaGetFormField = Omit<ReturnType<typeof getFormField>, 'value'
 export {
 	Root,
 	Field,
+	Control,
 	Item,
 	Input,
 	Label,
@@ -57,6 +58,7 @@ export {
 	//
 	Root as Form,
 	Field as FormField,
+	Control as FormControl,
 	Item as FormItem,
 	Input as FormInput,
 	Textarea as FormTextarea,
