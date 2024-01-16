@@ -9,7 +9,7 @@
 	import { page } from '$app/stores';
 	import * as DropdownMenu from '@fontesio/ui/primitives/dropdown-menu';
 	import { onNavigate } from '$app/navigation';
-	import AddResourceForm from './AddResourceForm.svelte';
+	import AddResourceSheet from '$lib/features/add-resource/components/sheet.svelte';
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -84,7 +84,7 @@
 
 	<div class="w-full pl-1.5">
 		<main class="w-full h-full overflow-y-scroll bg-white rounded-lg p-8 shadow-md">
-			<AddResourceForm />
+			<AddResourceSheet />
 			<slot />
 		</main>
 	</div>

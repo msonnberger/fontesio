@@ -56,7 +56,7 @@ export const sheetTransitions = {
 	top: {
 		in: {
 			y: '-100%',
-			duration: 500,
+			duration: 300,
 			opacity: 1,
 		},
 		out: {
@@ -68,7 +68,7 @@ export const sheetTransitions = {
 	bottom: {
 		in: {
 			y: '100%',
-			duration: 500,
+			duration: 300,
 			opacity: 1,
 		},
 		out: {
@@ -80,7 +80,7 @@ export const sheetTransitions = {
 	left: {
 		in: {
 			x: '-100%',
-			duration: 500,
+			duration: 300,
 			opacity: 1,
 		},
 		out: {
@@ -92,7 +92,7 @@ export const sheetTransitions = {
 	right: {
 		in: {
 			x: '100%',
-			duration: 500,
+			duration: 300,
 			opacity: 1,
 		},
 		out: {
