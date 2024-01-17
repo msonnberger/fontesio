@@ -1,7 +1,7 @@
 import type { CslJsonForm, CslJsonResource } from '@fontesio/citations/types';
 import { db } from '@fontesio/drizzle';
+import { generate_id } from '@fontesio/drizzle/id';
 import { resources } from '@fontesio/drizzle/schema';
-import { generate_uuid_v7 } from '@fontesio/drizzle/uuid';
 
 interface CreateResourceOptions {
 	user_id: string;
@@ -9,15 +9,18 @@ interface CreateResourceOptions {
 }
 
 export async function create_resource({ user_id, csl_json_form }: CreateResourceOptions) {
+	const id = generate_id('resource');
+
+	csl_json_form.id = id;
 	const csl_json = transform_csl_form_data(csl_json_form);
 
-	return db.insert(resources).values({ user_id, csl_json }).returning();
+	return db.insert(resources).values({ id, user_id, csl_json }).returning();
 }
 
 function transform_csl_form_data(data: CslJsonForm): CslJsonResource {
 	return {
 		...data,
-		id: generate_uuid_v7(),
+		id: data.id ?? generate_id('resource'),
 		author: transform_names(data.author ? [data.author] : undefined),
 		chair: transform_names(data.chair),
 		'collection-editor': transform_names(data['collection-editor']),

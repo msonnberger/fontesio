@@ -22,6 +22,13 @@
 			"when": 1700409279512,
 			"tag": "0002_swift_starbolt",
 			"breakpoints": true
+		},
+		{
+			"idx": 3,
+			"version": "5",
+			"when": 1705508016432,
+			"tag": "0003_wise_tombstone",
+			"breakpoints": true
 		}
 	]
 }
