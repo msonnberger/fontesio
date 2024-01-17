@@ -50,14 +50,14 @@
 				variant="outline"
 				role="combobox"
 				aria-expanded={open}
-				class="w-[200px] justify-between"
+				class="justify-between"
 			>
 				{selected_value}
 				<ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
 			</Button>
 		</FormControl>
 	</Popover.Trigger>
-	<Popover.Content class="w-[200px] h-80 p-0">
+	<Popover.Content align="start" class="h-80 p-0">
 		<Command.Root>
 			<Command.Input placeholder="Search types..." class="h-9" />
 			<Command.Empty>No type found.</Command.Empty>
