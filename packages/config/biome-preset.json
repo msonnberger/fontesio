@@ -13,7 +13,7 @@
 	},
 	"linter": {
 		"enabled": true,
-		"ignore": ["scrypt.ts", "uuid.ts"]
+		"ignore": ["scrypt.ts"]
 	},
 	"formatter": {
 		"enabled": true

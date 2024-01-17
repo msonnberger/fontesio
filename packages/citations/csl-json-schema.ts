@@ -188,6 +188,7 @@ export const csl_json_schema = z.object({
 
 export const csl_json_form = z.object({
 	type: z.enum(csl_types),
+	id: z.string().optional(),
 	'citation-key': z.string().optional(),
 	categories: z.array(z.string()).optional(),
 	language: z.string().optional(),

@@ -1,4 +1,4 @@
-import { generate_uuid_v7 } from '@fontesio/drizzle/uuid';
+import { generate_id } from '@fontesio/drizzle/id';
 import { type User, auth } from '@fontesio/lib/lucia/auth';
 import { OAuthRequestError, google_auth, is_valid_oauth_provider } from '@fontesio/lib/lucia/oauth';
 import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
@@ -39,7 +39,7 @@ export async function GET({ url, cookies, locals, params }) {
 				await createKey(user.userId);
 			} catch (e) {
 				user = await createUser({
-					userId: generate_uuid_v7(),
+					userId: generate_id('user'),
 					attributes: {
 						email: googleUser.email,
 						email_verified: googleUser.email_verified,

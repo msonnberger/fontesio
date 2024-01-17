@@ -1,24 +1,15 @@
 import type { CslJsonResource } from '@fontesio/citations/types';
-import {
-	bigint,
-	boolean,
-	jsonb,
-	pgTable,
-	text,
-	timestamp,
-	uniqueIndex,
-	uuid,
-} from 'drizzle-orm/pg-core';
+import { bigint, boolean, jsonb, pgTable, text, timestamp, uniqueIndex } from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
-import { generate_uuid_v7 } from './uuid';
+import { generate_id } from './id';
 
 export const users = pgTable(
 	'users',
 	{
-		id: uuid('id')
+		id: text('id')
 			.primaryKey()
-			.$defaultFn(() => generate_uuid_v7()),
+			.$defaultFn(() => generate_id('user')),
 		email: text('email').notNull(),
 		email_verified: boolean('email_verified').notNull().default(false),
 	},
@@ -30,7 +21,7 @@ export const users = pgTable(
 );
 
 const user_schema = createSelectSchema(users, {
-	id: z.string().uuid(),
+	id: z.string(),
 	email_verified: z.boolean(),
 });
 
@@ -38,7 +29,7 @@ export type User = z.infer<typeof user_schema>;
 
 export const user_keys = pgTable('user_keys', {
 	id: text('id').primaryKey(),
-	user_id: uuid('user_id')
+	user_id: text('user_id')
 		.notNull()
 		.references(() => users.id, { onDelete: 'cascade' }),
 	hashed_password: text('hashed_password'),
@@ -46,7 +37,7 @@ export const user_keys = pgTable('user_keys', {
 
 export const sessions = pgTable('sessions', {
 	id: text('id').primaryKey(),
-	user_id: uuid('user_id')
+	user_id: text('user_id')
 		.notNull()
 		.references(() => users.id, { onDelete: 'cascade' }),
 	active_expires: bigint('active_expires', { mode: 'number' }).notNull(),
@@ -56,12 +47,12 @@ export const sessions = pgTable('sessions', {
 export const email_verification_codes = pgTable(
 	'email_verification_codes',
 	{
-		id: uuid('id')
+		id: text('id')
 			.primaryKey()
-			.$defaultFn(() => generate_uuid_v7()),
+			.$defaultFn(() => generate_id('verification')),
 		code: text('code').notNull(),
 		expires: bigint('expires', { mode: 'number' }).notNull(),
-		user_id: uuid('user_id')
+		user_id: text('user_id')
 			.notNull()
 			.references(() => users.id, { onDelete: 'cascade' }),
 	},
@@ -73,12 +64,10 @@ export const email_verification_codes = pgTable(
 );
 
 export const resources = pgTable('resources', {
-	id: uuid('id')
-		.primaryKey()
-		.$defaultFn(() => generate_uuid_v7()),
+	id: text('id').primaryKey(),
 	created_at: timestamp('created_at').defaultNow().notNull(),
 	updated_at: timestamp('updated_at').defaultNow().notNull(),
-	user_id: uuid('user_id')
+	user_id: text('user_id')
 		.notNull()
 		.references(() => users.id, { onDelete: 'cascade' }),
 	csl_json: jsonb('csl_json').$type<CslJsonResource>().notNull(),

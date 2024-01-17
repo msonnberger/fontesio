@@ -1,5 +1,5 @@
 import { signup_schema } from '$lib/zod';
-import { generate_uuid_v7 } from '@fontesio/drizzle/uuid';
+import { generate_id } from '@fontesio/drizzle/id';
 import { LuciaError, type User, auth } from '@fontesio/lib/lucia/auth';
 import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
 import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
@@ -44,7 +44,7 @@ export const actions = {
 					});
 				} catch (e) {
 					user = await auth.createUser({
-						userId: generate_uuid_v7(),
+						userId: generate_id('user'),
 						key: {
 							providerId: 'email',
 							providerUserId: email.toLowerCase(),
