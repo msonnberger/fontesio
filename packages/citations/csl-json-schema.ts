@@ -194,7 +194,7 @@ export const csl_json_form = z.object({
 	language: z.string().optional(),
 	journalAbbreviation: z.string().optional(),
 	shortTitle: z.string().optional(),
-	author: z.string().optional(), // TODO: array
+	author: z.array(z.string().optional()).default([]).optional(),
 	chair: z.array(z.string()).optional(),
 	'collection-editor': z.array(z.string()).optional(),
 	compiler: z.array(z.string()).optional(),

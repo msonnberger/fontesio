@@ -8,14 +8,14 @@
 		<th>ID</th>
 		<th>Type</th>
 		<th>Title</th>
-		<th>Key</th>
+		<th>Author</th>
 	</tr>
 	{#each data.resources as { id, csl_json }}
 		<tr>
 			<td>{id}</td>
 			<td>{csl_json.type}</td>
 			<td>{csl_json.title}</td>
-			<td>{csl_json.id}</td>
+			<td>{JSON.stringify(csl_json.author)}</td>
 		</tr>
 	{/each}
 </table>
