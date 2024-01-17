@@ -46,11 +46,12 @@
 		<FormControl id={ids.trigger} let:attrs>
 			<Button
 				{...attrs}
+				type="button"
 				builders={[builder]}
 				variant="outline"
 				role="combobox"
 				aria-expanded={open}
-				class="justify-between"
+				class="justify-between font-normal"
 			>
 				{selected_value}
 				<ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />

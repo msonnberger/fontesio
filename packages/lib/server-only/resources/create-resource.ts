@@ -21,7 +21,7 @@ function transform_csl_form_data(data: CslJsonForm): CslJsonResource {
 	return {
 		...data,
 		id: data.id ?? generate_id('resource'),
-		author: transform_names(data.author ? [data.author] : undefined),
+		author: transform_names(data.author),
 		chair: transform_names(data.chair),
 		'collection-editor': transform_names(data['collection-editor']),
 		compiler: transform_names(data.compiler),
@@ -56,8 +56,8 @@ function transform_csl_form_data(data: CslJsonForm): CslJsonResource {
 	};
 }
 
-function transform_names(names: CslJsonForm['chair']): CslJsonResource['chair'] {
-	return names?.map((name) => ({ literal: name }));
+function transform_names(names: CslJsonForm['author']): CslJsonResource['author'] {
+	return names?.filter(Boolean).map((name) => ({ literal: name }));
 }
 
 function transform_date(date: CslJsonForm['accessed']): CslJsonResource['accessed'] {
