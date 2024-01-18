@@ -8,7 +8,7 @@
 		"@fontesio/drizzle": "workspace:*",
 		"@fontesio/lib": "workspace:*",
 		"@fontesio/tsconfig": "workspace:*",
-		"@playwright/test": "1.40.1",
+		"@playwright/test": "1.41.0",
 		"drizzle-orm": "0.29.3",
 		"lucia": "2.7.6"
 	}
