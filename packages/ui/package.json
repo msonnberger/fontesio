@@ -8,13 +8,13 @@
 		"fix": "prettier --plugin prettier-plugin-svelte --write . && eslint --fix ."
 	},
 	"dependencies": {
-		"bits-ui": "0.15.1",
+		"bits-ui": "0.16.0",
 		"cmdk-sv": "0.0.13",
-		"formsnap": "0.4.2",
+		"formsnap": "0.4.3",
 		"svelte": "4.2.9",
-		"tailwind-merge": "2.2.0",
+		"tailwind-merge": "2.2.1",
 		"tailwind-variants": "^0.1.18",
-		"unplugin-icons": "0.18.2"
+		"unplugin-icons": "0.18.3"
 	},
 	"devDependencies": {
 		"@fontesio/tsconfig": "workspace:*"
