@@ -1,3 +1,4 @@
+import { invalidate } from '$app/navigation';
 import { csl_json_form } from '@fontesio/citations/csl-json-schema';
 import { create_resource } from '@fontesio/lib/server-only/resources/create-resource';
 import { get_all_resources_by_user_id } from '@fontesio/lib/server-only/resources/get-all-resources-by-user-id';

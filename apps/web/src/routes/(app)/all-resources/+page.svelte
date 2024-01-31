@@ -1,21 +1,12 @@
 <script lang="ts">
+	import ReferencesTable from '$lib/features/references-table/components/data-table.svelte';
+	import AddResourceSheet from '$lib/features/add-resource/components/sheet.svelte';
+
 	export let data;
 </script>
 
-<h1>All references</h1>
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Type</th>
-		<th>Title</th>
-		<th>Author</th>
-	</tr>
-	{#each data.resources as { id, csl_json }}
-		<tr>
-			<td>{id}</td>
-			<td>{csl_json.type}</td>
-			<td>{csl_json.title}</td>
-			<td>{JSON.stringify(csl_json.author)}</td>
-		</tr>
-	{/each}
-</table>
+<div class="flex justify-between mb-6">
+	<h1 class="text-3xl font-bold">All references</h1>
+	<AddResourceSheet />
+</div>
+<ReferencesTable data={data.resources} />
