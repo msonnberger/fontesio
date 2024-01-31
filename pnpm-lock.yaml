@@ -261,8 +261,8 @@ importers:
         specifier: workspace:*
         version: link:../env
       '@lucia-auth/adapter-postgresql':
-        specifier: 2.0.2
-        version: 2.0.2(lucia@2.7.7)
+        specifier: 3.0.0
+        version: 3.0.0(lucia@2.7.7)
       '@lucia-auth/oauth':
         specifier: 3.5.3
         version: 3.5.3(lucia@2.7.7)
@@ -1422,10 +1422,10 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@lucia-auth/adapter-postgresql@2.0.2(lucia@2.7.7):
-    resolution: {integrity: sha512-gQ7SlFu+gxQj2IX2J8ZVivcLBbdnf9SbNQOVWkJxZOdY1uaaIQGeNfEDld2Awy02VrXmA4sjHsbkJx1JPVw2+A==}
+  /@lucia-auth/adapter-postgresql@3.0.0(lucia@2.7.7):
+    resolution: {integrity: sha512-DyKLrVe2kFajJ9DIISP11mFz4Y72XnW1g4SrvRATrD+qPr+l7iwt5emWbqQJ6p3zbfY0VraPNICSp23mgAg0jw==}
     peerDependencies:
-      lucia: ^2.0.0
+      lucia: 3.x
       pg: ^8.8.0
       postgres: ^3.3.0
     peerDependenciesMeta:

@@ -7,7 +7,7 @@
 		"@fontesio/drizzle": "workspace:*",
 		"@fontesio/email": "workspace:*",
 		"@fontesio/env": "workspace:*",
-		"@lucia-auth/adapter-postgresql": "2.0.2",
+		"@lucia-auth/adapter-postgresql": "3.0.0",
 		"@lucia-auth/oauth": "3.5.3",
 		"@upstash/ratelimit": "1.0.0",
 		"@upstash/redis": "1.28.2",
