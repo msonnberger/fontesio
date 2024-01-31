@@ -9,7 +9,6 @@
 	import { page } from '$app/stores';
 	import * as DropdownMenu from '@fontesio/ui/primitives/dropdown-menu';
 	import { onNavigate } from '$app/navigation';
-	import AddResourceSheet from '$lib/features/add-resource/components/sheet.svelte';
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) return;
@@ -25,7 +24,7 @@
 	export let data;
 </script>
 
-<div class="flex h-screen bg-indigo-100 p-1.5">
+<div class="flex h-screen bg-muted p-1.5">
 	<aside class="flex flex-col w-[clamp(12rem,20%,20rem)] pt-4">
 		<div class="flex gap-3 items-center px-3">
 			<div class="w-6 h-6 text-indigo-500">
@@ -56,8 +55,8 @@
 			</nav>
 		</div>
 
-		<div class="flex text-gray-600 items-center rounded-lg bg-indigo-50 p-1.5 shadow-md">
-			<div class="h-10 w-10 mr-2 shrink-0 bg-gray-300 rounded-lg grid place-items-center">
+		<div class="flex text-slate-600 items-center rounded-lg bg-slate-50 p-1.5 shadow-md">
+			<div class="h-10 w-10 mr-2 shrink-0 bg-slate-300 rounded-lg grid place-items-center">
 				<IconUser />
 			</div>
 			<span class="grow text-xs overflow-x-hidden text-ellipsis">{data.user.email}</span>
@@ -84,7 +83,6 @@
 
 	<div class="w-full pl-1.5">
 		<main class="w-full h-full overflow-y-scroll bg-white rounded-lg p-8 shadow-md">
-			<AddResourceSheet />
 			<slot />
 		</main>
 	</div>
