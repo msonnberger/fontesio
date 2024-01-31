@@ -3,6 +3,7 @@
 	"scripts": {
 		"build": "dotenv -- turbo run build",
 		"dev": "dotenv -- turbo run dev --filter=@fontesio/web",
+		"dev:email": "dotenv -- pnpm --filter @fontesio/email dev:email",
 		"d": "pnpm dx && pnpm dev",
 		"dx": "pnpm install && pnpm dx:up && pnpm db:migrate",
 		"dx:up": "docker compose -f docker/compose-services.yml up -d",
