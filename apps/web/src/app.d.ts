@@ -5,19 +5,10 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			auth: import('@fontesio/lib/lucia/auth').AuthRequest;
+			session: import('@fontesio/lib/lucia/auth').Session | null;
 		}
 		// interface PageData {}
 		// interface Platform {}
-	}
-
-	namespace Lucia {
-		type Auth = import('@fontesio/lib/lucia/auth').Auth;
-		type DatabaseUserAttributes = {
-			email: string;
-			email_verified: boolean;
-		};
-		type DatabaseSessionAttributes = unknown;
 	}
 
 	// TODO: remove when types are updated

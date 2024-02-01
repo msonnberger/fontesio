@@ -1,15 +1,16 @@
-import { auth } from '@fontesio/lib/lucia/auth';
+import { lucia } from '@fontesio/lib/lucia/auth';
 import { error, redirect } from '@sveltejs/kit';
 
 export const actions = {
-	default: async ({ locals }) => {
-		const session = await locals.auth.validate();
-		if (!session) {
+	default: async ({ locals, cookies }) => {
+		if (!locals.session) {
 			error(401);
 		}
 
-		await auth.invalidateSession(session.sessionId);
-		locals.auth.setSession(null);
+		await lucia.invalidateSession(locals.session.id);
+		const cookie = lucia.createBlankSessionCookie();
+		cookies.set(cookie.name, cookie.value, { ...cookie.attributes, path: '/' });
+
 		redirect(302, '/login');
 	},
 };

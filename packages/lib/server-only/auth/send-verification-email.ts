@@ -12,6 +12,11 @@ interface SendVerificationEmail {
 export async function send_verification_email({ user_id, email }: SendVerificationEmail) {
 	if (!email) {
 		const user = await get_user_by_id({ id: user_id });
+
+		if (!user) {
+			throw new Error('User not found');
+		}
+
 		email = user.email;
 	}
 
