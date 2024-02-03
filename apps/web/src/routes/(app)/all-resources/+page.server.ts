@@ -6,24 +6,22 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 
 export async function load({ locals }) {
-	const session = await locals.auth.validate();
-
-	if (!session) {
+	if (!locals.session) {
 		redirect(302, '/login');
 	}
 
 	return {
-		user: session.user,
+		user: locals.session.user,
 		form: await superValidate(csl_json_form),
 		resources: await get_all_resources_by_user_id({
-			user_id: session.user.userId,
+			user_id: locals.session.user.id,
 		}),
 	};
 }
 
 export const actions = {
 	add_resource: async (event) => {
-		const session = await event.locals.auth.validate();
+		const session = event.locals.session;
 
 		if (!session) {
 			error(401);
@@ -38,7 +36,7 @@ export const actions = {
 		}
 
 		await create_resource({
-			user_id: session.user.userId,
+			user_id: session.user.id,
 			csl_json_form: form.data,
 		});
 

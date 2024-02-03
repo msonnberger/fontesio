@@ -2,10 +2,10 @@
 	"private": true,
 	"scripts": {
 		"build": "dotenv -- turbo run build",
-		"dev": "dotenv -- turbo run dev --filter=@fontesio/web",
+		"dev": "dotenv -- pnpm --filter=@fontesio/web dev",
 		"dev:email": "dotenv -- pnpm --filter @fontesio/email dev:email",
 		"d": "pnpm dx && pnpm dev",
-		"dx": "pnpm install && pnpm dx:up && pnpm db:migrate",
+		"dx": "pnpm install && pnpm dx:up",
 		"dx:up": "docker compose -f docker/compose-services.yml up -d",
 		"dx:down": "docker compose -f docker/compose-services.yml down",
 		"check": "turbo run check",

@@ -7,12 +7,13 @@
 		"@fontesio/drizzle": "workspace:*",
 		"@fontesio/email": "workspace:*",
 		"@fontesio/env": "workspace:*",
-		"@lucia-auth/adapter-postgresql": "2.0.2",
-		"@lucia-auth/oauth": "3.5.3",
+		"@lucia-auth/adapter-postgresql": "3.0.0",
 		"@upstash/ratelimit": "1.0.0",
 		"@upstash/redis": "1.28.2",
+		"arctic": "1.1.3",
 		"drizzle-orm": "0.29.3",
-		"lucia": "2.7.7",
+		"lucia": "3.0.1",
+		"oslo": "1.0.3",
 		"zod": "3.22.4"
 	}
 }

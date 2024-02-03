@@ -1,8 +1,18 @@
 import type { CslJsonResource } from '@fontesio/citations/types';
-import { bigint, boolean, jsonb, pgTable, text, timestamp, uniqueIndex } from 'drizzle-orm/pg-core';
+import {
+	bigint,
+	boolean,
+	jsonb,
+	pgTable,
+	primaryKey,
+	text,
+	timestamp,
+	uniqueIndex,
+} from 'drizzle-orm/pg-core';
 import { createSelectSchema } from 'drizzle-zod';
 import { z } from 'zod';
 import { generate_id } from './id';
+import { relations } from 'drizzle-orm';
 
 export const users = pgTable(
 	'users',
@@ -12,6 +22,7 @@ export const users = pgTable(
 			.$defaultFn(() => generate_id('user')),
 		email: text('email').notNull(),
 		email_verified: boolean('email_verified').notNull().default(false),
+		hashed_password: text('hashed_password'),
 	},
 	(table) => {
 		return {
@@ -20,6 +31,10 @@ export const users = pgTable(
 	},
 );
 
+export const users_relations = relations(users, ({ many }) => ({
+	oauth_accounts: many(oauth_accounts),
+}));
+
 const user_schema = createSelectSchema(users, {
 	id: z.string(),
 	email_verified: z.boolean(),
@@ -27,22 +42,29 @@ const user_schema = createSelectSchema(users, {
 
 export type User = z.infer<typeof user_schema>;
 
-export const user_keys = pgTable('user_keys', {
-	id: text('id').primaryKey(),
-	user_id: text('user_id')
-		.notNull()
-		.references(() => users.id, { onDelete: 'cascade' }),
-	hashed_password: text('hashed_password'),
-});
-
 export const sessions = pgTable('sessions', {
 	id: text('id').primaryKey(),
 	user_id: text('user_id')
 		.notNull()
 		.references(() => users.id, { onDelete: 'cascade' }),
-	active_expires: bigint('active_expires', { mode: 'number' }).notNull(),
-	idle_expires: bigint('idle_expires', { mode: 'number' }).notNull(),
+	expires_at: timestamp('expires_at', { withTimezone: true }).notNull(),
 });
+
+export const oauth_accounts = pgTable(
+	'oauth_accounts',
+	{
+		provider_id: text('provider_id').notNull(),
+		provider_user_id: text('provider_user_id').notNull(),
+		user_id: text('user_id')
+			.notNull()
+			.references(() => users.id, { onDelete: 'cascade' }),
+	},
+	(table) => {
+		return {
+			pk: primaryKey({ columns: [table.provider_id, table.provider_user_id] }),
+		};
+	},
+);
 
 export const email_verification_codes = pgTable(
 	'email_verification_codes',
@@ -51,7 +73,7 @@ export const email_verification_codes = pgTable(
 			.primaryKey()
 			.$defaultFn(() => generate_id('verification')),
 		code: text('code').notNull(),
-		expires: bigint('expires', { mode: 'number' }).notNull(),
+		expires_at: timestamp('expires_at', { withTimezone: true }).notNull(),
 		user_id: text('user_id')
 			.notNull()
 			.references(() => users.id, { onDelete: 'cascade' }),

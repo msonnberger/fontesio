@@ -1,25 +1,41 @@
 import { sql } from '@fontesio/drizzle';
-import { postgres } from '@lucia-auth/adapter-postgresql';
-import { lucia } from 'lucia';
-import { sveltekit } from 'lucia/middleware';
+import { PostgresJsAdapter } from '@lucia-auth/adapter-postgresql';
+import { Lucia } from 'lucia';
 
-export const auth = lucia({
-	// eslint-disable-next-line turbo/no-undeclared-env-vars
-	env: process.env.NODE_ENV === 'development' ? 'DEV' : 'PROD',
-	middleware: sveltekit(),
-	adapter: postgres(sql, {
-		user: 'users',
-		key: 'user_keys',
-		session: 'sessions',
-	}),
+declare module 'lucia' {
+	interface Register {
+		Lucia: typeof lucia;
+		DatabaseUserAttributes: {
+			email: string;
+			email_verified: boolean;
+		};
+		DatabaseSessionAttributes: unknown;
+	}
+}
+
+const adapter = new PostgresJsAdapter(sql, {
+	user: 'users',
+	session: 'sessions',
+});
+
+export const lucia = new Lucia(adapter, {
 	getUserAttributes: (data) => {
 		return {
 			email: data.email,
 			email_verified: data.email_verified,
 		};
 	},
+	sessionCookie: {
+		attributes: {
+			secure: process.env.NODE_ENV === 'production',
+		},
+	},
 });
 
-export type Auth = typeof auth;
+import type { User, Session as LuciaSession, Cookie } from 'lucia';
 
-export { type AuthRequest, type User, LuciaError } from 'lucia';
+export type { Cookie };
+
+export interface Session extends LuciaSession {
+	user: User;
+}

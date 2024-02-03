@@ -1,12 +1,12 @@
 import { login_schema } from '$lib/zod';
-import { LuciaError, auth } from '@fontesio/lib/lucia/auth';
+import { lucia } from '@fontesio/lib/lucia/auth';
+import { verify_password } from '@fontesio/lib/lucia/password';
+import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
 import { fail, redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 
 export async function load({ locals }) {
-	const session = await locals.auth.validate();
-
-	if (session) {
+	if (locals.session) {
 		redirect(302, '/');
 	}
 
@@ -16,7 +16,7 @@ export async function load({ locals }) {
 }
 
 export const actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request, cookies }) => {
 		const form = await superValidate(request, login_schema);
 
 		if (!form.valid) {
@@ -26,19 +26,29 @@ export const actions = {
 		const { email, password } = form.data;
 
 		try {
-			const user = await auth.useKey('email', email.toLowerCase(), password);
-			const session = await auth.createSession({
-				userId: user.userId,
-				attributes: {},
-			});
-			locals.auth.setSession(session);
-		} catch (e) {
-			if (
-				e instanceof LuciaError &&
-				(e.message === 'AUTH_INVALID_KEY_ID' || e.message === 'AUTH_INVALID_PASSWORD')
-			) {
+			const user = await get_user_by_email({ email });
+
+			if (!user) {
 				return message(form, 'We do not recognize that email or password.');
 			}
+
+			if (!user.hashed_password) {
+				return message(
+					form,
+					'This account appears to be using a social login method, please sign in using that method',
+				);
+			}
+
+			const is_password_correct = await verify_password(user.hashed_password, password);
+
+			if (!is_password_correct) {
+				return message(form, 'We do not recognize that email or password.');
+			}
+
+			const session = await lucia.createSession(user.id, {});
+			const cookie = lucia.createSessionCookie(session.id);
+			cookies.set(cookie.name, cookie.value, { ...cookie.attributes, path: '/' });
+		} catch (e) {
 			return message(form, 'An unknown error occured.');
 		}
 

@@ -1,7 +1,7 @@
 import { db } from '@fontesio/drizzle';
 import { email_verification_codes } from '@fontesio/drizzle/schema';
 import { eq } from 'drizzle-orm';
-import { isWithinExpiration } from 'lucia/utils';
+import { isWithinExpirationDate } from 'oslo';
 
 interface ValidateVerificationCodeOptions {
 	user_id: string;
@@ -28,7 +28,7 @@ export async function validate_verification_code({
 		return stored_code;
 	});
 
-	if (!isWithinExpiration(stored_code.expires)) {
+	if (!isWithinExpirationDate(stored_code.expires_at)) {
 		throw new Error('Verification code is expired');
 	}
 

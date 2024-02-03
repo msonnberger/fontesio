@@ -1,15 +1,15 @@
 import { signup_schema } from '$lib/zod';
-import { generate_id } from '@fontesio/drizzle/id';
-import { LuciaError, type User, auth } from '@fontesio/lib/lucia/auth';
+import type { User } from '@fontesio/drizzle/schema';
+import { lucia } from '@fontesio/lib/lucia/auth';
 import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
 import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
+import { create_user } from '@fontesio/lib/server-only/users/create-user';
+import { update_user_password } from '@fontesio/lib/server-only/users/update-password';
 import { fail, redirect } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
 
 export async function load({ locals }) {
-	const session = await locals.auth.validate();
-
-	if (session) {
+	if (locals.session) {
 		redirect(302, '/');
 	}
 
@@ -19,7 +19,7 @@ export async function load({ locals }) {
 }
 
 export const actions = {
-	default: async ({ request, locals }) => {
+	default: async ({ request, cookies }) => {
 		const form = await superValidate(request, signup_schema);
 
 		if (!form.valid) {
@@ -27,64 +27,36 @@ export const actions = {
 		}
 
 		const { email, password } = form.data;
-		let user_not_verified = false;
 
-		try {
-			const get_user = async () => {
-				let user: User;
+		let user: User;
+		const existing_user = await get_user_by_email({ email });
 
-				try {
-					const existing_db_user = await get_user_by_email({ email });
-					user = auth.transformDatabaseUser(existing_db_user);
-					await auth.createKey({
-						providerId: 'email',
-						userId: user.userId,
-						providerUserId: email.toLowerCase(),
-						password,
-					});
-				} catch (e) {
-					user = await auth.createUser({
-						userId: generate_id('user'),
-						key: {
-							providerId: 'email',
-							providerUserId: email.toLowerCase(),
-							password,
-						},
-						attributes: {
-							email,
-							email_verified: false,
-						},
-					});
-				}
-
-				return user;
-			};
-
-			const user = await get_user();
-			const session = await auth.createSession({
-				userId: user.userId,
-				attributes: {},
-			});
-
-			if (!user.email_verified) {
-				await send_verification_email({
-					user_id: user.userId,
-					email: user.email,
-				});
-				user_not_verified = true;
-			}
-
-			locals.auth.setSession(session);
-		} catch (e) {
-			console.error(e);
-
-			if (e instanceof LuciaError && e.message === 'AUTH_DUPLICATE_KEY_ID') {
+		if (existing_user) {
+			if (existing_user.hashed_password) {
 				return message(form, 'This email already exists.');
 			}
 
-			return message(form, 'An unknown error occured.');
+			user = await update_user_password({ user_id: existing_user.id, password });
+		} else {
+			user = await create_user({
+				idendity_provider: 'fontesio',
+				email,
+				email_verified: false,
+				password,
+			});
 		}
 
-		redirect(302, user_not_verified ? '/verify-email' : '/');
+		const session = await lucia.createSession(user.id, {});
+		const cookie = lucia.createSessionCookie(session.id);
+		cookies.set(cookie.name, cookie.value, { ...cookie.attributes, path: '/' });
+
+		if (!user.email_verified) {
+			await send_verification_email({
+				user_id: user.id,
+				email,
+			});
+		}
+
+		redirect(302, user.email_verified ? '/' : '/verify-email');
 	},
 };

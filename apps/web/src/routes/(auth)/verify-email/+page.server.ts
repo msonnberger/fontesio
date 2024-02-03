@@ -1,31 +1,28 @@
-import { auth } from '@fontesio/lib/lucia/auth';
+import { lucia } from '@fontesio/lib/lucia/auth';
 import { check_ratelimit_and_throw } from '@fontesio/lib/ratelimit/check-ratelimit-and-throw';
 import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
 import { validate_verification_code } from '@fontesio/lib/server-only/auth/validate-verification-code';
+import { update_user_email_verified } from '@fontesio/lib/server-only/users/update-email-verified';
 import { error, redirect } from '@sveltejs/kit';
 
 export async function load({ locals }) {
-	const session = await locals.auth.validate();
-
-	if (!session) {
+	if (!locals.session) {
 		redirect(302, '/login');
 	}
 
-	if (session.user.email_verified) {
+	if (locals.session.user.email_verified) {
 		redirect(302, '/');
 	}
 }
 
 export const actions = {
-	verify: async ({ locals, request }) => {
+	verify: async ({ locals, request, cookies }) => {
 		try {
-			let session = await locals.auth.validate();
-
-			if (!session) {
+			if (!locals.session) {
 				error(401);
 			}
 
-			await check_ratelimit_and_throw({ identifier: session.user.email });
+			await check_ratelimit_and_throw({ identifier: locals.session.user.email });
 
 			const data = await request.formData();
 			const code = data.get('verification_code') as string | null;
@@ -35,21 +32,17 @@ export const actions = {
 			}
 
 			const user_id = await validate_verification_code({
-				user_id: session.user.userId,
+				user_id: locals.session.user.id,
 				code: code.replaceAll(',', ''),
 			});
-			const user = await auth.getUser(user_id);
-			await auth.invalidateAllUserSessions(user.userId);
-			await auth.updateUserAttributes(user.userId, {
-				email_verified: true,
-			});
 
-			session = await auth.createSession({
-				userId: user.userId,
-				attributes: {},
-			});
+			await lucia.invalidateUserSessions(user_id);
 
-			locals.auth.setSession(session);
+			await update_user_email_verified({ user_id, email_verified: true });
+
+			const session = await lucia.createSession(user_id, {});
+			const cookie = lucia.createSessionCookie(session.id);
+			cookies.set(cookie.name, cookie.value, { ...cookie.attributes, path: '/' });
 		} catch (e) {
 			console.error(e);
 			error(400, 'Invalid verification code');
@@ -58,19 +51,17 @@ export const actions = {
 		redirect(302, '/');
 	},
 	new_code: async ({ locals }) => {
-		const session = await locals.auth.validate();
-
-		if (!session) {
+		if (!locals.session) {
 			error(401);
 		}
 
-		if (session.user.email_verified) {
+		if (locals.session.user.email_verified) {
 			error(422);
 		}
 
 		try {
-			const { email, userId } = session.user;
-			await send_verification_email({ email, user_id: userId });
+			const { email, id } = locals.session.user;
+			await send_verification_email({ email, user_id: id });
 
 			return {
 				new_code_sent: true,
