@@ -11,7 +11,7 @@
 	export let initial_type: CslType;
 	export let sheet_open: boolean;
 
-	const super_form = superForm($page.data.form, {
+	const super_form = superForm($page.data.manual_form, {
 		dataType: 'json',
 		validators: csl_json_form,
 		onUpdated({ form }) {

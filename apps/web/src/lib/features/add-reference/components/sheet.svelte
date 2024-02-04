@@ -2,7 +2,7 @@
 	import * as Sheet from '@fontesio/ui/primitives/sheet';
 	import Form from './form.svelte';
 	import type { CslType } from '@fontesio/citations/types';
-	import OpenSheetMenu from '$lib/features/add-reference/components/open-sheet-menu.svelte';
+	import DropdownMenu from './dropdown.svelte';
 
 	let sheet_open = false;
 	let selected_type: CslType;
@@ -13,7 +13,7 @@
 </script>
 
 <Sheet.Root bind:open={sheet_open}>
-	<OpenSheetMenu {set_selected} />
+	<DropdownMenu {set_selected} />
 	<Sheet.Content side="right" class="min-w-[30rem]">
 		<Sheet.Header>
 			<Sheet.Title>Add reference</Sheet.Title>
