@@ -6,6 +6,7 @@
 	import { unslugify } from '$lib/utils/unslugify';
 	import type { CslType } from '@fontesio/citations/types';
 	import { csl_types } from '@fontesio/citations/csl-json-schema';
+	import IdentifierForm from './identifier-form.svelte';
 
 	export let set_selected: (value: string) => void;
 
@@ -27,6 +28,15 @@
 		</Button>
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Content>
+		<DropdownMenu.Group>
+			<DropdownMenu.Sub>
+				<DropdownMenu.SubTrigger>From identifier</DropdownMenu.SubTrigger>
+				<DropdownMenu.SubContent class="p-3" sideOffset={10}>
+					<IdentifierForm />
+				</DropdownMenu.SubContent>
+			</DropdownMenu.Sub>
+		</DropdownMenu.Group>
+		<DropdownMenu.Separator />
 		<DropdownMenu.Group>
 			{#each shortcut_types as type}
 				<DropdownMenu.Item class="p-0">
