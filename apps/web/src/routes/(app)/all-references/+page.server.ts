@@ -1,10 +1,10 @@
 import { csl_json_form } from '@fontesio/citations/csl-json-schema';
 import { create_reference } from '@fontesio/lib/server-only/references/create-reference';
-import { get_all_references_by_user_id } from '@fontesio/lib/server-only/references/get-all-references-by-user-id';
+import { find_references } from '@fontesio/lib/server-only/references/find-references';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 
-export async function load({ locals }) {
+export async function load({ locals, url }) {
 	if (!locals.session) {
 		redirect(302, '/login');
 	}
@@ -12,8 +12,10 @@ export async function load({ locals }) {
 	return {
 		user: locals.session.user,
 		form: await superValidate(csl_json_form),
-		references: await get_all_references_by_user_id({
+		references: await find_references({
 			user_id: locals.session.user.id,
+			page: Number(url.searchParams.get('page')) || 1,
+			per_page: Number(url.searchParams.get('per_page')) || 14,
 		}),
 	};
 }

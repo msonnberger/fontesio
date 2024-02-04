@@ -1,5 +1,5 @@
-import { oauth_accounts } from '@fontesio/drizzle/schema';
 import { db } from '@fontesio/drizzle';
+import { oauth_accounts } from '@fontesio/drizzle/schema';
 
 interface CreateOauthAccountOptions {
 	provider_id: string;

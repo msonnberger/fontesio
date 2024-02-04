@@ -1,7 +1,7 @@
 import { dev } from '$app/environment';
 import {
-	generate_state,
 	generate_code_verifier,
+	generate_state,
 	google_auth,
 	is_valid_oauth_provider,
 } from '@fontesio/lib/lucia/oauth';

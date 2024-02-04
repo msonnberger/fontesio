@@ -9,4 +9,4 @@
 	<h1 class="text-3xl font-bold">All references</h1>
 	<AddReferenceSheet />
 </div>
-<ReferencesTable data={data.references} />
+<ReferencesTable results={data.references} />
