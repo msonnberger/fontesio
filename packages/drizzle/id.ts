@@ -3,7 +3,7 @@ export const nanoid = customAlphabet('123456789ABCDEFGHJKLMNOPQRSTUVWXYZabcdefgh
 
 const prefixes = {
 	user: 'user',
-	resource: 'res',
+	reference: 'ref',
 	test: 'test',
 	verification: 'ver',
 } as const;

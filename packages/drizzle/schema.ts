@@ -1,4 +1,4 @@
-import type { CslJsonResource } from '@fontesio/citations/types';
+import type { CslJsonReference } from '@fontesio/citations/types';
 import {
 	bigint,
 	boolean,
@@ -85,12 +85,12 @@ export const email_verification_codes = pgTable(
 	},
 );
 
-export const resources = pgTable('resources', {
+export const references = pgTable('references', {
 	id: text('id').primaryKey(),
 	created_at: timestamp('created_at').defaultNow().notNull(),
 	updated_at: timestamp('updated_at').defaultNow().notNull(),
 	user_id: text('user_id')
 		.notNull()
 		.references(() => users.id, { onDelete: 'cascade' }),
-	csl_json: jsonb('csl_json').$type<CslJsonResource>().notNull(),
+	csl_json: jsonb('csl_json').$type<CslJsonReference>().notNull(),
 });

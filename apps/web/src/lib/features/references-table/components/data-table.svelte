@@ -7,10 +7,10 @@
 	import { Button } from '@fontesio/ui/primitives/button';
 	import ArrowUpDown from '~icons/lucide/arrow-up-down';
 	import DataTableCheckbox from './data-table-checkbox.svelte';
-	import type { Resource } from '@fontesio/lib/server-only/resources/get-all-resources-by-user-id';
+	import type { Reference } from '@fontesio/lib/server-only/references/get-all-references-by-user-id';
 	import { unslugify } from '$lib/utils/unslugify';
 
-	export let data: Resource[];
+	export let data: Reference[];
 
 	const table = createTable(readable(data), {
 		page: addPagination({ initialPageSize: 14 }),

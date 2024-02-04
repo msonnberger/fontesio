@@ -2,7 +2,7 @@
 	import * as Form from '@fontesio/ui/primitives/form';
 	import { csl_json_form } from '@fontesio/citations/csl-json-schema';
 	import { page } from '$app/stores';
-	import CslTypeCombobox from '$lib/features/add-resource/components/csl-type-combobox.svelte';
+	import CslTypeCombobox from './csl-type-combobox.svelte';
 	import type { CslType } from '@fontesio/citations/types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import Button from '@fontesio/ui/primitives/button/button.svelte';
@@ -28,13 +28,13 @@
 	let:config
 	controlled
 	form={super_form}
-	action="?/add_resource"
+	action="?/add_reference"
 	schema={csl_json_form}
 	class="flex flex-col gap-3 mt-6 pb-10 h-[calc(100%-140px)] overflow-y-scroll"
 >
 	<Form.Field {config} name="type" let:setValue let:value>
 		<Form.Item class="flex flex-col gap-2">
-			<Form.Label>Resource Type</Form.Label>
+			<Form.Label>Reference Type</Form.Label>
 			<CslTypeCombobox {value} set_value={setValue} initial_value={initial_type} />
 			<Form.Validation />
 		</Form.Item>
@@ -78,7 +78,7 @@
 	</Button>
 
 	<div class="absolute left-0 bottom-0 p-6 space-x-2">
-		<Form.Button>Add Resource</Form.Button>
+		<Form.Button>Add Reference</Form.Button>
 		<Button type="button" variant="secondary" on:click={() => (sheet_open = false)}>Cancel</Button>
 	</div>
 </Form.Root>
