@@ -23,7 +23,7 @@
 <DropdownMenu.Root>
 	<DropdownMenu.Trigger asChild let:builder>
 		<Button builders={[builder]} class="inline-flex items-center">
-			<PlusCircle class="mr-2" /> Add resource
+			<PlusCircle class="mr-2" /> Add reference
 		</Button>
 	</DropdownMenu.Trigger>
 	<DropdownMenu.Content>

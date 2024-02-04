@@ -9,5 +9,5 @@ export async function load({ locals }) {
 		redirect(302, '/verify-email');
 	}
 
-	redirect(302, '/all-resources');
+	redirect(302, '/all-references');
 }

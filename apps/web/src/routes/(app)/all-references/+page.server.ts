@@ -1,7 +1,6 @@
-import { invalidate } from '$app/navigation';
 import { csl_json_form } from '@fontesio/citations/csl-json-schema';
-import { create_resource } from '@fontesio/lib/server-only/resources/create-resource';
-import { get_all_resources_by_user_id } from '@fontesio/lib/server-only/resources/get-all-resources-by-user-id';
+import { create_reference } from '@fontesio/lib/server-only/references/create-reference';
+import { get_all_references_by_user_id } from '@fontesio/lib/server-only/references/get-all-references-by-user-id';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 
@@ -13,14 +12,14 @@ export async function load({ locals }) {
 	return {
 		user: locals.session.user,
 		form: await superValidate(csl_json_form),
-		resources: await get_all_resources_by_user_id({
+		references: await get_all_references_by_user_id({
 			user_id: locals.session.user.id,
 		}),
 	};
 }
 
 export const actions = {
-	add_resource: async (event) => {
+	add_reference: async (event) => {
 		const session = event.locals.session;
 
 		if (!session) {
@@ -35,7 +34,7 @@ export const actions = {
 			});
 		}
 
-		await create_resource({
+		await create_reference({
 			user_id: session.user.id,
 			csl_json_form: form.data,
 		});

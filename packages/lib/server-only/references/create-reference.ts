@@ -1,26 +1,26 @@
-import type { CslJsonForm, CslJsonResource } from '@fontesio/citations/types';
+import type { CslJsonForm, CslJsonReference } from '@fontesio/citations/types';
 import { db } from '@fontesio/drizzle';
 import { generate_id } from '@fontesio/drizzle/id';
-import { resources } from '@fontesio/drizzle/schema';
+import { references } from '@fontesio/drizzle/schema';
 
-interface CreateResourceOptions {
+interface CreateReferenceOptions {
 	user_id: string;
 	csl_json_form: CslJsonForm;
 }
 
-export async function create_resource({ user_id, csl_json_form }: CreateResourceOptions) {
-	const id = generate_id('resource');
+export async function create_reference({ user_id, csl_json_form }: CreateReferenceOptions) {
+	const id = generate_id('reference');
 
 	csl_json_form.id = id;
 	const csl_json = transform_csl_form_data(csl_json_form);
 
-	return db.insert(resources).values({ id, user_id, csl_json }).returning();
+	return db.insert(references).values({ id, user_id, csl_json }).returning();
 }
 
-function transform_csl_form_data(data: CslJsonForm): CslJsonResource {
+function transform_csl_form_data(data: CslJsonForm): CslJsonReference {
 	return {
 		...data,
-		id: data.id ?? generate_id('resource'),
+		id: data.id ?? generate_id('reference'),
 		author: transform_names(data.author),
 		chair: transform_names(data.chair),
 		'collection-editor': transform_names(data['collection-editor']),
@@ -56,10 +56,10 @@ function transform_csl_form_data(data: CslJsonForm): CslJsonResource {
 	};
 }
 
-function transform_names(names: CslJsonForm['author']): CslJsonResource['author'] {
+function transform_names(names: CslJsonForm['author']): CslJsonReference['author'] {
 	return names?.filter(Boolean).map((name) => ({ literal: name }));
 }
 
-function transform_date(date: CslJsonForm['accessed']): CslJsonResource['accessed'] {
+function transform_date(date: CslJsonForm['accessed']): CslJsonReference['accessed'] {
 	return { literal: date?.toISOString() };
 }

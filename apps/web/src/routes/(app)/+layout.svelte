@@ -36,7 +36,7 @@
 		<div class="grow mt-12 px-3">
 			<nav>
 				<ul class="space-y-6">
-					<li aria-current={data.pathname === '/all-resources' ? 'page' : undefined}>
+					<li aria-current={data.pathname === '/all-references' ? 'page' : undefined}>
 						<a href="/" class="flex gap-4 items-center">
 							<span><IconLibrary /></span><span>All References</span>
 						</a>
