@@ -1,6 +1,6 @@
 import type { CslJsonReference } from '@fontesio/citations/types';
+import { relations } from 'drizzle-orm';
 import {
-	bigint,
 	boolean,
 	jsonb,
 	pgTable,
@@ -9,10 +9,7 @@ import {
 	timestamp,
 	uniqueIndex,
 } from 'drizzle-orm/pg-core';
-import { createSelectSchema } from 'drizzle-zod';
-import { z } from 'zod';
 import { generate_id } from './id';
-import { relations } from 'drizzle-orm';
 
 export const users = pgTable(
 	'users',
@@ -35,12 +32,7 @@ export const users_relations = relations(users, ({ many }) => ({
 	oauth_accounts: many(oauth_accounts),
 }));
 
-const user_schema = createSelectSchema(users, {
-	id: z.string(),
-	email_verified: z.boolean(),
-});
-
-export type User = z.infer<typeof user_schema>;
+export type User = typeof users.$inferSelect;
 
 export const sessions = pgTable('sessions', {
 	id: text('id').primaryKey(),
@@ -94,3 +86,5 @@ export const references = pgTable('references', {
 		.references(() => users.id, { onDelete: 'cascade' }),
 	csl_json: jsonb('csl_json').$type<CslJsonReference>().notNull(),
 });
+
+export type Reference = typeof references.$inferSelect;

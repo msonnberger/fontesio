@@ -2,7 +2,7 @@ import { db } from '@fontesio/drizzle';
 import { email_verification_codes } from '@fontesio/drizzle/schema';
 import { eq } from 'drizzle-orm';
 import { TimeSpan, createDate } from 'oslo';
-import { generateRandomString, alphabet } from 'oslo/crypto';
+import { alphabet, generateRandomString } from 'oslo/crypto';
 
 interface CreateVerificationCodeOptions {
 	user_id: string;

@@ -1,19 +1,25 @@
 <script lang="ts">
 	import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table';
-	import { addPagination, addSortBy, addSelectedRows } from 'svelte-headless-table/plugins';
-	import { readable } from 'svelte/store';
+	import { addSortBy, addSelectedRows } from 'svelte-headless-table/plugins';
+	import { writable } from 'svelte/store';
 	import * as Table from '@fontesio/ui/primitives/table';
 	import DataTableActions from './data-table-actions.svelte';
 	import { Button } from '@fontesio/ui/primitives/button';
 	import ArrowUpDown from '~icons/lucide/arrow-up-down';
 	import DataTableCheckbox from './data-table-checkbox.svelte';
-	import type { Reference } from '@fontesio/lib/server-only/references/get-all-references-by-user-id';
+	import type { Reference } from '@fontesio/drizzle/schema';
 	import { unslugify } from '$lib/utils/unslugify';
+	import { queryParam, ssp } from 'sveltekit-search-params';
+	import type { FindResultSet } from '@fontesio/lib/types/find-result-set';
 
-	export let data: Reference[];
+	export let results: FindResultSet<Reference>;
 
-	const table = createTable(readable(data), {
-		page: addPagination({ initialPageSize: 14 }),
+	const page = queryParam('page', ssp.number(results.page), { showDefaults: false });
+
+	const table_data = writable(results.data);
+	$: table_data.set(results.data);
+
+	const table = createTable(table_data, {
 		sort: addSortBy(),
 		select: addSelectedRows(),
 	});
@@ -22,9 +28,9 @@
 		table.column({
 			accessor: 'id',
 			header: (_, { pluginStates }) => {
-				const { allPageRowsSelected } = pluginStates.select;
+				const { allRowsSelected } = pluginStates.select;
 				return createRender(DataTableCheckbox, {
-					checked: allPageRowsSelected,
+					checked: allRowsSelected,
 				});
 			},
 			cell: ({ row }, { pluginStates }) => {
@@ -82,9 +88,8 @@
 		}),
 	]);
 
-	const { headerRows, pageRows, tableAttrs, tableBodyAttrs, pluginStates, rows } =
+	const { headerRows, tableAttrs, tableBodyAttrs, pluginStates, rows } =
 		table.createViewModel(columns);
-	const { hasNextPage, hasPreviousPage, pageIndex } = pluginStates.page;
 	const { selectedDataIds } = pluginStates.select;
 </script>
 
@@ -114,7 +119,7 @@
 				{/each}
 			</Table.Header>
 			<Table.Body {...$tableBodyAttrs}>
-				{#each $pageRows as row (row.id)}
+				{#each $rows as row (row.id)}
 					<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
 						<Table.Row {...rowAttrs} data-state={$selectedDataIds[row.id] && 'selected'}>
 							{#each row.cells as cell (cell.id)}
@@ -143,19 +148,19 @@
 	<div class="flex items-center justify-end space-x-2 py-4">
 		<div class="flex-1 text-sm text-muted-foreground">
 			{Object.keys($selectedDataIds).length} of{' '}
-			{$rows.length} row(s) selected.
+			{results.count} row(s) selected.
 		</div>
 		<Button
 			variant="outline"
 			size="sm"
-			on:click={() => ($pageIndex = $pageIndex - 1)}
-			disabled={!$hasPreviousPage}>Previous</Button
+			on:click={() => ($page = ($page ?? 1) - 1)}
+			disabled={($page ?? 1) <= 1}>Previous</Button
 		>
 		<Button
 			variant="outline"
 			size="sm"
-			disabled={!$hasNextPage}
-			on:click={() => ($pageIndex = $pageIndex + 1)}>Next</Button
+			disabled={($page ?? 1) >= results.total_pages}
+			on:click={() => ($page = ($page ?? 1) + 1)}>Next</Button
 		>
 	</div>
 </div>

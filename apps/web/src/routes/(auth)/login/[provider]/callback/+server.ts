@@ -5,10 +5,10 @@ import {
 	google_auth,
 	is_valid_oauth_provider,
 } from '@fontesio/lib/lucia/oauth';
-import { create_user } from '@fontesio/lib/server-only/users/create-user.js';
-import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
 import { create_oauth_account } from '@fontesio/lib/server-only/auth/create-oauth-account';
 import { get_oauth_account } from '@fontesio/lib/server-only/auth/get-oauth-account';
+import { create_user } from '@fontesio/lib/server-only/users/create-user.js';
+import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
 
 import { error, redirect } from '@sveltejs/kit';
 

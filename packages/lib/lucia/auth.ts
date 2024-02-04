@@ -32,7 +32,7 @@ export const lucia = new Lucia(adapter, {
 	},
 });
 
-import type { User, Session as LuciaSession, Cookie } from 'lucia';
+import type { Cookie, Session as LuciaSession, User } from 'lucia';
 
 export type { Cookie };
 
