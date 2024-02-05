@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ReferencesTable from '$lib/features/references-table/components/table.svelte';
 	import AddReferenceSheet from '$lib/features/add-reference/components/sheet.svelte';
+	import { page } from '$app/stores';
 
 	export let data;
 </script>
@@ -10,3 +11,7 @@
 	<AddReferenceSheet />
 </div>
 <ReferencesTable results={data.references} />
+
+{#if $page.params.id}
+	{$page.params.id}
+{/if}

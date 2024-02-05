@@ -42,10 +42,10 @@
 				</form>
 			</DropdownMenu.Item>
 			<DropdownMenu.Item class="p-0">
-				<button type="button" class="px-2 py-1 w-full text-left flex items-center gap-3">
+				<a href="/all-references/{id}" class="px-2 py-1 w-full text-left flex items-center gap-3">
 					<IconPencil class="w-3.5 h-3.5 text-muted-foreground" />
 					Edit
-				</button>
+				</a>
 			</DropdownMenu.Item>
 		</DropdownMenu.Group>
 		<DropdownMenu.Separator />

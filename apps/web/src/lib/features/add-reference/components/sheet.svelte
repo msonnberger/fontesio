@@ -3,22 +3,27 @@
 	import Form from './form.svelte';
 	import type { CslType } from '@fontesio/citations/types';
 	import DropdownMenu from './dropdown.svelte';
+	import { sheet_open } from '../stores';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
-	let sheet_open = false;
-	let selected_type: CslType;
-
-	function set_selected(type: string) {
-		selected_type = type as CslType;
-	}
+	$: $sheet_open = $page.params.id !== undefined;
 </script>
 
-<Sheet.Root bind:open={sheet_open}>
-	<DropdownMenu {set_selected} />
+<Sheet.Root
+	bind:open={$sheet_open}
+	onOpenChange={async (is_open) => {
+		if (!is_open) {
+			await goto('/all-references');
+		}
+	}}
+>
+	<DropdownMenu />
 	<Sheet.Content side="right" class="min-w-[30rem]">
 		<Sheet.Header>
 			<Sheet.Title>Add reference</Sheet.Title>
 			<Sheet.Description>Add a new reference to your collection.</Sheet.Description>
 		</Sheet.Header>
-		<Form initial_type={selected_type} bind:sheet_open />
+		<Form />
 	</Sheet.Content>
 </Sheet.Root>

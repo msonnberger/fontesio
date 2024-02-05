@@ -11,16 +11,16 @@
 	import { unslugify } from '$lib/utils/unslugify';
 	import type { CslType } from '@fontesio/citations/types';
 	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	const options = csl_types.map((type) => ({ value: type, label: unslugify(type) }));
 
 	let open = false;
-	export let initial_value: CslType = 'book';
 	export let value: CslType = 'book';
 	export let set_value: (value: string) => void;
 
 	onMount(() => {
-		set_value(initial_value);
+		set_value($page.url.searchParams.get('type') ?? 'book');
 	});
 
 	$: selected_value = options.find((o) => o.value === value)?.label ?? 'Select a type...';
