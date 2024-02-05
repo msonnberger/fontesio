@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ReferencesTable from '$lib/features/references-table/components/data-table.svelte';
+	import ReferencesTable from '$lib/features/references-table/components/table.svelte';
 	import AddReferenceSheet from '$lib/features/add-reference/components/sheet.svelte';
 
 	export let data;

@@ -10,10 +10,12 @@
 	export let variant: $$Props['variant'] = 'default';
 	export let size: $$Props['size'] = 'default';
 	export let builders: $$Props['builders'] = [];
+	export let type: $$Props['type'] = 'button';
 	export { className as class };
 </script>
 
 <ButtonPrimitive.Root
+	{type}
 	{builders}
 	class={cn(buttonVariants({ variant, size, className }))}
 	{...$$restProps}

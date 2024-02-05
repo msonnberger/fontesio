@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table';
 	import { addSortBy, addSelectedRows } from 'svelte-headless-table/plugins';
-	import { writable } from 'svelte/store';
+	import { writable, type Writable } from 'svelte/store';
 	import * as Table from '@fontesio/ui/primitives/table';
 	import DataTableActions from './data-table-actions.svelte';
 	import { Button } from '@fontesio/ui/primitives/button';
@@ -13,6 +13,7 @@
 	import type { FindResultSet } from '@fontesio/lib/types/find-result-set';
 
 	export let results: FindResultSet<Reference>;
+	export let form_id: Writable<string | undefined>;
 
 	const page = queryParam('page', ssp.number(results.page), { showDefaults: false });
 
@@ -78,7 +79,7 @@
 			accessor: ({ id }) => id,
 			header: '',
 			cell: ({ value }) => {
-				return createRender(DataTableActions, { id: value });
+				return createRender(DataTableActions, { id: value, form_id });
 			},
 			plugins: {
 				sort: {
