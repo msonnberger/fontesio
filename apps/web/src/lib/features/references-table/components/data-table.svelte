@@ -13,7 +13,6 @@
 	import type { FindResultSet } from '@fontesio/lib/types/find-result-set';
 
 	export let results: FindResultSet<Reference>;
-	export let form_id: Writable<string | undefined>;
 
 	const page = queryParam('page', ssp.number(results.page), { showDefaults: false });
 
@@ -76,10 +75,10 @@
 			},
 		}),
 		table.column({
-			accessor: ({ id }) => id,
+			accessor: ({ id, is_favorite }) => ({ id, is_favorite }),
 			header: '',
 			cell: ({ value }) => {
-				return createRender(DataTableActions, { id: value, form_id });
+				return createRender(DataTableActions, { id: value.id, is_favorite: value.is_favorite });
 			},
 			plugins: {
 				sort: {
@@ -149,7 +148,7 @@
 	<div class="flex items-center justify-end space-x-2 py-4">
 		<div class="flex-1 text-sm text-muted-foreground">
 			{Object.keys($selectedDataIds).length} of{' '}
-			{results.count} row(s) selected.
+			{results.count} row{results.count > 1 ? 's' : ''} selected.
 		</div>
 		<Button
 			variant="outline"
