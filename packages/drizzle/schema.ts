@@ -85,6 +85,7 @@ export const references = pgTable('references', {
 		.notNull()
 		.references(() => users.id, { onDelete: 'cascade' }),
 	csl_json: jsonb('csl_json').$type<CslJsonReference>().notNull(),
+	deleted_at: timestamp('deleted_at', { withTimezone: true }),
 });
 
 export type Reference = typeof references.$inferSelect;
