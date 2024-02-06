@@ -1,6 +1,7 @@
 import { csl_json_schema } from '@fontesio/citations/csl-json-schema';
 import type { Reference } from '@fontesio/drizzle/schema';
 import { create_reference } from '@fontesio/lib/server-only/references/create-reference';
+import { update_reference } from '@fontesio/lib/server-only/references/update-reference';
 import { delete_reference } from '@fontesio/lib/server-only/references/delete-reference';
 import { find_references } from '@fontesio/lib/server-only/references/find-references';
 import { get_reference_by_id } from '@fontesio/lib/server-only/references/get-reference-by-id';
@@ -52,15 +53,20 @@ export const actions = {
 			});
 		}
 
-		await create_reference({
-			user_id: session.user.id,
-			csl_json: form.data,
-		});
+		if (form.data.id) {
+			await update_reference({
+				id: form.data.id,
+				user_id: session.user.id,
+				csl_json: form.data,
+			});
+		} else {
+			await create_reference({
+				user_id: session.user.id,
+				csl_json: form.data,
+			});
+		}
 
-		return {
-			manual_form: form,
-			success: true,
-		};
+		redirect(303, '/all-references');
 	},
 	delete_reference: async (event) => {
 		const session = event.locals.session;

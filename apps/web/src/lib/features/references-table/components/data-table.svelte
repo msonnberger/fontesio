@@ -11,6 +11,7 @@
 	import { unslugify } from '$lib/utils/unslugify';
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import type { FindResultSet } from '@fontesio/lib/types/find-result-set';
+	import { format_author } from '@fontesio/citations/format-author';
 
 	export let results: FindResultSet<Reference>;
 
@@ -61,12 +62,12 @@
 			},
 		}),
 		table.column({
-			accessor: (item) => item.csl_json.author,
+			accessor: (item) => item.csl_json,
 			header: 'Author',
 			cell: ({ value }) => {
 				if (!value) return '';
 
-				return value.map((author) => author.literal).join(', ');
+				return format_author(value, { with_year: false });
 			},
 			plugins: {
 				sort: {

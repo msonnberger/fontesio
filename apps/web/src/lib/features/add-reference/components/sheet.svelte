@@ -5,8 +5,10 @@
 	import { sheet_open } from '../stores';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { format_author } from '@fontesio/citations/format-author';
 
 	$: $sheet_open = $page.params.id !== undefined;
+	$: is_new_reference = $page.params.id === 'new';
 </script>
 
 <Sheet.Root
@@ -20,8 +22,12 @@
 	<DropdownMenu />
 	<Sheet.Content side="right" class="min-w-[30rem]">
 		<Sheet.Header>
-			<Sheet.Title>Add reference</Sheet.Title>
-			<Sheet.Description>Add a new reference to your collection.</Sheet.Description>
+			<Sheet.Title>
+				{is_new_reference ? 'Add reference' : format_author($page.data.manual_form?.data)}
+			</Sheet.Title>
+			<Sheet.Description>
+				{is_new_reference ? 'Add a new reference to your library.' : 'Update your reference.'}
+			</Sheet.Description>
 		</Sheet.Header>
 		<Form />
 	</Sheet.Content>

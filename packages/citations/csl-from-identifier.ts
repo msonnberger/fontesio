@@ -6,5 +6,8 @@ import '@citation-js/plugin-pubmed';
 
 export async function csl_from_identifier(id: string) {
 	const cite = await Cite.async(id);
-	return cite.format('data', { format: 'object' })[0];
+	const csl = cite.format('data', { format: 'object' })[0];
+	csl.id = undefined;
+
+	return csl;
 }
