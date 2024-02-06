@@ -1,6 +1,4 @@
 import { z } from 'zod';
-import { generate_id } from '../drizzle/id';
-import type { CslJsonForm, CslJsonReference } from './types';
 
 const csl_date_schema = z
 	.object({
@@ -29,11 +27,11 @@ const csl_name_schema = z.object({
 	suffix: z.string().optional(),
 	'comma-suffix': z.union([z.string(), z.number(), z.boolean()]).optional(),
 	'static-ordering': z.union([z.string(), z.number(), z.boolean()]).optional(),
-	literal: z.string().optional(),
+	literal: z.string().nullish(),
 	'parse-names': z.union([z.string(), z.number(), z.boolean()]).optional(),
 });
 
-const csl_names_schema = z.array(csl_name_schema).optional();
+const csl_names_schema = z.array(csl_name_schema).default([{ literal: null }]);
 
 export const csl_types = [
 	'article',
@@ -85,7 +83,7 @@ export const csl_types = [
 
 export const csl_json_schema = z.object({
 	type: z.enum(csl_types),
-	id: z.union([z.string(), z.number()]),
+	id: z.string().optional(),
 	'citation-key': z.string().optional(),
 	categories: z.array(z.string()).optional(),
 	language: z.string().optional(),
@@ -187,159 +185,3 @@ export const csl_json_schema = z.object({
 	'year-suffix': z.string().optional(),
 	custom: z.record(z.any()).optional(),
 });
-
-export const csl_json_form = z.object({
-	type: z.enum(csl_types),
-	id: z.string().optional(),
-	'citation-key': z.string().optional(),
-	categories: z.array(z.string()).optional(),
-	language: z.string().optional(),
-	journalAbbreviation: z.string().optional(),
-	shortTitle: z.string().optional(),
-	author: z.array(z.string().optional()).default([]).optional(),
-	chair: z.array(z.string()).optional(),
-	'collection-editor': z.array(z.string()).optional(),
-	compiler: z.array(z.string()).optional(),
-	composer: z.array(z.string()).optional(),
-	'container-author': z.array(z.string()).optional(),
-	contributor: z.array(z.string()).optional(),
-	curator: z.array(z.string()).optional(),
-	director: z.array(z.string()).optional(),
-	editor: z.array(z.string()).optional(),
-	'editorial-director': z.array(z.string()).optional(),
-	'executive-producer': z.array(z.string()).optional(),
-	guest: z.array(z.string()).optional(),
-	host: z.array(z.string()).optional(),
-	interviewer: z.array(z.string()).optional(),
-	illustrator: z.array(z.string()).optional(),
-	narrator: z.array(z.string()).optional(),
-	organizer: z.array(z.string()).optional(),
-	'original-author': z.array(z.string()).optional(),
-	performer: z.array(z.string()).optional(),
-	producer: z.array(z.string()).optional(),
-	recipient: z.array(z.string()).optional(),
-	'reviewed-author': z.array(z.string()).optional(),
-	'script-writer': z.array(z.string()).optional(),
-	'series-creator': z.array(z.string()).optional(),
-	translator: z.array(z.string()).optional(),
-	accessed: z.date().optional(),
-	'available-date': z.date().optional(),
-	'event-date': z.date().optional(),
-	issued: z.date().optional(),
-	'original-date': z.date().optional(),
-	submitted: z.date().optional(),
-	abstract: z.string().optional(),
-	annote: z.string().optional(),
-	archive: z.string().optional(),
-	archive_collection: z.string().optional(),
-	archive_location: z.string().optional(),
-	'archive-place': z.string().optional(),
-	authority: z.string().optional(),
-	'call-number': z.string().optional(),
-	'chapter-number': z.string().optional(),
-	'citation-number': z.string().optional(),
-	'citation-label': z.string().optional(),
-	'collection-number': z.string().optional(),
-	'collection-title': z.string().optional(),
-	'container-title': z.string().optional(),
-	'container-title-short': z.string().optional(),
-	dimensions: z.string().optional(),
-	division: z.string().optional(),
-	DOI: z.string().optional(),
-	edition: z.string().optional(),
-	'event-title': z.string().optional(),
-	'event-place': z.string().optional(),
-	'first-reference-note-number': z.string().optional(),
-	genre: z.string().optional(),
-	ISBN: z.string().optional(),
-	ISSN: z.string().optional(),
-	issue: z.string().optional(),
-	jurisdiction: z.string().optional(),
-	keyword: z.string().optional(),
-	locator: z.string().optional(),
-	medium: z.string().optional(),
-	note: z.string().optional(),
-	number: z.string().optional(),
-	'number-of-pages': z.string().optional(),
-	'number-of-volumes': z.string().optional(),
-	'original-publisher': z.string().optional(),
-	'original-publisher-place': z.string().optional(),
-	'original-title': z.string().optional(),
-	page: z.string().optional(),
-	'page-first': z.string().optional(),
-	part: z.string().optional(),
-	'part-title': z.string().optional(),
-	PMCID: z.string().optional(),
-	PMID: z.string().optional(),
-	printing: z.string().optional(),
-	publisher: z.string().optional(),
-	'publisher-place': z.string().optional(),
-	references: z.string().optional(),
-	'reviewed-genre': z.string().optional(),
-	'reviewed-title': z.string().optional(),
-	scale: z.string().optional(),
-	section: z.string().optional(),
-	source: z.string().optional(),
-	status: z.string().optional(),
-	supplement: z.string().optional(),
-	title: z.string().optional(),
-	'title-short': z.string().optional(),
-	URL: z.string().optional(),
-	version: z.string().optional(),
-	volume: z.string().optional(),
-	'volume-title': z.string().optional(),
-	'volume-title-short': z.string().optional(),
-	'year-suffix': z.string().optional(),
-	custom: z.record(z.any()).optional(),
-});
-
-export const csl_json_fields = Object.keys(
-	csl_json_schema.shape,
-) as unknown as keyof typeof csl_json_schema.shape;
-
-export function transform_csl_form_data(data: CslJsonForm): CslJsonReference {
-	return {
-		...data,
-		id: data.id ?? generate_id('reference'),
-		author: transform_names(data.author),
-		chair: transform_names(data.chair),
-		'collection-editor': transform_names(data['collection-editor']),
-		compiler: transform_names(data.compiler),
-		composer: transform_names(data.composer),
-		'container-author': transform_names(data['container-author']),
-		contributor: transform_names(data.contributor),
-		curator: transform_names(data.curator),
-		director: transform_names(data.director),
-		editor: transform_names(data.editor),
-		'editorial-director': transform_names(data['editorial-director']),
-		'executive-producer': transform_names(data['executive-producer']),
-		guest: transform_names(data.guest),
-		host: transform_names(data.host),
-		interviewer: transform_names(data.interviewer),
-		illustrator: transform_names(data.illustrator),
-		narrator: transform_names(data.narrator),
-		organizer: transform_names(data.organizer),
-		'original-author': transform_names(data['original-author']),
-		performer: transform_names(data.performer),
-		producer: transform_names(data.producer),
-		recipient: transform_names(data.recipient),
-		'reviewed-author': transform_names(data['reviewed-author']),
-		'script-writer': transform_names(data['script-writer']),
-		'series-creator': transform_names(data['series-creator']),
-		translator: transform_names(data.translator),
-		accessed: transform_date(data.accessed),
-		'available-date': transform_date(data['available-date']),
-		'event-date': transform_date(data['event-date']),
-		issued: transform_date(data.issued),
-		'original-date': transform_date(data['original-date']),
-		submitted: transform_date(data.submitted),
-	};
-}
-
-function transform_names(names: CslJsonForm['author']): CslJsonReference['author'] {
-	return names?.filter(Boolean).map((name) => ({ literal: name }));
-}
-
-function transform_date(date: CslJsonForm['accessed']): CslJsonReference['accessed'] {
-	return { literal: date?.toISOString() };
-}

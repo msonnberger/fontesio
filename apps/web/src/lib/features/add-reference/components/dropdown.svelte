@@ -2,13 +2,10 @@
 	import PlusCircle from '~icons/lucide/plus-circle';
 	import { Button } from '@fontesio/ui/primitives/button';
 	import * as DropdownMenu from '@fontesio/ui/primitives/dropdown-menu';
-	import { SheetTrigger } from '@fontesio/ui/primitives/sheet';
 	import { unslugify } from '$lib/utils/unslugify';
 	import type { CslType } from '@fontesio/citations/types';
 	import { csl_types } from '@fontesio/citations/csl-json-schema';
 	import IdentifierForm from './identifier-form.svelte';
-
-	export let set_selected: (value: string) => void;
 
 	const shortcut_types: CslType[] = [
 		'book',
@@ -40,9 +37,9 @@
 		<DropdownMenu.Group>
 			{#each shortcut_types as type}
 				<DropdownMenu.Item class="p-0">
-					<SheetTrigger class="px-2 py-1 w-full text-left" on:click={() => set_selected(type)}>
+					<a href="/all-references/new?type={type}" class="px-2 py-1 w-full text-left">
 						{unslugify(type)}
-					</SheetTrigger>
+					</a>
 				</DropdownMenu.Item>
 			{/each}
 		</DropdownMenu.Group>
@@ -53,9 +50,9 @@
 				<DropdownMenu.SubContent class="h-80 w-max overflow-y-scroll">
 					{#each more_types as type}
 						<DropdownMenu.Item class="p-0">
-							<SheetTrigger class="px-2 py-1 w-full text-left" on:click={() => set_selected(type)}>
+							<a href="/all-references/new?type={type}" class="px-2 py-1 w-full text-left">
 								{unslugify(type)}
-							</SheetTrigger>
+							</a>
 						</DropdownMenu.Item>
 					{/each}
 				</DropdownMenu.SubContent>

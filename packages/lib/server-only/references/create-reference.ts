@@ -9,9 +9,7 @@ interface CreateReferenceOptions {
 }
 
 export async function create_reference({ user_id, csl_json }: CreateReferenceOptions) {
-	const id = generate_id('reference');
+	csl_json.id = generate_id('reference');
 
-	csl_json.id = id;
-
-	return db.insert(references).values({ id, user_id, csl_json }).returning();
+	return db.insert(references).values({ id: csl_json.id, user_id, csl_json }).returning();
 }
