@@ -5,6 +5,7 @@ import { delete_reference } from '@fontesio/lib/server-only/references/delete-re
 import { find_references } from '@fontesio/lib/server-only/references/find-references';
 import { get_reference_by_id } from '@fontesio/lib/server-only/references/get-reference-by-id';
 import { toggle_favorite_reference } from '@fontesio/lib/server-only/references/toggle-favorite-reference';
+import { update_reference } from '@fontesio/lib/server-only/references/update-reference';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
@@ -52,15 +53,20 @@ export const actions = {
 			});
 		}
 
-		await create_reference({
-			user_id: session.user.id,
-			csl_json: form.data,
-		});
+		if (form.data.id) {
+			await update_reference({
+				id: form.data.id,
+				user_id: session.user.id,
+				csl_json: form.data,
+			});
+		} else {
+			await create_reference({
+				user_id: session.user.id,
+				csl_json: form.data,
+			});
+		}
 
-		return {
-			manual_form: form,
-			success: true,
-		};
+		redirect(303, '/all-references');
 	},
 	delete_reference: async (event) => {
 		const session = event.locals.session;
