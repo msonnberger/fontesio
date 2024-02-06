@@ -12,6 +12,7 @@
 	import { queryParam, ssp } from 'sveltekit-search-params';
 	import type { FindResultSet } from '@fontesio/lib/types/find-result-set';
 	import { format_author } from '@fontesio/citations/format-author';
+	import Pagination from '@fontesio/ui/components/pagination.svelte';
 
 	export let results: FindResultSet<Reference>;
 
@@ -146,22 +147,17 @@
 			</Table.Body>
 		</Table.Root>
 	</div>
-	<div class="flex items-center justify-end space-x-2 py-4">
+	<div class="flex items-center justify-between space-x-2 py-4">
 		<div class="flex-1 text-sm text-muted-foreground">
 			{Object.keys($selectedDataIds).length} of{' '}
 			{results.count} row{results.count > 1 ? 's' : ''} selected.
 		</div>
-		<Button
-			variant="outline"
-			size="sm"
-			on:click={() => ($page = ($page ?? 1) - 1)}
-			disabled={($page ?? 1) <= 1}>Previous</Button
-		>
-		<Button
-			variant="outline"
-			size="sm"
-			disabled={($page ?? 1) >= results.total_pages}
-			on:click={() => ($page = ($page ?? 1) + 1)}>Next</Button
-		>
+
+		<Pagination
+			page={$page}
+			on_page_change={(p) => ($page = p)}
+			count={results.count}
+			per_page={results.per_page}
+		/>
 	</div>
 </div>
