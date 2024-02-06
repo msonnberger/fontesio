@@ -1,6 +1,6 @@
-import type { CslJsonReference } from './types';
 import { Cite } from '@citation-js/core';
 import '@citation-js/plugin-csl';
+import type { CslJsonReference } from './types';
 
 interface FormatAuthorOptions {
 	with_year?: boolean;

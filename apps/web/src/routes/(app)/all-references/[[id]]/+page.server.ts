@@ -1,11 +1,11 @@
 import { csl_json_schema } from '@fontesio/citations/csl-json-schema';
 import type { Reference } from '@fontesio/drizzle/schema';
 import { create_reference } from '@fontesio/lib/server-only/references/create-reference';
-import { update_reference } from '@fontesio/lib/server-only/references/update-reference';
 import { delete_reference } from '@fontesio/lib/server-only/references/delete-reference';
 import { find_references } from '@fontesio/lib/server-only/references/find-references';
 import { get_reference_by_id } from '@fontesio/lib/server-only/references/get-reference-by-id';
 import { toggle_favorite_reference } from '@fontesio/lib/server-only/references/toggle-favorite-reference';
+import { update_reference } from '@fontesio/lib/server-only/references/update-reference';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';

@@ -5,7 +5,6 @@
 	import CslTypeCombobox from './csl-type-combobox.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
 	import Button from '@fontesio/ui/primitives/button/button.svelte';
-	import PlusCircle from '~icons/lucide/plus-circle';
 	import { sheet_open } from '../stores';
 	import NamesInput from './names-input.svelte';
 
