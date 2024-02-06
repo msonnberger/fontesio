@@ -1,25 +1,31 @@
-import {
-	csl_json_form,
-	csl_json_schema,
-	transform_csl_form_data,
-} from '@fontesio/citations/csl-json-schema';
+import { csl_json_schema } from '@fontesio/citations/csl-json-schema';
+import type { Reference } from '@fontesio/drizzle/schema';
 import { create_reference } from '@fontesio/lib/server-only/references/create-reference';
 import { delete_reference } from '@fontesio/lib/server-only/references/delete-reference';
-import { toggle_favorite_reference } from '@fontesio/lib/server-only/references/toggle-favorite-reference';
 import { find_references } from '@fontesio/lib/server-only/references/find-references';
+import { get_reference_by_id } from '@fontesio/lib/server-only/references/get-reference-by-id';
+import { toggle_favorite_reference } from '@fontesio/lib/server-only/references/toggle-favorite-reference';
 import { error, fail, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
-export async function load({ locals, url }) {
+export async function load({ locals, url, params }) {
 	if (!locals.session) {
 		redirect(302, '/login');
 	}
 
+	let reference: Reference | null = null;
+
+	if (params.id && params.id !== 'new') {
+		reference = await get_reference_by_id({ id: params.id, user_id: locals.session.user.id });
+	}
+
 	return {
 		user: locals.session.user,
-		manual_form: await superValidate(csl_json_form),
-		from_identifier_form: await superValidate(csl_json_schema),
+		manual_form: await superValidate(reference?.csl_json ?? null, csl_json_schema, {
+			id: 'manual_form',
+		}),
+		from_identifier_form: await superValidate(csl_json_schema, { id: 'from_identifier_form' }),
 		references: await find_references({
 			user_id: locals.session.user.id,
 			page: Number(url.searchParams.get('page')) || 1,
@@ -38,36 +44,11 @@ export const actions = {
 			error(401);
 		}
 
-		const form = await superValidate(event, csl_json_form);
-
-		if (!form.valid) {
-			return fail(400, {
-				form,
-			});
-		}
-
-		await create_reference({
-			user_id: session.user.id,
-			csl_json: transform_csl_form_data(form.data),
-		});
-
-		return {
-			form,
-			success: true,
-		};
-	},
-	add_reference_from_identifier: async (event) => {
-		const session = event.locals.session;
-
-		if (!session) {
-			error(401);
-		}
-
 		const form = await superValidate(event, csl_json_schema);
 
 		if (!form.valid) {
 			return fail(400, {
-				form,
+				manual_form: form,
 			});
 		}
 
@@ -77,7 +58,7 @@ export const actions = {
 		});
 
 		return {
-			form,
+			manual_form: form,
 			success: true,
 		};
 	},

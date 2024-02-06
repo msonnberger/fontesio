@@ -28,7 +28,7 @@
 	});
 </script>
 
-<form method="post" action="?/add_reference_from_identifier" class="space-y-2" use:enhance>
+<form method="post" action="?/add_reference" class="space-y-2" use:enhance>
 	<Label for="identifier">Enter an ISBN, DOI or PMCID to add to your library:</Label>
 	<div class="flex gap-2 w-full">
 		<div class="grow">

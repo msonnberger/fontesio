@@ -2,7 +2,6 @@
 	import PlusCircle from '~icons/lucide/plus-circle';
 	import { Button } from '@fontesio/ui/primitives/button';
 	import * as DropdownMenu from '@fontesio/ui/primitives/dropdown-menu';
-	import { SheetTrigger } from '@fontesio/ui/primitives/sheet';
 	import { unslugify } from '$lib/utils/unslugify';
 	import type { CslType } from '@fontesio/citations/types';
 	import { csl_types } from '@fontesio/citations/csl-json-schema';

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { createTable, Render, Subscribe, createRender } from 'svelte-headless-table';
 	import { addSortBy, addSelectedRows } from 'svelte-headless-table/plugins';
-	import { writable, type Writable } from 'svelte/store';
+	import { writable } from 'svelte/store';
 	import * as Table from '@fontesio/ui/primitives/table';
 	import DataTableActions from './data-table-actions.svelte';
 	import { Button } from '@fontesio/ui/primitives/button';

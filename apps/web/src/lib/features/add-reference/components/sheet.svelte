@@ -1,7 +1,6 @@
 <script lang="ts">
 	import * as Sheet from '@fontesio/ui/primitives/sheet';
 	import Form from './form.svelte';
-	import type { CslType } from '@fontesio/citations/types';
 	import DropdownMenu from './dropdown.svelte';
 	import { sheet_open } from '../stores';
 	import { page } from '$app/stores';

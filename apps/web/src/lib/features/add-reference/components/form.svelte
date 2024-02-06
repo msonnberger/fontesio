@@ -1,6 +1,6 @@
 <script lang="ts">
 	import * as Form from '@fontesio/ui/primitives/form';
-	import { csl_json_form } from '@fontesio/citations/csl-json-schema';
+	import { csl_json_schema } from '@fontesio/citations/csl-json-schema';
 	import { page } from '$app/stores';
 	import CslTypeCombobox from './csl-type-combobox.svelte';
 	import { superForm } from 'sveltekit-superforms/client';
@@ -10,7 +10,6 @@
 
 	const super_form = superForm($page.data.manual_form, {
 		dataType: 'json',
-		validators: csl_json_form,
 		taintedMessage: false,
 		onUpdated({ form }) {
 			if (form.valid) {
@@ -27,7 +26,7 @@
 	controlled
 	form={super_form}
 	action="?/add_reference"
-	schema={csl_json_form}
+	schema={csl_json_schema}
 	class="flex flex-col gap-3 mt-6 pb-10 h-[calc(100%-140px)] overflow-y-scroll"
 >
 	<Form.Field {config} name="type" let:setValue let:value>
@@ -45,7 +44,7 @@
 		</Form.Item>
 	</Form.Field>
 
-	<Form.Field {config} name="author[0]">
+	<Form.Field {config} name="author[0].literal">
 		<Form.Item>
 			<Form.Label>Author</Form.Label>
 			<Form.Description>Full name of the author (e.g. John Doe)</Form.Description>
@@ -55,7 +54,7 @@
 	</Form.Field>
 
 	{#each $form.author.slice(1) as _, i (i)}
-		<Form.Field {config} name="author[{i + 1}]">
+		<Form.Field {config} name="author[{i + 1}].literal">
 			<Form.Item>
 				<Form.Input />
 				<Form.Validation />
@@ -68,7 +67,7 @@
 		size="sm"
 		type="button"
 		on:click={() => {
-			$form.author = [...$form.author, undefined];
+			$form.author = [...$form.author, { literal: null }];
 		}}
 	>
 		<PlusCircle class="mr-2" />
