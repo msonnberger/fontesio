@@ -13,10 +13,12 @@
 	import type { FindResultSet } from '@fontesio/lib/types/find-result-set';
 	import { format_author } from '@fontesio/citations/format-author';
 	import Pagination from '@fontesio/ui/components/pagination.svelte';
+	import PageSizeSelect from '@fontesio/ui/components/page-size-select.svelte';
 
 	export let results: FindResultSet<Reference>;
 
 	const page = queryParam('page', ssp.number(results.page), { showDefaults: false });
+	const per_page = queryParam('per_page', ssp.number(results.per_page), { showDefaults: false });
 
 	const table_data = writable(results.data);
 	$: table_data.set(results.data);
@@ -148,13 +150,18 @@
 		</Table.Root>
 	</div>
 	<div class="flex items-center justify-between space-x-2 py-4">
-		<div class="flex-1 text-sm text-muted-foreground">
+		<div class="text-sm text-muted-foreground">
 			{Object.keys($selectedDataIds).length} of{' '}
 			{results.count} row{results.count > 1 ? 's' : ''} selected.
 		</div>
 
+		<PageSizeSelect
+			page_size={results.per_page}
+			on_page_size_change={(page_size) => ($per_page = page_size)}
+		/>
+
 		<Pagination
-			page={$page}
+			page={results.page}
 			on_page_change={(p) => ($page = p)}
 			count={results.count}
 			per_page={results.per_page}

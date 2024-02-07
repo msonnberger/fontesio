@@ -5,15 +5,13 @@
 
 	export let count: number;
 	export let per_page: number;
-	export let page: number | null;
+	export let page: number;
 	export let on_page_change: ((page: number) => void) | undefined = undefined;
-
-	$: _page = page === null ? undefined : page;
 </script>
 
 <Pagination.Root
 	{count}
-	bind:page={_page}
+	{page}
 	perPage={per_page}
 	onPageChange={on_page_change}
 	let:pages
