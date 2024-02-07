@@ -30,7 +30,7 @@ export async function load({ locals, url, params }) {
 		references: await find_references({
 			user_id: locals.session.user.id,
 			page: Number(url.searchParams.get('page')) || 1,
-			per_page: Number(url.searchParams.get('per_page')) || 14,
+			per_page: Number(url.searchParams.get('per_page')) || 10,
 		}),
 	};
 }
