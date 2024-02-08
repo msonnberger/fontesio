@@ -8,9 +8,10 @@
 	import IconStarFilled from '~icons/radix-icons/star-filled';
 	import IconQuote from '~icons/lucide/quote';
 	import { enhance } from '$app/forms';
+	import { pushState } from '$app/navigation';
+	import type { Reference } from '@fontesio/drizzle/schema';
 
-	export let id: string;
-	export let is_favorite: boolean;
+	export let reference: Reference;
 </script>
 
 <DropdownMenu.Root>
@@ -23,15 +24,23 @@
 	<DropdownMenu.Content align="end">
 		<DropdownMenu.Group>
 			<DropdownMenu.Item class="p-0">
-				<button type="button" class="px-2 py-1 w-full text-left flex items-center gap-3">
+				<button
+					on:click={() => pushState('', { citation_dialog_reference: reference })}
+					type="button"
+					class="px-2 py-1 w-full text-left flex items-center gap-3"
+				>
 					<IconQuote class="w-3.5 h-3.5 text-muted-foreground" />
 					Cite
 				</button>
 			</DropdownMenu.Item>
 			<DropdownMenu.Item class="p-0">
 				<form use:enhance method="post" action="?/favorite_reference">
-					<button class="px-2 py-1 w-full text-left flex items-center gap-2.5" name="id" value={id}>
-						{#if is_favorite}
+					<button
+						class="px-2 py-1 w-full text-left flex items-center gap-2.5"
+						name="id"
+						value={reference.id}
+					>
+						{#if reference.is_favorite}
 							<IconStarFilled fill="#facc15" class="w-4 h-4 text-yellow-400" />
 							Unfavorite
 						{:else}
@@ -42,7 +51,10 @@
 				</form>
 			</DropdownMenu.Item>
 			<DropdownMenu.Item class="p-0">
-				<a href="/all-references/{id}" class="px-2 py-1 w-full text-left flex items-center gap-3">
+				<a
+					href="/all-references/{reference.id}"
+					class="px-2 py-1 w-full text-left flex items-center gap-3"
+				>
 					<IconPencil class="w-3.5 h-3.5 text-muted-foreground" />
 					Edit
 				</a>
@@ -51,7 +63,11 @@
 		<DropdownMenu.Separator />
 		<DropdownMenu.Item class="p-0">
 			<form use:enhance method="post" action="?/delete_reference">
-				<button class="px-2 py-1 w-full text-left flex items-center gap-3" name="id" value={id}>
+				<button
+					class="px-2 py-1 w-full text-left flex items-center gap-3"
+					name="id"
+					value={reference.id}
+				>
 					<IconTrash class="w-3.5 h-3.5 text-muted-foreground" />
 					Delete
 				</button>
