@@ -79,10 +79,10 @@
 			},
 		}),
 		table.column({
-			accessor: ({ id, is_favorite }) => ({ id, is_favorite }),
+			accessor: (item) => item,
 			header: '',
 			cell: ({ value }) => {
-				return createRender(DataTableActions, { id: value.id, is_favorite: value.is_favorite });
+				return createRender(DataTableActions, { reference: value });
 			},
 			plugins: {
 				sort: {
