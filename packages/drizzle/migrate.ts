@@ -3,7 +3,11 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import postgres from 'postgres';
 
-const migration_client = postgres(env.DATABASE_URL, { max: 1, prepare: false });
+const migration_client = postgres(env.DATABASE_URL, {
+	max: 1,
+	prepare: false,
+	ssl: env.DATABASE_SSL_CERT ? { ca: env.DATABASE_SSL_CERT } : undefined,
+});
 
 migrate(drizzle(migration_client), { migrationsFolder: './migrations' })
 	.then(() => {

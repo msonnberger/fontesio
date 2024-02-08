@@ -4,6 +4,7 @@ import { z } from 'zod';
 export const env = createEnv({
 	server: {
 		DATABASE_URL: z.string().url(),
+		DATABASE_SSL_CERT: z.string().optional(),
 		GOOGLE_CLIENT_ID: z.string(),
 		GOOGLE_CLIENT_SECRET: z.string(),
 		UPSTASH_REDIS_REST_URL: z.string().url(),
