@@ -1,5 +1,5 @@
 import { sql } from '@fontesio/drizzle';
-import { text, error } from '@sveltejs/kit';
+import { error, text } from '@sveltejs/kit';
 
 export async function GET() {
 	try {

@@ -28,11 +28,15 @@
 			}
 		});
 	}
+
+	const MAX_NAMES_SHOWN = 5;
+	let collapsed = $form[name].length > MAX_NAMES_SHOWN;
+	$: names = collapsed ? $form[name].slice(0, MAX_NAMES_SHOWN) : $form[name];
 </script>
 
 <div class="grid grid-cols-2 gap-x-1 gap-y-2 mt-2">
-	{#each $form[name] as _, i (i)}
-		{#if 'family' in $form[name][i]}
+	{#each names as _, i (i)}
+		{#if 'family' in names[i]}
 			<div class="col-span-2 grid grid-cols-subgrid gap-y-2">
 				<Form.Field {config} name="{name}[{i}].family">
 					{#if i === 0}
@@ -97,7 +101,17 @@
 		{/if}
 	{/each}
 </div>
-<Button class="self-start" variant="secondary" size="sm" type="button" on:click={() => add_name()}>
-	<PlusCircle class="mr-2" />
-	Add another {label.toLowerCase()}
+<Button
+	class="self-start"
+	variant="secondary"
+	size="sm"
+	type="button"
+	on:click={() => (collapsed ? (collapsed = false) : add_name())}
+>
+	{#if !collapsed}
+		<PlusCircle class="mr-2" />
+	{/if}
+	{collapsed
+		? `Show ${$form[name].length - MAX_NAMES_SHOWN} more...`
+		: `Add another ${label.toLowerCase()}`}
 </Button>

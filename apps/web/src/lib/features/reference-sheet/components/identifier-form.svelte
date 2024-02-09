@@ -19,7 +19,6 @@
 			try {
 				const csl_json = await csl_from_identifier(formData.get('identifier') as string);
 				$form = csl_json;
-				console.log($form);
 			} catch (error) {
 				if (error instanceof Error) {
 					$errors.identifier = [error.message];
