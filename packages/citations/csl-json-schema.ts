@@ -17,7 +17,8 @@ const csl_date_schema = z
 		literal: z.string().optional(),
 		raw: z.string().optional(),
 	})
-	.optional();
+	.optional()
+	.default({ 'date-parts': [['', '', '']] });
 
 const csl_name_schema = z.object({
 	family: z.string().optional(),

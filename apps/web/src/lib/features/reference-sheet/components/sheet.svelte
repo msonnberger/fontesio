@@ -20,7 +20,7 @@
 	}}
 >
 	<DropdownMenu />
-	<Sheet.Content side="right" class="min-w-[30rem]">
+	<Sheet.Content side="right" class="min-w-[30rem] pr-0">
 		<Sheet.Header>
 			<Sheet.Title>
 				{is_new_reference ? 'Add reference' : format_author($page.data.manual_form?.data)}
