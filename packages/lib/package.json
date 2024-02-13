@@ -8,12 +8,12 @@
 		"@fontesio/email": "workspace:*",
 		"@fontesio/env": "workspace:*",
 		"@lucia-auth/adapter-postgresql": "3.1.0",
-		"@upstash/ratelimit": "1.0.0",
+		"@upstash/ratelimit": "1.0.1",
 		"@upstash/redis": "1.28.3",
 		"arctic": "1.1.4",
 		"drizzle-orm": "0.29.3",
 		"lucia": "3.0.1",
-		"oslo": "1.1.0",
+		"oslo": "1.1.1",
 		"zod": "3.22.4"
 	}
 }
