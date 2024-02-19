@@ -32,6 +32,7 @@ export async function load({ locals, url, params }) {
 			page: Number(url.searchParams.get('page')) || 1,
 			per_page: Number(url.searchParams.get('per_page')) || 10,
 		}),
+		reference,
 	};
 }
 

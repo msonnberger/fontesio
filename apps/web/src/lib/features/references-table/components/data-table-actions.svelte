@@ -8,7 +8,7 @@
 	import IconStarFilled from '~icons/radix-icons/star-filled';
 	import IconQuote from '~icons/lucide/quote';
 	import { enhance } from '$app/forms';
-	import { pushState } from '$app/navigation';
+	import { goto } from '$app/navigation';
 	import type { Reference } from '@fontesio/drizzle/schema';
 
 	export let reference: Reference;
@@ -24,14 +24,13 @@
 	<DropdownMenu.Content align="end">
 		<DropdownMenu.Group>
 			<DropdownMenu.Item class="p-0">
-				<button
-					on:click={() => pushState('', { citation_dialog_reference: reference })}
-					type="button"
+				<a
+					href="/all-references/{reference.id}?tab=cite"
 					class="px-2 py-1 w-full text-left flex items-center gap-3"
 				>
 					<IconQuote class="w-3.5 h-3.5 text-muted-foreground" />
 					Cite
-				</button>
+				</a>
 			</DropdownMenu.Item>
 			<DropdownMenu.Item class="p-0">
 				<form use:enhance method="post" action="?/favorite_reference">
@@ -52,7 +51,7 @@
 			</DropdownMenu.Item>
 			<DropdownMenu.Item class="p-0">
 				<a
-					href="/all-references/{reference.id}"
+					href="/all-references/{reference.id}?tab=info"
 					class="px-2 py-1 w-full text-left flex items-center gap-3"
 				>
 					<IconPencil class="w-3.5 h-3.5 text-muted-foreground" />

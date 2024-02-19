@@ -1,7 +1,6 @@
 <script lang="ts">
 	import ReferencesTable from '$lib/features/references-table/components/data-table.svelte';
 	import ReferenceSheet from '$lib/features/reference-sheet/components/sheet.svelte';
-	import CitationDialog from '$lib/features/citation-dialog/components/dialog.svelte';
 
 	export let data;
 </script>
@@ -15,4 +14,3 @@
 	<ReferenceSheet />
 </div>
 <ReferencesTable results={data.references} />
-<CitationDialog />

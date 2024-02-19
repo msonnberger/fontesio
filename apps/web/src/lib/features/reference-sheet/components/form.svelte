@@ -27,7 +27,7 @@
 	form={super_form}
 	action="?/add_reference"
 	schema={csl_json_schema}
-	class="flex flex-col gap-3 mt-6 pl-[1px] pr-6 pb-10 h-[calc(100%-140px)] overflow-y-scroll"
+	class="flex flex-col gap-3"
 >
 	<Form.Field {config} name="type" let:setValue let:value>
 		<Form.Item class="flex flex-col gap-2">
