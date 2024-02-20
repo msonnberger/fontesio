@@ -7,7 +7,8 @@ import { get_reference_by_id } from '@fontesio/lib/server-only/references/get-re
 import { toggle_favorite_reference } from '@fontesio/lib/server-only/references/toggle-favorite-reference';
 import { update_reference } from '@fontesio/lib/server-only/references/update-reference';
 import { error, fail, redirect } from '@sveltejs/kit';
-import { superValidate } from 'sveltekit-superforms/server';
+import { superValidate } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
 import { z } from 'zod';
 
 export async function load({ locals, url, params }) {
@@ -23,10 +24,10 @@ export async function load({ locals, url, params }) {
 
 	return {
 		user: locals.session.user,
-		manual_form: await superValidate(reference?.csl_json ?? null, csl_json_schema, {
+		manual_form: await superValidate(reference?.csl_json ?? null, zod(csl_json_schema), {
 			id: 'manual_form',
 		}),
-		from_identifier_form: await superValidate(csl_json_schema, { id: 'from_identifier_form' }),
+		from_identifier_form: await superValidate(zod(csl_json_schema), { id: 'from_identifier_form' }),
 		references: await find_references({
 			user_id: locals.session.user.id,
 			page: Number(url.searchParams.get('page')) || 1,
@@ -46,7 +47,7 @@ export const actions = {
 			error(401);
 		}
 
-		const form = await superValidate(event, csl_json_schema);
+		const form = await superValidate(event, zod(csl_json_schema));
 
 		if (!form.valid) {
 			return fail(400, {
@@ -76,7 +77,7 @@ export const actions = {
 			error(401);
 		}
 
-		const form = await superValidate(event, id_only_schema);
+		const form = await superValidate(event, zod(id_only_schema));
 
 		if (!form.valid) {
 			return fail(400, {
@@ -101,7 +102,7 @@ export const actions = {
 			error(401);
 		}
 
-		const form = await superValidate(event, id_only_schema);
+		const form = await superValidate(event, zod(id_only_schema));
 
 		if (!form.valid) {
 			return fail(400, {
