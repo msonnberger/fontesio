@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-	<title>Login | Fontesio</title>
+	<title>Sign in | Fontesio</title>
 </svelte:head>
 
 <AuthForm heading="Sign in to your account">
