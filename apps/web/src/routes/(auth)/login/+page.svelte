@@ -17,6 +17,10 @@
 	const { form: form_data, message, enhance } = form;
 </script>
 
+<svelte:head>
+	<title>Login | Fontesio</title>
+</svelte:head>
+
 <AuthForm heading="Sign in to your account">
 	<form
 		slot="email-password-form"
