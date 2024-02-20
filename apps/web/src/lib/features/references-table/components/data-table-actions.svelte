@@ -8,7 +8,6 @@
 	import IconStarFilled from '~icons/radix-icons/star-filled';
 	import IconQuote from '~icons/lucide/quote';
 	import { enhance } from '$app/forms';
-	import { goto } from '$app/navigation';
 	import type { Reference } from '@fontesio/drizzle/schema';
 
 	export let reference: Reference;
