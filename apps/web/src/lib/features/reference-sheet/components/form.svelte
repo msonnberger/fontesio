@@ -3,7 +3,7 @@
 	import { csl_json_schema } from '@fontesio/citations/csl-json-schema';
 	import CslTypeCombobox from './csl-type-combobox.svelte';
 	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
-	import { zod } from 'sveltekit-superforms/adapters';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { Button } from '@fontesio/ui/primitives/button';
 	import { sheet_open } from '../stores';
 	import NamesInput from './names-input.svelte';
@@ -13,7 +13,7 @@
 	export let data: SuperValidated<Infer<CslJsonSchema>>;
 
 	const form = superForm(data, {
-		validators: zod(csl_json_schema),
+		validators: zodClient(csl_json_schema),
 		dataType: 'json',
 		onUpdated({ form }) {
 			if (form.valid) {
