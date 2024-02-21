@@ -11,6 +11,6 @@
 
 <div class="flex justify-between mb-6">
 	<h1 class="text-3xl font-bold">All references</h1>
-	<ReferenceSheet />
+	<ReferenceSheet form_data={data.manual_form} />
 </div>
 <ReferencesTable results={data.references} />

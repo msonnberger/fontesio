@@ -1,27 +1,30 @@
 <script lang="ts">
 	import * as Form from '@fontesio/ui/primitives/form';
 	import { Button } from '@fontesio/ui/primitives/button';
-	import type { FieldProps } from 'formsnap';
-	import type { SuperForm } from 'sveltekit-superforms/client';
+	import type { SuperForm, Infer } from 'sveltekit-superforms';
 	import PlusCircle from '~icons/lucide/plus-circle';
-	import type { AnyZodObject } from 'zod';
 	import X from '~icons/lucide/x';
-	import { tick } from 'svelte';
+	import { onMount, tick } from 'svelte';
+	import { Input } from '@fontesio/ui/primitives/input';
+	import type { CslJsonSchema, CslNameField } from '@fontesio/citations/types';
 
-	export let config: FieldProps['config'];
-	export let name: FieldProps['name'];
-	export let form: SuperForm<AnyZodObject>['form'];
+	export let name: CslNameField;
+	export let form: SuperForm<Infer<CslJsonSchema>>;
 	export let label: string;
 
+	$: form_data = form.form;
+
 	function add_name() {
-		$form[name] = [
-			...$form[name],
-			$form[name].at(-1)?.family ? { family: null, given: null } : { literal: null },
+		$form_data[name] = [
+			...$form_data[name],
+			'family' in $form_data[name].at(-1)!
+				? { family: undefined, given: undefined }
+				: { literal: undefined },
 		];
 		tick().then(() => {
 			const inputs = [...document.querySelectorAll<HTMLInputElement>(`input[name^='${name}']`)];
 
-			if ('family' in $form[name].at(-1)) {
+			if ('family' in $form_data[name].at(-1)!) {
 				inputs.at(-2)?.focus();
 			} else {
 				inputs.at(-1)?.focus();
@@ -29,89 +32,94 @@
 		});
 	}
 
+	function update_name(i: number, part: 'family' | 'given' | 'literal', value: string) {
+		$form_data[name][i]![part] = value;
+	}
+
+	function remove_name_at_index(i: number) {
+		$form_data[name].splice(i, 1);
+		$form_data[name] = $form_data[name];
+	}
+
 	const MAX_NAMES_SHOWN = 5;
-	let collapsed = $form[name].length > MAX_NAMES_SHOWN;
-	$: names = collapsed ? $form[name].slice(0, MAX_NAMES_SHOWN) : $form[name];
+	let collapsed = false;
+	onMount(() => (collapsed = $form_data[name].length > MAX_NAMES_SHOWN));
+	$: names = collapsed ? $form_data[name].slice(0, MAX_NAMES_SHOWN) : $form_data[name];
 </script>
 
-<div class="grid grid-cols-2 gap-x-1 gap-y-2 mt-2">
-	{#each names as _, i (i)}
-		{#if 'family' in names[i]}
-			<div class="col-span-2 grid grid-cols-subgrid gap-y-2">
-				<Form.Field {config} name="{name}[{i}].family">
-					{#if i === 0}
-						<Form.Label class="col-span-2">{label}</Form.Label>
-						<Form.Description class="col-span-2">
-							Last name and first name of the {label.toLowerCase()}
-						</Form.Description>
-					{/if}
+<Form.Fieldset {form} {name}>
+	<Form.Legend class="col-span-2">{label}</Form.Legend>
+	<Form.Description class="col-span-2">
+		Last name and first name of the {label.toLowerCase()}
+	</Form.Description>
+	<div class="grid grid-cols-2 gap-x-1 gap-y-2 mt-2">
+		{#each names as { family, given, literal }, i (i)}
+			{#if 'family' in names[i]}
+				<Form.ElementField {form} name="{name}[{i}].family">
 					<div>
-						<Form.Input placeholder="Smith" />
-						<Form.Validation />
+						<Form.Control let:attrs>
+							<Input
+								{...attrs}
+								placeholder="Smith"
+								value={family}
+								on:input={(e) => update_name(i, 'family', e.currentTarget.value)}
+							/>
+						</Form.Control>
+						<Form.FieldErrors />
 					</div>
-				</Form.Field>
-				<Form.Field {config} name="{name}[{i}].given">
+				</Form.ElementField>
+				<Form.ElementField {form} name="{name}[{i}].given">
 					<div>
 						<div class="flex items-center gap-1">
-							<Form.Input placeholder="John" />
-							<Button
-								size="icon"
-								variant="ghost"
-								on:click={() => {
-									$form[name].splice(i, 1);
-									$form[name] = $form[name];
-								}}
-							>
+							<Form.Control let:attrs>
+								<Input
+									{...attrs}
+									placeholder="John"
+									value={given}
+									on:input={(e) => update_name(i, 'given', e.currentTarget.value)}
+								/>
+							</Form.Control>
+							<Button size="icon" variant="ghost" on:click={() => remove_name_at_index(i)}>
 								<X />
 							</Button>
 						</div>
-						<Form.Validation />
+						<Form.FieldErrors />
 					</div>
-				</Form.Field>
-			</div>
-		{:else}
-			<div class="col-span-2 space-y-2">
-				<Form.Field {config} name="{name}[{i}].literal">
-					{#if i === 0}
-						<Form.Label>{label}</Form.Label>
-						<Form.Description>
-							Last name and first name of the {label.toLowerCase()}
-						</Form.Description>
-					{/if}
-					<div>
-						<div class="flex items-center gap-1">
-							<div class="grow">
-								<Form.Input placeholder="John Smith" />
-							</div>
-							<Button
-								size="icon"
-								variant="ghost"
-								on:click={() => {
-									$form[name].splice(i, 1);
-									$form[name] = $form[name];
-								}}
-							>
-								<X />
-							</Button>
+				</Form.ElementField>
+			{:else}
+				<Form.ElementField {form} name="{name}[{i}].literal" class="col-span-2 space-y-0">
+					<div class="flex items-center gap-1">
+						<div class="grow">
+							<Form.Control let:attrs>
+								<Input
+									{...attrs}
+									placeholder="John Smith"
+									value={literal}
+									on:input={(e) => update_name(i, 'literal', e.currentTarget.value)}
+								/>
+							</Form.Control>
 						</div>
-						<Form.Validation />
+						<Button size="icon" variant="ghost" on:click={() => remove_name_at_index(i)}>
+							<X />
+						</Button>
 					</div>
-				</Form.Field>
-			</div>
+					<Form.FieldErrors />
+				</Form.ElementField>
+			{/if}
+		{/each}
+	</div>
+	<Button
+		class="self-start"
+		variant="secondary"
+		size="sm"
+		type="button"
+		on:click={() => (collapsed ? (collapsed = false) : add_name())}
+	>
+		{#if !collapsed}
+			<PlusCircle class="mr-2" />
 		{/if}
-	{/each}
-</div>
-<Button
-	class="self-start"
-	variant="secondary"
-	size="sm"
-	type="button"
-	on:click={() => (collapsed ? (collapsed = false) : add_name())}
->
-	{#if !collapsed}
-		<PlusCircle class="mr-2" />
-	{/if}
-	{collapsed
-		? `Show ${$form[name].length - MAX_NAMES_SHOWN} more...`
-		: `Add another ${label.toLowerCase()}`}
-</Button>
+		{collapsed
+			? `Show ${$form_data[name].length - MAX_NAMES_SHOWN} more...`
+			: `Add another ${label.toLowerCase()}`}
+	</Button>
+</Form.Fieldset>

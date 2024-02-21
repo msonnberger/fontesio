@@ -4,13 +4,14 @@
 	import { Label } from '@fontesio/ui/primitives/label';
 	import ArrowRight from '~icons/lucide/arrow-right';
 	import { csl_from_identifier } from '@fontesio/citations/csl-from-identifier';
-	import { superForm } from 'sveltekit-superforms/client';
+	import { superForm } from 'sveltekit-superforms';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { page } from '$app/stores';
 	import { csl_json_schema } from '@fontesio/citations/csl-json-schema';
 
 	const { form, enhance, errors } = superForm($page.data.from_identifier_form, {
 		dataType: 'json',
-		validators: csl_json_schema,
+		validators: zodClient(csl_json_schema),
 		onSubmit: async ({ formData, cancel }) => {
 			if (!formData.has('identifier')) {
 				cancel();

@@ -2,13 +2,24 @@
 	import { Alert, AlertDescription } from '@fontesio/ui/primitives/alert';
 	import { Button } from '@fontesio/ui/primitives/button';
 	import { Input } from '@fontesio/ui/primitives/input';
-	import { superForm } from 'sveltekit-superforms/client';
+	import * as Form from '@fontesio/ui/primitives/form';
+	import { superForm } from 'sveltekit-superforms';
 	import AuthForm from '../AuthForm.svelte';
+	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { login_schema } from '$lib/zod';
 
 	export let data;
 
-	const { form, enhance, constraints, message } = superForm(data.form);
+	const form = superForm(data.form, {
+		validators: zodClient(login_schema),
+	});
+
+	const { form: form_data, message, enhance } = form;
 </script>
+
+<svelte:head>
+	<title>Sign in | Fontesio</title>
+</svelte:head>
 
 <AuthForm heading="Sign in to your account">
 	<form
@@ -23,25 +34,33 @@
 				<AlertDescription>{$message}</AlertDescription>
 			</Alert>
 		{/if}
-		<Input
-			{...$constraints.email}
-			bind:value={$form.email}
-			label="Email address"
-			placeholder="john.doe@example.com"
-			type="email"
-			name="email"
-			id="email"
-		/>
-		<Input
-			{...$constraints.password}
-			bind:value={$form.password}
-			label="Password"
-			placeholder="•••••••••••••"
-			type="password"
-			name="password"
-			id="password"
-		/>
-		<Button form="email-password-form" type="submit" class="w-full">Sign in</Button>
+		<Form.Field {form} name="email">
+			<Form.Control let:attrs>
+				<Form.Label>Email address</Form.Label>
+				<Input
+					{...attrs}
+					bind:value={$form_data.email}
+					placeholder="john.doe@example.com"
+					type="email"
+					id="email"
+				/>
+			</Form.Control>
+			<Form.FieldErrors />
+		</Form.Field>
+		<Form.Field {form} name="password">
+			<Form.Control let:attrs>
+				<Form.Label>Password</Form.Label>
+				<Input
+					{...attrs}
+					bind:value={$form_data.password}
+					placeholder="•••••••••••••"
+					type="password"
+					id="password"
+				/>
+			</Form.Control>
+			<Form.FieldErrors />
+		</Form.Field>
+		<Form.Button class="w-full">Sign in</Form.Button>
 	</form>
 
 	<Button slot="bottom-link" href="/signup" variant="link">Don't have an account yet?</Button>

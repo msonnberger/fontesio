@@ -3,12 +3,7 @@ import { z } from 'zod';
 const csl_date_schema = z
 	.object({
 		'date-parts': z
-			.array(
-				z
-					.array(z.union([z.string(), z.number()]))
-					.min(1)
-					.max(3),
-			)
+			.array(z.array(z.union([z.string(), z.number()])).max(3))
 			.min(1)
 			.max(2)
 			.optional(),
@@ -17,8 +12,7 @@ const csl_date_schema = z
 		literal: z.string().optional(),
 		raw: z.string().optional(),
 	})
-	.optional()
-	.default({ 'date-parts': [['', '', '']] });
+	.optional();
 
 const csl_name_schema = z.object({
 	family: z.string().optional(),
@@ -28,11 +22,11 @@ const csl_name_schema = z.object({
 	suffix: z.string().optional(),
 	'comma-suffix': z.union([z.string(), z.number(), z.boolean()]).optional(),
 	'static-ordering': z.union([z.string(), z.number(), z.boolean()]).optional(),
-	literal: z.string().nullish(),
+	literal: z.string().optional(),
 	'parse-names': z.union([z.string(), z.number(), z.boolean()]).optional(),
 });
 
-const csl_names_schema = z.array(csl_name_schema).default([{ literal: null }]);
+const csl_names_schema = z.array(csl_name_schema);
 
 export const csl_types = [
 	'article',
@@ -82,6 +76,35 @@ export const csl_types = [
 	'webpage',
 ] as const;
 
+export const csl_name_fields = [
+	'author',
+	'chair',
+	'collection-editor',
+	'compiler',
+	'composer',
+	'container-author',
+	'contributor',
+	'curator',
+	'director',
+	'editor',
+	'editorial-director',
+	'executive-producer',
+	'guest',
+	'host',
+	'interviewer',
+	'illustrator',
+	'narrator',
+	'organizer',
+	'original-author',
+	'performer',
+	'producer',
+	'recipient',
+	'reviewed-author',
+	'script-writer',
+	'series-creator',
+	'translator',
+] as const;
+
 export const csl_json_schema = z.object({
 	type: z.enum(csl_types),
 	id: z.string().optional(),
@@ -90,38 +113,38 @@ export const csl_json_schema = z.object({
 	language: z.string().optional(),
 	journalAbbreviation: z.string().optional(),
 	shortTitle: z.string().optional(),
-	author: csl_names_schema,
-	chair: csl_names_schema,
-	'collection-editor': csl_names_schema,
-	compiler: csl_names_schema,
-	composer: csl_names_schema,
-	'container-author': csl_names_schema,
-	contributor: csl_names_schema,
-	curator: csl_names_schema,
-	director: csl_names_schema,
-	editor: csl_names_schema,
-	'editorial-director': csl_names_schema,
-	'executive-producer': csl_names_schema,
-	guest: csl_names_schema,
-	host: csl_names_schema,
-	interviewer: csl_names_schema,
-	illustrator: csl_names_schema,
-	narrator: csl_names_schema,
-	organizer: csl_names_schema,
-	'original-author': csl_names_schema,
-	performer: csl_names_schema,
-	producer: csl_names_schema,
-	recipient: csl_names_schema,
-	'reviewed-author': csl_names_schema,
-	'script-writer': csl_names_schema,
-	'series-creator': csl_names_schema,
-	translator: csl_names_schema,
-	accessed: csl_date_schema,
-	'available-date': csl_date_schema,
-	'event-date': csl_date_schema,
-	issued: csl_date_schema,
-	'original-date': csl_date_schema,
-	submitted: csl_date_schema,
+	author: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	chair: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	'collection-editor': csl_names_schema.default([{ family: undefined, given: undefined }]),
+	compiler: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	composer: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	'container-author': csl_names_schema.default([{ family: undefined, given: undefined }]),
+	contributor: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	curator: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	director: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	editor: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	'editorial-director': csl_names_schema.default([{ family: undefined, given: undefined }]),
+	'executive-producer': csl_names_schema.default([{ family: undefined, given: undefined }]),
+	guest: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	host: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	interviewer: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	illustrator: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	narrator: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	organizer: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	'original-author': csl_names_schema.default([{ family: undefined, given: undefined }]),
+	performer: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	producer: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	recipient: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	'reviewed-author': csl_names_schema.default([{ family: undefined, given: undefined }]),
+	'script-writer': csl_names_schema.default([{ family: undefined, given: undefined }]),
+	'series-creator': csl_names_schema.default([{ family: undefined, given: undefined }]),
+	translator: csl_names_schema.default([{ family: undefined, given: undefined }]),
+	accessed: csl_date_schema.default({ 'date-parts': [[]] }),
+	'available-date': csl_date_schema.default({ 'date-parts': [[]] }),
+	'event-date': csl_date_schema.default({ 'date-parts': [[]] }),
+	issued: csl_date_schema.default({ 'date-parts': [[]] }),
+	'original-date': csl_date_schema.default({ 'date-parts': [[]] }),
+	submitted: csl_date_schema.default({ 'date-parts': [[]] }),
 	abstract: z.string().optional(),
 	annote: z.string().optional(),
 	archive: z.string().optional(),

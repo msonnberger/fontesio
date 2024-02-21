@@ -9,6 +9,10 @@
 	import { format_author } from '@fontesio/citations/format-author';
 	import Citation from './citation.svelte';
 	import { queryParam, ssp } from 'sveltekit-search-params';
+	import type { Infer, SuperValidated } from 'sveltekit-superforms';
+	import type { CslJsonSchema } from '@fontesio/citations/types';
+
+	export let form_data: SuperValidated<Infer<CslJsonSchema>>;
 
 	const tab = queryParam('tab', ssp.string('info'), { showDefaults: false });
 
@@ -43,7 +47,7 @@
 				</Sheet.Description>
 			</Sheet.Header>
 			<Tabs.Content value="info" class="h-[calc(100vh-240px)] overflow-y-scroll pl-[1px] pr-3">
-				<Form />
+				<Form data={form_data} />
 			</Tabs.Content>
 			<Tabs.Content value="cite">
 				<Citation />

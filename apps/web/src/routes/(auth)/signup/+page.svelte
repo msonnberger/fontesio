@@ -1,9 +1,11 @@
 <script lang="ts">
 	import { Button } from '@fontesio/ui/primitives/button';
 	import { Input } from '@fontesio/ui/primitives/input';
+	import * as Form from '@fontesio/ui/primitives/form';
 	import IconDot from '~icons/lucide/dot';
 	import IconCheck from '~icons/lucide/check';
-	import { superForm } from 'sveltekit-superforms/client';
+	import { superForm } from 'sveltekit-superforms';
+	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { signup_schema } from '$lib/zod';
 	import { get } from 'svelte/store';
 	import AuthForm from '../AuthForm.svelte';
@@ -11,12 +13,18 @@
 
 	export let data;
 
-	const { form, errors, enhance, constraints, message } = superForm(data.form, {
-		validators: signup_schema,
+	const form = superForm(data.form, {
+		validators: zodClient(signup_schema),
 	});
+
+	const { form: form_data, errors, enhance, message } = form;
 
 	const password_rules = get(errors).password;
 </script>
+
+<svelte:head>
+	<title>Sign up | Fontesio</title>
+</svelte:head>
 
 <AuthForm
 	heading="Create an account"
@@ -34,23 +42,33 @@
 				<AlertDescription>{$message}</AlertDescription>
 			</Alert>
 		{/if}
-		<Input
-			{...$constraints.email}
-			bind:value={$form.email}
-			label="Email address"
-			placeholder="john.doe@example.com"
-			type="email"
-			name="email"
-			id="email"
-		/>
-		<Input
-			bind:value={$form.password}
-			label="Password"
-			placeholder="•••••••••••••"
-			type="password"
-			name="password"
-			id="password"
-		/>
+		<Form.Field {form} name="email">
+			<Form.Control let:attrs>
+				<Form.Label>Email address</Form.Label>
+				<Input
+					{...attrs}
+					bind:value={$form_data.email}
+					placeholder="john.doe@example.com"
+					type="email"
+					id="email"
+				/>
+			</Form.Control>
+			<Form.FieldErrors />
+		</Form.Field>
+
+		<Form.Field {form} name="password">
+			<Form.Control let:attrs>
+				<Form.Label>Password</Form.Label>
+				<Input
+					{...attrs}
+					bind:value={$form_data.password}
+					placeholder="•••••••••••••"
+					type="password"
+					id="password"
+				/>
+			</Form.Control>
+		</Form.Field>
+
 		<ul class="text-sm -mt-2 mb-2">
 			{#each password_rules ?? [] as rule}
 				{@const rule_met = !$errors.password?.includes(rule)}
@@ -64,7 +82,7 @@
 				</li>
 			{/each}
 		</ul>
-		<Button type="submit" class="w-full">Sign up for free</Button>
+		<Form.Button class="w-full">Sign up for free</Form.Button>
 	</form>
 
 	<Button slot="bottom-link" href="/login" variant="link">Already have an account?</Button>

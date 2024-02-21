@@ -14,7 +14,7 @@ const config = {
 			},
 		},
 		extend: {
-			colors: {
+			colors: ({ colors }) => ({
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -29,7 +29,7 @@ const config = {
 					foreground: 'hsl(var(--secondary-foreground))',
 				},
 				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
+					DEFAULT: colors.red['700'],
 					foreground: 'hsl(var(--destructive-foreground))',
 				},
 				muted: {
@@ -48,7 +48,7 @@ const config = {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))',
 				},
-			},
+			}),
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',

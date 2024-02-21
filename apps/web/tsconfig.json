@@ -1,6 +1,6 @@
 {
 	"extends": ["@fontesio/tsconfig/base.json", "./.svelte-kit/tsconfig.json"],
 	"compilerOptions": {
-		"jsx": "react"
+		"jsx": "react",
 	}
 }
