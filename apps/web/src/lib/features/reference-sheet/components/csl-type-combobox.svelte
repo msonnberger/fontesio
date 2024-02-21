@@ -3,7 +3,7 @@
 	import ChevronsUpDown from '~icons/lucide/chevrons-up-down';
 	import * as Command from '@fontesio/ui/primitives/command';
 	import * as Popover from '@fontesio/ui/primitives/popover';
-	import { FormControl } from '@fontesio/ui/primitives/form';
+	import { FormControl, FormLabel } from '@fontesio/ui/primitives/form';
 	import { Button } from '@fontesio/ui/primitives/button';
 	import { cn } from '@fontesio/ui/lib/utils';
 	import { tick } from 'svelte';
@@ -13,14 +13,16 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 
+	export let value: CslType;
+
 	const options = csl_types.map((type) => ({ value: type, label: unslugify(type) }));
 
 	let open = false;
-	export let value: CslType = 'book';
-	export let set_value: (value: string) => void;
 
 	onMount(() => {
-		set_value($page.url.searchParams.get('type') ?? 'book');
+		if (!value) {
+			value = ($page.url.searchParams.get('type') ?? 'book') as CslType;
+		}
 	});
 
 	$: selected_value = options.find((o) => o.value === value)?.label ?? 'Select a type...';
@@ -36,17 +38,17 @@
 	}
 
 	function update_value(new_value: string, trigger_id: string) {
-		set_value(new_value);
+		value = new_value as CslType;
 		close_and_focus_trigger(trigger_id);
 	}
 </script>
 
 <Popover.Root bind:open let:ids>
-	<Popover.Trigger asChild let:builder>
-		<FormControl id={ids.trigger} let:attrs>
+	<FormControl let:attrs>
+		<FormLabel>Reference Type</FormLabel>
+		<Popover.Trigger asChild let:builder>
 			<Button
 				{...attrs}
-				type="button"
 				builders={[builder]}
 				variant="outline"
 				role="combobox"
@@ -56,8 +58,10 @@
 				{selected_value}
 				<ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
 			</Button>
-		</FormControl>
-	</Popover.Trigger>
+		</Popover.Trigger>
+		<input hidden {value} name={attrs.name} />
+	</FormControl>
+
 	<Popover.Content align="start" class="h-80 p-0">
 		<Command.Root>
 			<Command.Input placeholder="Search types..." class="h-9" />
