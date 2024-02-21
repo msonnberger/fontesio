@@ -76,6 +76,35 @@ export const csl_types = [
 	'webpage',
 ] as const;
 
+export const csl_name_fields = [
+	'author',
+	'chair',
+	'collection-editor',
+	'compiler',
+	'composer',
+	'container-author',
+	'contributor',
+	'curator',
+	'director',
+	'editor',
+	'editorial-director',
+	'executive-producer',
+	'guest',
+	'host',
+	'interviewer',
+	'illustrator',
+	'narrator',
+	'organizer',
+	'original-author',
+	'performer',
+	'producer',
+	'recipient',
+	'reviewed-author',
+	'script-writer',
+	'series-creator',
+	'translator',
+] as const;
+
 export const csl_json_schema = z.object({
 	type: z.enum(csl_types),
 	id: z.string().optional(),
