@@ -12,14 +12,14 @@
 	"dependencies": {
 		"@fontesio/citations": "workspace:*",
 		"@fontesio/env": "workspace:*",
-		"drizzle-orm": "0.29.3",
+		"drizzle-orm": "0.30.5",
 		"drizzle-zod": "0.5.1",
-		"nanoid": "5.0.5",
-		"postgres": "3.4.3",
+		"nanoid": "5.0.6",
+		"postgres": "3.4.4",
 		"zod": "3.22.4"
 	},
 	"devDependencies": {
-		"dotenv-cli": "7.3.0",
+		"dotenv-cli": "7.4.1",
 		"drizzle-kit": "0.20.14",
 		"pg": "8.11.3",
 		"tsx": "4.7.1"
