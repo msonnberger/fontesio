@@ -1,3 +1,5 @@
+import { EMAIL_FROM_ADDRESS, EMAIL_FROM_NAME } from '$env/static/private';
+import { PUBLIC_MARKETING_URL, PUBLIC_WEBAPP_URL } from '$env/static/public';
 import { lucia } from '@fontesio/lib/lucia/auth';
 import { check_ratelimit_and_throw } from '@fontesio/lib/ratelimit/check-ratelimit-and-throw';
 import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
@@ -61,7 +63,13 @@ export const actions = {
 
 		try {
 			const { email, id } = locals.session.user;
-			await send_verification_email({ email, user_id: id });
+			await send_verification_email({
+				email,
+				user_id: id,
+				webapp_url: PUBLIC_WEBAPP_URL,
+				marketing_url: PUBLIC_MARKETING_URL,
+				from: { name: EMAIL_FROM_NAME, address: EMAIL_FROM_ADDRESS },
+			});
 
 			return {
 				new_code_sent: true,
