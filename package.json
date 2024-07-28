@@ -1,38 +1,39 @@
 {
-	"private": true,
-	"scripts": {
-		"build": "dotenv -- turbo run build",
-		"dev": "dotenv -- pnpm --filter=@fontesio/web dev",
-		"dev:email": "dotenv -- pnpm --filter @fontesio/email dev:email",
-		"d": "pnpm dx && pnpm dev",
-		"dx": "pnpm install && pnpm dx:up",
-		"dx:up": "docker compose -f docker/compose-services.yml up -d",
-		"dx:down": "docker compose -f docker/compose-services.yml down",
-		"check": "turbo run check",
-		"lint": "pnpm lint:biome && pnpm lint:turbo",
-		"lint:turbo": "turbo run lint",
-		"lint:biome": "biome check .",
-		"fix": "pnpm fix:biome && pnpm fix:turbo",
-		"fix:turbo": "turbo run fix",
-		"fix:biome": "biome check --apply-unsafe .",
-		"test": "dotenv -- turbo run test",
-		"test:browser": "dotenv -- turbo run test:browser",
-		"db:generate": "pnpm --filter @fontesio/drizzle db:generate",
-		"db:migrate": "pnpm --filter @fontesio/drizzle db:migrate",
-		"db:push": "pnpm --filter @fontesio/drizzle db:push",
-		"db:studio": "pnpm --filter @fontesio/drizzle db:studio"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "1.5.3",
-		"dotenv-cli": "7.3.0",
-		"eslint": "8.56.0",
-		"prettier": "3.2.5",
-		"prettier-plugin-svelte": "3.2.1",
-		"turbo": "1.12.4"
-	},
-	"packageManager": "pnpm@9.6.0",
-	"engines": {
-		"pnpm": ">=8.6",
-		"node": ">=20.0.0"
-	}
+  "private": true,
+  "scripts": {
+    "build": "dotenv -- turbo run build",
+    "dev": "dotenv -- pnpm --filter=@fontesio/web dev",
+    "dev:email": "dotenv -- pnpm --filter @fontesio/email dev:email",
+    "d": "pnpm dx && pnpm dev",
+    "dx": "pnpm install && pnpm dx:up",
+    "dx:up": "docker compose -f docker/compose-services.yml up -d",
+    "dx:down": "docker compose -f docker/compose-services.yml down",
+    "check": "turbo run check",
+    "lint": "pnpm lint:biome && pnpm lint:turbo",
+    "lint:turbo": "turbo run lint",
+    "lint:biome": "biome check .",
+    "fix": "pnpm fix:biome && pnpm fix:turbo",
+    "fix:turbo": "turbo run fix",
+    "fix:biome": "biome check --apply-unsafe .",
+    "test": "dotenv -- turbo run test",
+    "test:browser": "dotenv -- turbo run test:browser",
+    "db:generate": "pnpm --filter @fontesio/drizzle db:generate",
+    "db:migrate": "pnpm --filter @fontesio/drizzle db:migrate",
+    "db:push": "pnpm --filter @fontesio/drizzle db:push",
+    "db:studio": "pnpm --filter @fontesio/drizzle db:studio"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.5.3",
+    "dotenv-cli": "7.3.0",
+    "eslint": "8.56.0",
+    "prettier": "3.2.5",
+    "prettier-plugin-svelte": "3.2.1",
+    "turbo": "2.0.9"
+  },
+  "packageManager": "pnpm@9.6.0",
+  "engines": {
+    "pnpm": ">=8.6",
+    "node": ">=20.0.0"
+  },
+  "name": "fontesio"
 }
