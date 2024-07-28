@@ -37,7 +37,7 @@
 		"@melt-ui/svelte": "0.74.1",
 		"autoprefixer": "10.4.17",
 		"bits-ui": "0.18.1",
-		"formsnap": "0.4.4",
+		"formsnap": "1.0.1",
 		"postcss": "8.4.35",
 		"svelte-headless-table": "0.18.2",
 		"sveltekit-search-params": "2.1.1",
