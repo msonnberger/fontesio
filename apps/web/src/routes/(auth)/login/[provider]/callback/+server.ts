@@ -14,7 +14,7 @@ import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-e
 
 import { error, redirect } from '@sveltejs/kit';
 
-export async function GET({ url, cookies, locals, params }) {
+export async function GET({ url, cookies, params }) {
 	const provider = params.provider;
 
 	if (!is_valid_oauth_provider(params.provider)) {

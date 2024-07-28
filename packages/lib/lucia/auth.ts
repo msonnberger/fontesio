@@ -1,5 +1,6 @@
-import { sql } from '@fontesio/drizzle';
-import { PostgresJsAdapter } from '@lucia-auth/adapter-postgresql';
+import { db } from '@fontesio/drizzle';
+import { sessions, users } from '@fontesio/drizzle/schema';
+import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle';
 import { Lucia } from 'lucia';
 
 declare module 'lucia' {
@@ -13,10 +14,7 @@ declare module 'lucia' {
 	}
 }
 
-const adapter = new PostgresJsAdapter(sql, {
-	user: 'users',
-	session: 'sessions',
-});
+const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);
 
 export const lucia = new Lucia(adapter, {
 	getUserAttributes: (data) => {
