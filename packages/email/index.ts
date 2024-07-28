@@ -26,12 +26,16 @@ export function render<Component extends React.ComponentType<any>>({
 	});
 }
 
-export const mailer = createTransport({
-	host: env.SMTP_HOST,
-	port: env.SMTP_PORT,
-	secure: env.SMTP_SECURE,
+interface CreateMailerOptions {
+	host: string;
+	port: number;
+	secure: boolean;
 	auth: {
-		user: env.SMTP_USERNAME,
-		pass: env.SMTP_PASSWORD,
-	},
-});
+		user: string;
+		pass: string;
+	};
+}
+
+export function create_mailer(opts: CreateMailerOptions) {
+	return createTransport(opts);
+}

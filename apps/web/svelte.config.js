@@ -14,7 +14,7 @@ const config = {
 			'$components/*': 'src/lib/components/*',
 		},
 		env: {
-			dir: '../..', // .env is in monorepo root
+			dir: '../..',
 		},
 	},
 };

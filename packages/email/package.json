@@ -6,7 +6,6 @@
 		"dev:email": "email dev --dir=templates --port=3001"
 	},
 	"dependencies": {
-		"@fontesio/env": "workspace:*",
 		"@react-email/components": "0.0.22",
 		"@react-email/render": "0.0.17",
 		"nodemailer": "6.9.14",

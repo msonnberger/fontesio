@@ -1,4 +1,3 @@
-import { env } from '@fontesio/env/client';
 import {
 	Body,
 	Container,
@@ -70,9 +69,15 @@ const code = {
 
 interface VerifyEmailProps {
 	verification_code: string;
+	webapp_url: string;
+	marketing_url: string;
 }
 
-export default function VerifyEmailTemplate({ verification_code }: VerifyEmailProps) {
+export default function VerifyEmailTemplate({
+	verification_code,
+	webapp_url,
+	marketing_url,
+}: VerifyEmailProps) {
 	return (
 		<Html>
 			<Head />
@@ -80,7 +85,7 @@ export default function VerifyEmailTemplate({ verification_code }: VerifyEmailPr
 			<Body style={body}>
 				<Container style={container}>
 					<Img
-						src={`${env.PUBLIC_WEBAPP_URL}/static/logo-icon.png`}
+						src={`${webapp_url}/static/logo-icon.png`}
 						width="42"
 						height="42"
 						alt="Fontesio Logo"
@@ -93,7 +98,7 @@ export default function VerifyEmailTemplate({ verification_code }: VerifyEmailPr
 						the next 5 minutes.
 					</Text>
 					<Hr style={hr} />
-					<Link href="https://fontesio.com" style={reportLink}>
+					<Link href={marketing_url} style={reportLink}>
 						Fontesio
 					</Link>
 				</Container>
