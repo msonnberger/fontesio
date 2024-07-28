@@ -1,8 +1,10 @@
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
+import { PUBLIC_WEBAPP_URL } from '$env/static/public';
 import { lucia } from '@fontesio/lib/lucia/auth';
 import {
 	OAuth2RequestError,
+	create_google_auth,
 	get_provider_user,
-	google_auth,
 	is_valid_oauth_provider,
 } from '@fontesio/lib/lucia/oauth';
 import { create_oauth_account } from '@fontesio/lib/server-only/auth/create-oauth-account';
@@ -29,6 +31,11 @@ export async function GET({ url, cookies, locals, params }) {
 	}
 
 	try {
+		const google_auth = create_google_auth({
+			webapp_url: PUBLIC_WEBAPP_URL,
+			client_id: GOOGLE_CLIENT_ID,
+			client_secret: GOOGLE_CLIENT_SECRET,
+		});
 		const tokens = await google_auth.validateAuthorizationCode(code, stored_code_verifier);
 		const google_user = get_provider_user(tokens.idToken);
 		let user = await get_user_by_email({ email: google_user.email });

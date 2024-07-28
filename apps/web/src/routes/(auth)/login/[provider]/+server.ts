@@ -1,8 +1,10 @@
 import { dev } from '$app/environment';
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
+import { PUBLIC_WEBAPP_URL } from '$env/static/public';
 import {
+	create_google_auth,
 	generate_code_verifier,
 	generate_state,
-	google_auth,
 	is_valid_oauth_provider,
 } from '@fontesio/lib/lucia/oauth';
 import { error, redirect } from '@sveltejs/kit';
@@ -14,6 +16,12 @@ export async function GET({ cookies, params }) {
 
 	const state = generate_state();
 	const code_verifier = generate_code_verifier();
+	const google_auth = create_google_auth({
+		webapp_url: PUBLIC_WEBAPP_URL,
+		client_id: GOOGLE_CLIENT_ID,
+		client_secret: GOOGLE_CLIENT_SECRET,
+	});
+
 	const url = await google_auth.createAuthorizationURL(state, code_verifier, {
 		scopes: ['https://www.googleapis.com/auth/userinfo.email'],
 	});

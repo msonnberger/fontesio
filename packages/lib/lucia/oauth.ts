@@ -1,5 +1,3 @@
-import { env as client_env } from '@fontesio/env/client';
-import { env as server_env } from '@fontesio/env/server';
 import { Google } from 'arctic';
 import { parseJWT } from 'oslo/jwt';
 
@@ -9,12 +7,20 @@ export {
 	generateCodeVerifier as generate_code_verifier,
 } from 'arctic';
 
-export const google_auth = new Google(
-	server_env.GOOGLE_CLIENT_ID,
-	server_env.GOOGLE_CLIENT_SECRET,
-	`${client_env.PUBLIC_WEBAPP_URL}/login/google/callback`,
-	//scope: ['https://www.googleapis.com/auth/userinfo.email'],
-);
+interface GoogleAuthOptions {
+	webapp_url: string;
+	client_id: string;
+	client_secret: string;
+}
+
+export function create_google_auth({ webapp_url, client_id, client_secret }: GoogleAuthOptions) {
+	return new Google(
+		client_id,
+		client_secret,
+		`${webapp_url}/login/google/callback`,
+		//scope: ['https://www.googleapis.com/auth/userinfo.email'],
+	);
+}
 
 export function get_provider_user(open_id_token: string) {
 	return parseJWT(open_id_token)?.payload as GoogleUser;
