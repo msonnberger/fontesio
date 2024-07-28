@@ -36,10 +36,10 @@ export type User = typeof users.$inferSelect;
 
 export const sessions = pgTable('sessions', {
 	id: text('id').primaryKey(),
-	user_id: text('user_id')
+	userId: text('user_id')
 		.notNull()
 		.references(() => users.id, { onDelete: 'cascade' }),
-	expires_at: timestamp('expires_at', { withTimezone: true }).notNull(),
+	expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
 });
 
 export const oauth_accounts = pgTable(
@@ -57,6 +57,13 @@ export const oauth_accounts = pgTable(
 		};
 	},
 );
+
+export const oauth_accounts_relations = relations(oauth_accounts, ({ one }) => ({
+	user: one(users, {
+		fields: [oauth_accounts.user_id],
+		references: [users.id],
+	}),
+}));
 
 export const email_verification_codes = pgTable(
 	'email_verification_codes',

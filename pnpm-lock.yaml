@@ -38,9 +38,6 @@ importers:
       '@fontesio/drizzle':
         specifier: workspace:*
         version: link:../../packages/drizzle
-      '@fontesio/env':
-        specifier: workspace:*
-        version: link:../../packages/env
       '@fontesio/lib':
         specifier: workspace:*
         version: link:../../packages/lib
@@ -198,9 +195,6 @@ importers:
       '@fontesio/citations':
         specifier: workspace:*
         version: link:../citations
-      '@fontesio/env':
-        specifier: workspace:*
-        version: link:../env
       drizzle-orm:
         specifier: 0.32.1
         version: 0.32.1(@types/react@18.3.3)(pg@8.12.0)(postgres@3.4.4)(react@18.3.1)
@@ -278,9 +272,9 @@ importers:
       '@fontesio/email':
         specifier: workspace:*
         version: link:../email
-      '@lucia-auth/adapter-postgresql':
-        specifier: 3.1.2
-        version: 3.1.2(lucia@3.2.0)(pg@8.12.0)(postgres@3.4.4)
+      '@lucia-auth/adapter-drizzle':
+        specifier: 1.0.7
+        version: 1.0.7(lucia@3.2.0)
       '@upstash/ratelimit':
         specifier: 2.0.1
         version: 2.0.1
@@ -1204,20 +1198,10 @@ packages:
     resolution: {integrity: sha512-f5DRIOZf7wxogefH03RjMPMdBF7ADTWUMoOs9kaJo06EfwF+aFhMZMDZxHg/Xe12hptN9xoZjGso2fdjapBRIA==}
     engines: {node: '>=10'}
 
-  '@lucia-auth/adapter-postgresql@3.1.2':
-    resolution: {integrity: sha512-XgScy312JsaiyJZ0OaUHakk01hFBldF1m8abX4Ctk2Dkt7lEVS/u0xZ2Sf6Hlji1wZtEM0uiIWdeMUu79XcXZA==}
+  '@lucia-auth/adapter-drizzle@1.0.7':
+    resolution: {integrity: sha512-X/V7fLBca8EC/gPXCntwbQpb0+F9oEuRoHElvsi9rCrdnGhCMNxHgwAvgiQ6pes+rIYpyvx4n3hvjqo/fPo03A==}
     peerDependencies:
-      '@neondatabase/serverless': 0.7 - 0.9
       lucia: 3.x
-      pg: ^8.8.0
-      postgres: ^3.3.0
-    peerDependenciesMeta:
-      '@neondatabase/serverless':
-        optional: true
-      pg:
-        optional: true
-      postgres:
-        optional: true
 
   '@mapbox/node-pre-gyp@1.0.11':
     resolution: {integrity: sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==}
@@ -5569,12 +5553,9 @@ snapshots:
       string-argv: 0.3.2
       type-detect: 4.1.0
 
-  '@lucia-auth/adapter-postgresql@3.1.2(lucia@3.2.0)(pg@8.12.0)(postgres@3.4.4)':
+  '@lucia-auth/adapter-drizzle@1.0.7(lucia@3.2.0)':
     dependencies:
       lucia: 3.2.0
-    optionalDependencies:
-      pg: 8.12.0
-      postgres: 3.4.4
 
   '@mapbox/node-pre-gyp@1.0.11':
     dependencies:

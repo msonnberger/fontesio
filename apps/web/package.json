@@ -31,7 +31,6 @@
 		"@fontesio/citations": "workspace:*",
 		"@fontesio/config": "workspace:*",
 		"@fontesio/drizzle": "workspace:*",
-		"@fontesio/env": "workspace:*",
 		"@fontesio/lib": "workspace:*",
 		"@fontesio/ui": "workspace:*",
 		"@melt-ui/svelte": "0.83.0",
