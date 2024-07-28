@@ -1,11 +1,10 @@
-import { env } from '@fontesio/env/server';
-import type { Config } from 'drizzle-kit';
+import { defineConfig } from 'drizzle-kit';
 
-export default {
+export default defineConfig({
+	dialect: 'postgresql',
 	schema: './schema.ts',
 	out: './migrations',
-	driver: 'pg',
 	dbCredentials: {
-		connectionString: env.DATABASE_URL,
+		url: process.env.DATABASE_URL,
 	},
-} satisfies Config;
+});
