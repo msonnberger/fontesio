@@ -27,7 +27,7 @@ export async function load({ locals, url, params }) {
 		manual_form: params.id
 			? await superValidate(reference?.csl_json ?? null, zod(csl_json_schema), {
 					id: 'manual_form',
-			  })
+				})
 			: undefined,
 		from_identifier_form: await superValidate(zod(csl_json_schema), { id: 'from_identifier_form' }),
 		references: await find_references({
