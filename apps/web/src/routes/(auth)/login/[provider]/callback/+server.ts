@@ -1,5 +1,5 @@
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
-import { PUBLIC_WEBAPP_URL } from '$env/static/public';
+import { env } from '$env/dynamic/private';
+import { env as public_env } from '$env/dynamic/public';
 import { lucia } from '@fontesio/lib/lucia/auth';
 import {
 	OAuth2RequestError,
@@ -32,9 +32,9 @@ export async function GET({ url, cookies, params }) {
 
 	try {
 		const google_auth = create_google_auth({
-			webapp_url: PUBLIC_WEBAPP_URL,
-			client_id: GOOGLE_CLIENT_ID,
-			client_secret: GOOGLE_CLIENT_SECRET,
+			webapp_url: public_env.PUBLIC_WEBAPP_URL,
+			client_id: env.GOOGLE_CLIENT_ID,
+			client_secret: env.GOOGLE_CLIENT_SECRET,
 		});
 		const tokens = await google_auth.validateAuthorizationCode(code, stored_code_verifier);
 		const google_user = get_provider_user(tokens.idToken);
