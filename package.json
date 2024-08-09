@@ -28,9 +28,9 @@
 		"eslint": "8.57.0",
 		"prettier": "3.3.3",
 		"prettier-plugin-svelte": "3.2.6",
-		"turbo": "2.0.9"
+		"turbo": "2.0.12"
 	},
-	"packageManager": "pnpm@9.6.0",
+	"packageManager": "pnpm@9.7.0",
 	"engines": {
 		"pnpm": ">=8.6",
 		"node": ">=20.0.0"
