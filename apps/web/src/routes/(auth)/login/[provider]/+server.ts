@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private';
-import { PUBLIC_WEBAPP_URL } from '$env/static/public';
+import { env } from '$env/dynamic/private';
+import { env as public_env } from '$env/dynamic/public';
 import {
 	create_google_auth,
 	generate_code_verifier,
@@ -17,9 +17,9 @@ export async function GET({ cookies, params }) {
 	const state = generate_state();
 	const code_verifier = generate_code_verifier();
 	const google_auth = create_google_auth({
-		webapp_url: PUBLIC_WEBAPP_URL,
-		client_id: GOOGLE_CLIENT_ID,
-		client_secret: GOOGLE_CLIENT_SECRET,
+		webapp_url: public_env.PUBLIC_WEBAPP_URL,
+		client_id: env.GOOGLE_CLIENT_ID,
+		client_secret: env.GOOGLE_CLIENT_SECRET,
 	});
 
 	const url = await google_auth.createAuthorizationURL(state, code_verifier, {

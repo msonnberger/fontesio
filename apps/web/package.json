@@ -34,6 +34,7 @@
 		"@fontesio/lib": "workspace:*",
 		"@fontesio/ui": "workspace:*",
 		"@melt-ui/svelte": "0.83.0",
+		"@sveltejs/adapter-node": "5.2.0",
 		"autoprefixer": "10.4.19",
 		"bits-ui": "0.21.12",
 		"formsnap": "1.0.1",

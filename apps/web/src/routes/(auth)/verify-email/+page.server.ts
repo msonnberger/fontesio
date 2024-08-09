@@ -1,10 +1,5 @@
-import {
-	EMAIL_FROM_ADDRESS,
-	EMAIL_FROM_NAME,
-	UPSTASH_REDIS_REST_TOKEN,
-	UPSTASH_REDIS_REST_URL,
-} from '$env/static/private';
-import { PUBLIC_MARKETING_URL, PUBLIC_WEBAPP_URL } from '$env/static/public';
+import { env } from '$env/dynamic/private';
+import { env as public_env } from '$env/dynamic/public';
 import { lucia } from '@fontesio/lib/lucia/auth';
 import { create_limiter } from '@fontesio/lib/ratelimit/limiter';
 import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
@@ -30,8 +25,8 @@ export const actions = {
 			}
 
 			const limiter = create_limiter({
-				redis_url: UPSTASH_REDIS_REST_URL,
-				redis_token: UPSTASH_REDIS_REST_TOKEN,
+				redis_url: env.UPSTASH_REDIS_REST_URL,
+				redis_token: env.UPSTASH_REDIS_REST_TOKEN,
 			});
 			await limiter.check_ratelimit_and_throw({ identifier: locals.session.user.email });
 
@@ -75,9 +70,9 @@ export const actions = {
 			await send_verification_email({
 				email,
 				user_id: id,
-				webapp_url: PUBLIC_WEBAPP_URL,
-				marketing_url: PUBLIC_MARKETING_URL,
-				from: { name: EMAIL_FROM_NAME, address: EMAIL_FROM_ADDRESS },
+				webapp_url: public_env.PUBLIC_WEBAPP_URL,
+				marketing_url: public_env.PUBLIC_MARKETING_URL,
+				from: { name: env.EMAIL_FROM_NAME, address: env.EMAIL_FROM_ADDRESS },
 			});
 
 			return {

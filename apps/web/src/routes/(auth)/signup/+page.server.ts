@@ -1,5 +1,5 @@
-import { EMAIL_FROM_ADDRESS, EMAIL_FROM_NAME } from '$env/static/private';
-import { PUBLIC_MARKETING_URL, PUBLIC_WEBAPP_URL } from '$env/static/public';
+import { env } from '$env/dynamic/private';
+import { env as public_env } from '$env/dynamic/public';
 import { signup_schema } from '$lib/zod';
 import type { User } from '@fontesio/drizzle/schema';
 import { lucia } from '@fontesio/lib/lucia/auth';
@@ -58,11 +58,11 @@ export const actions = {
 			await send_verification_email({
 				user_id: user.id,
 				email,
-				webapp_url: PUBLIC_WEBAPP_URL,
-				marketing_url: PUBLIC_MARKETING_URL,
+				webapp_url: public_env.PUBLIC_WEBAPP_URL,
+				marketing_url: public_env.PUBLIC_MARKETING_URL,
 				from: {
-					name: EMAIL_FROM_NAME,
-					address: EMAIL_FROM_ADDRESS,
+					name: env.EMAIL_FROM_NAME,
+					address: env.EMAIL_FROM_ADDRESS,
 				},
 			});
 		}

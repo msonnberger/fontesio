@@ -1,10 +1,4 @@
-import {
-	SMTP_HOST,
-	SMTP_PASSWORD,
-	SMTP_PORT,
-	SMTP_SECURE,
-	SMTP_USERNAME,
-} from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { create_mailer, render } from '@fontesio/email';
 import VerifyEmailTemplate from '@fontesio/email/templates/verify-email';
 import { get_user_by_id } from '../users/get-user-by-id';
@@ -42,12 +36,12 @@ export async function send_verification_email({
 
 	try {
 		const mailer = create_mailer({
-			host: SMTP_HOST,
-			port: Number(SMTP_PORT),
-			secure: Boolean(SMTP_SECURE),
+			host: env.SMTP_HOST,
+			port: Number(env.SMTP_PORT),
+			secure: Boolean(env.SMTP_SECURE),
 			auth: {
-				user: SMTP_USERNAME,
-				pass: SMTP_PASSWORD,
+				user: env.SMTP_USERNAME,
+				pass: env.SMTP_PASSWORD,
 			},
 		});
 		await mailer.sendMail({
