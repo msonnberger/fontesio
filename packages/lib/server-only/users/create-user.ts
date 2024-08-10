@@ -1,4 +1,4 @@
-import { db } from '@fontesio/drizzle';
+import { db } from '$lib';
 import { oauth_accounts, users } from '@fontesio/drizzle/schema';
 import { hash_password } from '../../lucia/password';
 

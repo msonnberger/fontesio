@@ -1,4 +1,4 @@
-import { db } from '@fontesio/drizzle';
+import { db } from '$lib';
 interface GetUserByEmailOptions {
 	id: string;
 }

@@ -1,5 +1,5 @@
 import type { CslJsonReference } from '@fontesio/citations/types';
-import { db } from '@fontesio/drizzle';
+import { db } from '$lib';
 import { references } from '@fontesio/drizzle/schema';
 import { and, eq } from 'drizzle-orm';
 

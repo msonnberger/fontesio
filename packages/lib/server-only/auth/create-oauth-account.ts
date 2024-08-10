@@ -1,4 +1,4 @@
-import { db } from '@fontesio/drizzle';
+import { db } from '$lib';
 import { oauth_accounts } from '@fontesio/drizzle/schema';
 
 interface CreateOauthAccountOptions {

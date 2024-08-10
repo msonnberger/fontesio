@@ -1,9 +1,9 @@
 {
 	"private": true,
 	"scripts": {
-		"build": "dotenv -- turbo run build",
-		"dev": "dotenv -- pnpm --filter=@fontesio/web dev",
-		"dev:email": "dotenv -- pnpm --filter @fontesio/email dev:email",
+		"build": "turbo run build",
+		"dev": "turbo run dev --filter=@fontesio/web",
+		"dev:email": "turbo run dev --filter=@fontesio/email",
 		"d": "pnpm dx && pnpm dev",
 		"dx": "pnpm install && pnpm dx:up",
 		"dx:up": "docker compose -f docker/compose-services.yml up -d",
@@ -20,7 +20,8 @@
 		"db:generate": "pnpm --filter @fontesio/drizzle db:generate",
 		"db:migrate": "pnpm --filter @fontesio/drizzle db:migrate",
 		"db:push": "pnpm --filter @fontesio/drizzle db:push",
-		"db:studio": "pnpm --filter @fontesio/drizzle db:studio"
+		"db:studio": "pnpm --filter @fontesio/drizzle db:studio",
+		"docker:build": "docker build . -t fontesio-web"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.3",

@@ -1,4 +1,4 @@
-import { lucia } from '@fontesio/lib/lucia/auth';
+import { lucia } from '$lib';
 
 export async function handle({ event, resolve }) {
 	const sessionId = event.cookies.get(lucia.sessionCookieName);
