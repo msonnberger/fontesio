@@ -1,4 +1,4 @@
-import { db } from '@fontesio/drizzle';
+import { db } from '$lib';
 import { references } from '@fontesio/drizzle/schema';
 import { and, count, eq, isNull } from 'drizzle-orm';
 import type { FindResultSet } from '../../types/find-result-set';

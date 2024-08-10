@@ -1,4 +1,4 @@
-import { db } from '@fontesio/drizzle';
+import { db } from '$lib';
 import { email_verification_codes } from '@fontesio/drizzle/schema';
 import { eq } from 'drizzle-orm';
 import { isWithinExpirationDate } from 'oslo';

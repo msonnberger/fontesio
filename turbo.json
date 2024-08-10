@@ -1,8 +1,8 @@
 {
 	"$schema": "https://turbo.build/schema.json",
-	"globalDependencies": [".env"],
 	"tasks": {
 		"build": {
+			"inputs": ["$TURBO_DEFAULT$", ".env"],
 			"dependsOn": ["^build"],
 			"outputs": [".svelte-kit/**", ".vercel/**"]
 		},
@@ -11,9 +11,11 @@
 		"fix": {},
 		"test": {},
 		"test:browser": {
+			"inputs": ["$TURBO_DEFAULT$", ".env"],
 			"dependsOn": ["^build"]
 		},
 		"dev": {
+			"inputs": ["$TURBO_DEFAULT$", ".env"],
 			"cache": false,
 			"persistent": true
 		}

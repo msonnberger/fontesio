@@ -1,4 +1,4 @@
-import { db } from '@fontesio/drizzle';
+import { db } from '$lib';
 import { users } from '@fontesio/drizzle/schema';
 import { eq } from 'drizzle-orm';
 

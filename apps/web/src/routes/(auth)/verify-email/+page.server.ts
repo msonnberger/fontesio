@@ -1,6 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { env as public_env } from '$env/dynamic/public';
-import { lucia } from '@fontesio/lib/lucia/auth';
+import { lucia } from '$lib';
 import { create_limiter } from '@fontesio/lib/ratelimit/limiter';
 import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
 import { validate_verification_code } from '@fontesio/lib/server-only/auth/validate-verification-code';

@@ -2,7 +2,7 @@ import { env } from '$env/dynamic/private';
 import { env as public_env } from '$env/dynamic/public';
 import { signup_schema } from '$lib/zod';
 import type { User } from '@fontesio/drizzle/schema';
-import { lucia } from '@fontesio/lib/lucia/auth';
+import { lucia } from '$lib';
 import { send_verification_email } from '@fontesio/lib/server-only/auth/send-verification-email';
 import { create_user } from '@fontesio/lib/server-only/users/create-user';
 import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';

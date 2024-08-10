@@ -1,4 +1,4 @@
-import { db } from '@fontesio/drizzle';
+import { db } from '$lib';
 
 interface GetOAuthAccountsByUserIdOptions {
 	user_id: string;

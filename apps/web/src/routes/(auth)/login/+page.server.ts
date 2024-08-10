@@ -1,5 +1,7 @@
+import { env } from '$env/dynamic/private';
 import { login_schema } from '$lib/zod';
-import { lucia } from '@fontesio/lib/lucia/auth';
+import { logger } from '@fontesio/lib/logger';
+import { lucia } from '$lib';
 import { verify_password } from '@fontesio/lib/lucia/password';
 import { get_user_by_email } from '@fontesio/lib/server-only/users/get-user-by-email';
 import { fail, redirect } from '@sveltejs/kit';
@@ -50,6 +52,7 @@ export const actions = {
 			const cookie = lucia.createSessionCookie(session.id);
 			cookies.set(cookie.name, cookie.value, { ...cookie.attributes, path: '/' });
 		} catch (e) {
+			logger.error(e);
 			return message(form, 'An unknown error occured.');
 		}
 

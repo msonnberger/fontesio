@@ -1,6 +1,6 @@
 import { env } from '$env/dynamic/private';
 import { env as public_env } from '$env/dynamic/public';
-import { lucia } from '@fontesio/lib/lucia/auth';
+import { lucia } from '$lib';
 import {
 	OAuth2RequestError,
 	create_google_auth,
