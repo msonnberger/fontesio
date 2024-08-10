@@ -17,7 +17,6 @@ RUN turbo prune --scope=@fontesio/web --docker
 
 # Build the project
 FROM base AS builder
-ARG PROJECT
 
 WORKDIR /app
 
@@ -33,8 +32,8 @@ RUN --mount=type=cache,id=pnpm,target=~/.pnpm-store pnpm install --frozen-lockfi
 COPY --from=pruner /app/out/full/ .
 
 RUN turbo build --filter=@fontesio/web
-RUN --mount=type=cache,id=pnpm,target=~/.pnpm-store pnpm prune --prod --no-optional
-RUN rm -rf ./**/*/src
+RUN rm -rf ./node_modules ./**/*/node_modules ./**/*/src
+RUN --mount=type=cache,id=pnpm,target=~/.pnpm-store pnpm install --prod
 
 # Final image
 FROM alpine AS runner
