@@ -16,7 +16,9 @@ export async function load({ locals }) {
 		redirect(302, '/');
 	}
 
-	const form = await superValidate(zod(signup_schema), { errors: true });
+	const form = await superValidate(zod(signup_schema, { defaults: { email: '', password: '' } }), {
+		errors: true,
+	});
 	form.errors.email = undefined;
 
 	return { form };
