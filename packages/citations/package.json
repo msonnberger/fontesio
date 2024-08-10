@@ -2,13 +2,15 @@
 	"name": "@fontesio/citations",
 	"version": "0.0.0",
 	"main": "index.js",
-	"dependencies": {
+	"devDependencies": {
 		"@citation-js/core": "0.7.14",
 		"@citation-js/plugin-bibtex": "0.7.14",
 		"@citation-js/plugin-csl": "0.7.14",
 		"@citation-js/plugin-doi": "0.7.14",
 		"@citation-js/plugin-isbn": "0.4.0",
-		"@citation-js/plugin-pubmed": "0.3.0",
+		"@citation-js/plugin-pubmed": "0.3.0"
+	},
+	"dependencies": {
 		"zod": "3.23.8"
 	}
 }

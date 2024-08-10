@@ -2,8 +2,10 @@
 	"name": "@fontesio/lib",
 	"version": "0.0.0",
 	"main": "index.ts",
+	"devDependencies": {
+		"@fontesio/citations": "workspace:*"
+	},
 	"dependencies": {
-		"@fontesio/citations": "workspace:*",
 		"@fontesio/drizzle": "workspace:*",
 		"@fontesio/email": "workspace:*",
 		"@lucia-auth/adapter-drizzle": "1.0.7",
