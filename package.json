@@ -24,14 +24,14 @@
 		"docker:build": "docker build . -t fontesio-web"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.8.3",
+		"@biomejs/biome": "1.9.4",
 		"dotenv-cli": "7.4.2",
-		"eslint": "8.57.0",
+		"eslint": "8.57.1",
 		"prettier": "3.3.3",
-		"prettier-plugin-svelte": "3.2.6",
-		"turbo": "2.0.9"
+		"prettier-plugin-svelte": "3.2.7",
+		"turbo": "2.2.3"
 	},
-	"packageManager": "pnpm@9.6.0",
+	"packageManager": "pnpm@9.12.2",
 	"engines": {
 		"pnpm": ">=8.6",
 		"node": ">=20.0.0"
