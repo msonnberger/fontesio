@@ -9,13 +9,13 @@
 	},
 	"devDependencies": {
 		"@fontesio/tsconfig": "workspace:*",
-		"bits-ui": "0.21.12",
+		"bits-ui": "0.21.16",
 		"cmdk-sv": "0.0.18",
 		"formsnap": "1.0.1",
 		"svelte": "4.2.18",
-		"sveltekit-superforms": "2.16.1",
-		"tailwind-merge": "2.4.0",
+		"sveltekit-superforms": "2.20.0",
+		"tailwind-merge": "2.5.4",
 		"tailwind-variants": "^0.2.0",
-		"unplugin-icons": "0.19.0"
+		"unplugin-icons": "0.19.3"
 	}
 }
