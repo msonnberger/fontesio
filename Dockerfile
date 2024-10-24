@@ -1,5 +1,5 @@
 # Alpine image
-FROM node:20.16.0-alpine AS alpine
+FROM node:20.18.0-alpine AS alpine
 RUN apk update
 RUN apk add --no-cache libc6-compat
 
